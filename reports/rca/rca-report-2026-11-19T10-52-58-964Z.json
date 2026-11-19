@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-19T10:52:58.964Z",
+  "runSummary": {
+    "totalTests": 6,
+    "passed": 4,
+    "failed": 2,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 20478,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-AE-API-002",
+      "testTitle": "TC-AE-API-002: Verify Login API negative responses for invalid credentials and missing parameters",
+      "fullTitle": " > Google Chrome > api\\api.spec.ts > Backend REST API Tests - System Under Test: Automation Exercise > TC-AE-API-002: Verify Login API negative responses for invalid credentials and missing parameters",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/api/api.spec.ts",
+        "line": 45,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/api/api.spec.ts",
+        "line": 76,
+        "column": 35
+      },
+      "retry": 0,
+      "durationMs": 12304,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m\n    at D:\\Playwright\\qa-ai-level3\\tests\\api\\api.spec.ts:76:35"
+      },
+      "artifactPaths": {
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\api-api-Backend-REST-API-T-b5dee-ials-and-missing-parameters-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-API-002",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/tests/api/api.spec.ts:76",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived: [31m503[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived: [31m503[39m\n    at D:\\Playwright\\qa-ai-level3\\tests\\api\\api.spec.ts:76:35\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\api-api-Backend-REST-API-T-b5dee-ials-and-missing-parameters-Google-Chrome\\trace.zip\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-19T10:52:58.964Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m",
+          "durationMs": 12304,
+          "timestamp": "2026-11-19T10:52:51.242Z",
+          "artifactPaths": {
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\api-api-Backend-REST-API-T-b5dee-ials-and-missing-parameters-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-API-006",
+      "testTitle": "TC-AE-API-006: Validate API HTTP method constraints and bad request handling",
+      "fullTitle": " > Google Chrome > api\\api.spec.ts > Backend REST API Tests - System Under Test: Automation Exercise > TC-AE-API-006: Validate API HTTP method constraints and bad request handling",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/api/api.spec.ts",
+        "line": 212,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/api/api.spec.ts",
+        "line": 238,
+        "column": 36
+      },
+      "retry": 0,
+      "durationMs": 12296,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "SyntaxError: Unexpected token '<', \"<html><hea\"... is not valid JSON",
+        "stack": "SyntaxError: Unexpected token '<', \"<html><hea\"... is not valid JSON\n    at D:\\Playwright\\qa-ai-level3\\tests\\api\\api.spec.ts:238:36"
+      },
+      "artifactPaths": {
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\api-api-Backend-REST-API-T-60bd1-ts-and-bad-request-handling-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-API-006",
+        "category": "TEST_SCRIPT_DEFECT",
+        "confidence": 0.85,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Unhandled runtime JavaScript/TypeScript exception or syntax error within test automation code.",
+        "evidence": {
+          "matchedRule": "RULE_P7_TEST_SCRIPT_RUNTIME_EXCEPTION",
+          "matchedPattern": "TypeError:|ReferenceError:|Cannot read propert.*of (undefined|null)|UnhandledPromiseRejection|SyntaxError:|is not a function",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nSyntaxError:\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/tests/api/api.spec.ts:238",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nSyntaxError: Unexpected token '<', \"<html><hea\"... is not valid JSON\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nSyntaxError: Unexpected token '<', \"<html><hea\"... is not valid JSON\n    at D:\\Playwright\\qa-ai-level3\\tests\\api\\api.spec.ts:238:36\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\api-api-Backend-REST-API-T-60bd1-ts-and-bad-request-handling-Google-Chrome\\trace.zip\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Review test script implementation, ensure proper async/await usage, and check null-safety.",
+        "requiresHumanApproval": false,
+        "timestamp": "2026-11-19T10:52:58.964Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "SyntaxError: Unexpected token '<', \"<html><hea\"... is not valid JSON",
+          "durationMs": 12296,
+          "timestamp": "2026-11-19T10:52:51.287Z",
+          "artifactPaths": {
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\api-api-Backend-REST-API-T-60bd1-ts-and-bad-request-handling-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}

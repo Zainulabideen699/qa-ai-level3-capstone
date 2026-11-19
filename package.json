@@ -7,7 +7,8 @@
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "agents:pipeline": "tsx tools/agents/runPipeline.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,8 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.65.1",
-    "@types/node": "^26.6.6"
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
   }
 }

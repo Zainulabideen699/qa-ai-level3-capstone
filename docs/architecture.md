@@ -87,14 +87,14 @@ qa-ai-level3/
                                                     └──────────────┘
 ```
 
-| Agent Responsibility | Core Responsibilities | Inputs | Outputs | Human Approval Gate |
-| :--- | :--- | :--- | :--- | :--- |
-| **1. Test Design Agent** | Analyzes `https://automationexercise.com` features (auth, cart, checkout, API); derives test scenarios using EP, BVA, State Transition, and error guessing. | SUT specifications, user stories, OpenAPI endpoints. | Structured Test Case Specs (`TC-AE-xxx`) with clear steps, test data, and assertions. | **Gate 1**: Human verifies coverage, edge cases, and scope. |
-| **2. Automation Authoring Agent** | Implements clean, maintainable Playwright/TS code using Page Object Model (`src/pages/`), custom fixtures, and accessible locators (`getByRole`, `getByLabel`). | Approved Test Specs (`TC-AE-xxx`), target DOM, API docs. | Page Objects (`src/pages/*.ts`), Test specs (`tests/**/*.spec.ts`), Fixtures. | **Gate 2**: Human reviews code quality, POM adherence, locator resilience, and secret safety. |
-| **3. Execution Orchestrator** | Schedules and runs tests across browsers, tags, and environments. Monitors worker health, collects run artifacts, and routes failures. | Test execution triggers, CLI params, target environments. | Execution run status, artifact bundles (traces, videos, screenshots), routing signals. | N/A (Automated runtime orchestration). |
-| **4. Root Cause Analysis (RCA) Agent** | Diagnoses test failures into one of 8 standardized categories using LLM reasoning with a deterministic model-free regex fallback. | Playwright trace files (`trace.zip`), console logs, network waterfalls, failure screenshots. | Standardized RCA Report (`reports/rca-<test-id>.md`) with category, evidence, and next steps. | Human validates RCA classification to prevent masking product defects. |
-| **5. Repair Proposal Agent** | Proposes surgical fixes (git diffs) for tests failing due to locator drift or script flaws. Strictly prohibited from weakening assertions. | RCA Diagnostic Report, existing Page Object code, updated DOM snapshots. | Minimal unified git diff, repair rationale, and risk assessment. | **Gate 3**: Mandatory human sign-off before patch is applied to disk. |
-| **6. Quality Reporting Agent** | Compiles execution statistics, pass/fail ratios, flaky test telemetry, defect clusters, and release readiness. | Test results, RCA reports, execution logs, coverage metrics. | Executive Quality Dashboard (`reports/quality-summary.md`), HTML/Markdown dashboards. | Stakeholder release sign-off. |
+| Agent Responsibility | Core Responsibilities | Inputs | Outputs | Human Approval Gate | Implementation Status |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **1. Test Design Agent** | Analyzes `https://automationexercise.com` features (auth, cart, checkout, API); derives test scenarios using EP, BVA, State Transition, and error guessing. | SUT specifications, user stories, OpenAPI endpoints. | Structured Test Case Specs (`TC-AE-xxx`) with clear steps, test data, and assertions. | **Gate 1**: Human verifies coverage, edge cases, and scope. | **Implemented** (`tools/agents/testDesignAgent.ts`) |
+| **2. Automation Authoring Agent** | Implements clean, maintainable Playwright/TS code using Page Object Model (`src/pages/`), custom fixtures, and accessible locators (`getByRole`, `getByLabel`). | Approved Test Specs (`TC-AE-xxx`), target DOM, API docs. | Page Objects (`src/pages/*.ts`), Test specs (`tests/generated/*.spec.ts`), Fixtures. | **Gate 2**: Human reviews code quality, POM adherence, locator resilience, and authorizes execution. | **Implemented** (`tools/agents/automationAuthoringAgent.ts`) |
+| **3. Execution Orchestrator & Runner** | Orchestrates the end-to-end multi-agent pipeline. Executes generated specs via controlled child process (`ExecutionRunner`), isolates runs to target browser, captures telemetry. | Requirement inputs, CLI approval flags, target browser project. | Execution metrics, process telemetry, artifact bundles (traces, videos, screenshots), routing signals. | N/A (Automated runtime orchestration; governed by Gate 1 & Gate 2). | **Implemented** (`tools/agents/orchestrator.ts`, `tools/agents/executionRunner.ts`) |
+| **4. Root Cause Analysis (RCA) Agent** | Ingests Playwright failure evidence; applies deterministic 8-category classifier and optional AI hypothesis reasoning via LLMProvider. | Playwright trace files (`trace.zip`), console stderr, network status, failure screenshots. | Standardized RCA JSON report (`reports/rca/`) and structured agent analysis output. | Human validates RCA classification to prevent masking product defects. | **Implemented** (`tools/rca/rcaReporter.ts`, `tools/agents/rcaAgent.ts`) |
+| **5. Repair Proposal Agent** | Proposes surgical fixes (git diffs) for tests failing due to locator drift or script flaws. Strictly prohibited from weakening assertions. | RCA Diagnostic Report, existing Page Object code, updated DOM snapshots. | Minimal unified git diff, repair rationale, and risk assessment. | **Gate 3**: Mandatory human sign-off before patch is applied to disk. | *Future Milestone* (Specification in `skills/review/SKILL.md`) |
+| **6. Quality Reporting Agent** | Compiles executive quality summary, pass/fail trends, flaky test telemetry, defect clusters, and release readiness recommendations. | Test results, RCA reports, execution logs, coverage metrics. | Executive Quality Dashboard (`reports/quality-summary.md`), HTML/Markdown dashboards. | Stakeholder release sign-off. | *Future Milestone* (Specification in `skills/reporting/SKILL.md`) |
 
 ---
 
@@ -194,3 +194,140 @@ During every test execution, Playwright is configured to capture comprehensive d
 - **Full-Page Screenshots**: Captured automatically on test failure.
 - **Video Recordings**: Retained for failed test runs to visually inspect timing and popup issues.
 - **HAR Network Recordings**: Captured for API and hybrid tests to verify payload accuracy.
+
+---
+
+## 8. Multi-Agent Autonomous Pipeline (Milestone 1: Design, Authoring, Execution & RCA)
+
+### 8.1 Workflow Architecture & Data Flow
+
+```
+[Requirement Input (Plain English / JSON)]
+                 │
+                 ▼
+     ┌───────────────────────┐
+     │ 1. Test Design Agent  │  <── Applies EP, BVA, State Transition & Error Guessing
+     └───────────┬───────────┘
+                 │
+                 ▼
+    [Runtime Schema Validator]  <── Validates required fields, unique IDs, enums
+                 │
+                 ▼
+  [Saved: reports/scenarios/*.json]
+                 │
+                 ▼
+    ┌─────────────────────────┐
+    │  Gate 1: HITL Approval  │  <── Quality Engineer reviews & approves scenarios (--approve-gate1)
+    └────────────┬────────────┘
+                 │ (Approved)
+                 ▼
+  ┌──────────────────────────────┐
+  │ 2. Automation Authoring Agent│  <── Translates to Playwright + TypeScript POM specs
+  └──────────────┬───────────────┘
+                 │
+                 ▼
+     [Static Code Validator]    <── Enforces no waitForTimeout, balanced AST, import checks
+                 │
+                 ▼
+   [Saved: tests/generated/*.ts] <── Directory boundary & non-generated overwrite protection
+                 │
+                 ▼
+    ┌─────────────────────────┐
+    │  Gate 2: HITL Approval  │  <── Authorizes automated execution (--approve-gate2 / --approve-all)
+    └────────────┬────────────┘
+                 │ (Approved)
+                 ▼
+  ┌──────────────────────────────┐
+  │ 3. Execution Runner (Child)  │  <── Isolated child process (shell: false, project: Google Chrome)
+  └──────────────┬───────────────┘
+                 │
+                 ▼
+   [Playwright RCA Reporter]     <── Ingests failure evidence, writes reports/rca/rca-report-*.json
+                 │
+                 ▼
+  ┌──────────────────────────────┐
+  │ 4. RCA Diagnostic Agent      │  <── Deterministic classification + optional AI hypothesis
+  └──────────────┬───────────────┘
+                 │
+                 ▼
+  [Consolidated Pipeline Report] <── reports/pipeline/*-report.md & .json
+```
+
+### 8.2 Agent Responsibilities & Contracts
+1. **Agent 1: Test Design Agent (`tools/agents/testDesignAgent.ts`)**:
+   - Ingests `RequirementInput` (plain English title, description, acceptance criteria, constraints).
+   - Generates positive, negative, and edge-case `TestScenario` records with preconditions, test steps, expected assertions, priority, and automation feasibility.
+   - Validates outputs with `ScenarioValidator`.
+2. **Agent 2: Automation Authoring Agent (`tools/agents/automationAuthoringAgent.ts`)**:
+   - Ingests approved scenarios and Gate 1 sign-off.
+   - Reuses existing repository Page Objects (`BasePage`, `LoginPage`, `ProductPage`, `CartPage`) and API clients.
+   - Enforces web-first assertions and resilient accessible locators.
+   - Strictly prohibits `waitForTimeout` calls.
+   - Writes generated specs to `tests/generated/`.
+3. **Agent 3: Execution Runner & Orchestrator (`tools/agents/executionRunner.ts`, `tools/agents/orchestrator.ts`)**:
+   - Governed by explicit Gate 2 sign-off (Gate 2 is strictly independent and never auto-approved).
+   - Generates a unique execution ID (`EXEC-<timestamp>-<hash>`) per run and injects it via `AGENT_EXECUTION_ID` into the runner process.
+   - Requires a machine-readable RCA report matching that execution ID to classify a run as `PASSED`. Never guesses counts from stdout regex.
+   - Zero exit code without verifiable executed tests is classified as `PROCESS_ERROR`.
+   - Distinguishes test assertion failures from process/runner crashes using verified report counts.
+   - Spawns Playwright test runner without shell injection risks (`shell: false`). On POSIX, uses process-group detachment; on Windows, uses `taskkill /PID <PID> /T /F` with exit code inspection for clean process-tree termination.
+   - Enforces canonical directory containment (`tests/generated/` realpath validation with symlink rejection) and atomic exclusive creation (`flag: 'wx'`) to prevent path traversal and overwriting of non-generated files.
+4. **Agent 4: RCA Agent (`tools/agents/rcaAgent.ts`)**:
+   - Ingests structured `RcaRunReport` from `tools/rca/rcaReporter.ts`.
+   - Baseline: Deterministic 8-category classifier (`DeterministicClassifier`).
+   - Live Mode: Enriches failure with AI diagnostic hypothesis, confidence, alternative hypotheses, and recommended actions using `LLMProvider`.
+   - Strict validation: rejects missing fields, invalid categories, out-of-bounds confidence (no silent defaulting). If validation fails, classifies run as `AI_FAILED_FALLBACK` and retains deterministic classification.
+   - Evidence Grounding: validates that AI citations correspond to verified failure facts (exact HTTP status, failing action, line number, or continuous substantive phrase), rejecting generic boilerplate and single-word matches.
+   - Treats AI hypotheses strictly as an advisory hypothesis; never mixes AI evidence into the deterministic evidence collection.
+   - Comprehensive redaction: strips Bearer/Basic tokens, API keys, passwords, cookies, query-string auth parameters, and session identifiers (JWT, session IDs).
+
+### 8.3 Human-in-the-Loop Governance & Pipeline Statuses
+- **Gate 1 (Test Design Sign-Off)**: Human Quality Engineer must sign off on derived test scenarios before code authoring proceeds (`--approve-gate1` or `--approve-all`).
+- **Gate 2 (Code Review & Execution Authorization)**: Generated code in `tests/generated/` requires explicit approval before test execution is permitted (`--approve-gate2` or `--approve-all`).
+- **Pipeline Lifecycle Statuses**:
+  - `GENERATION_SUCCESS_EXECUTION_PASSED`: Generated code passed static checks, Gate 2 was approved, and all tests executed and passed.
+  - `GENERATION_SUCCESS_EXECUTION_FAILED`: Generated code authored and approved, but runtime execution failed; RCA analysis performed.
+  - `GENERATION_SUCCESS_EXECUTION_SKIPPED`: Generated code authored and Gate 2 approved, but test execution was intentionally skipped (`--skip-execution` or non-executable test suite).
+  - `GENERATION_SUCCESS_GATE2_PENDING`: Generated code authored; pipeline paused awaiting Gate 2 human review.
+  - `GATE1_REJECTED`: Test scenarios rejected or halted before code authoring.
+  - `GATE2_REJECTED`: Generated code rejected by reviewer.
+  - `VALIDATION_FAILED`: AST, schema, or directory boundary checks failed.
+  - `EXECUTION_PROCESS_ERROR`: Test runner process crashed, timed out, or encountered an environment failure.
+
+### 8.4 How to Run the Pipeline
+1. **Full Autonomous Pipeline (Design $\to$ Authoring $\to$ Execution $\to$ RCA $\to$ Report)**:
+   ```powershell
+   npx tsx tools/agents/runPipeline.ts --approve-all
+   ```
+
+2. **Author Code Only (Pause at Gate 2 for Human Review)**:
+   ```powershell
+   npx tsx tools/agents/runPipeline.ts --approve-gate1
+   ```
+
+3. **Author Code and Skip Execution (Gate 2 Approved)**:
+   ```powershell
+   npx tsx tools/agents/runPipeline.ts --approve-all --skip-execution
+   ```
+
+4. **Custom Requirement via JSON File**:
+   ```powershell
+   npx tsx tools/agents/runPipeline.ts --req my-requirement.json --approve-all
+   ```
+
+### 8.5 Deterministic Fallback Safety Governance
+- **Supported Requirements**: When running in `DETERMINISTIC_FALLBACK` mode (no API keys), verified demonstration requirements (e.g. `REQ-AE-SUB-001` Newsletter Subscription) generate working, verified Playwright test suites.
+- **Unmapped Requirements**: For unsupported requirements without verified Page Object selector mappings, the fallback engine **never fabricates selectors or speculative code**. Instead, it generates a `manual_review_<reqId>.md` file with feasibility marked as `ManualReview`, preventing selector hallucination.
+
+### 8.6 Artifact Storage Locations
+- **Scenarios**: `reports/scenarios/<requirementId>-scenarios.json`
+- **Generated Tests**: `tests/generated/<filename>.spec.ts`
+- **Authoring Summaries**: `reports/generation/<requirementId>-summary.json` & `.md`
+- **Playwright RCA Reports**: `reports/rca/rca-report-<timestamp>.json`
+- **Consolidated Pipeline Reports**: `reports/pipeline/<pipelineId>-<requirementId>-report.md` & `.json`
+
+### 8.7 Current Limitations & Future Milestones
+- **Agent 5 (Repair Proposal Agent)**: Surgical code patching (git diff generation) is documented in `skills/review/SKILL.md` and planned for Milestone 2.
+- **Agent 6 (Quality Reporting Agent)**: Executive release dashboard aggregation is documented in `skills/reporting/SKILL.md` and planned for Milestone 3.
+- **Dynamic Third-Party CAPTCHAs**: Scenarios requiring visual puzzle solving are marked as `ManualReview` rather than attempting brittle automation.
+

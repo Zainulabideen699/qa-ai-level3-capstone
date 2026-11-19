@@ -1,0 +1,140 @@
+{
+  "requirement": {
+    "requirementId": "REQ-AE-SUB-001",
+    "title": "Homepage Footer Newsletter Subscription",
+    "description": "As a site visitor, I want to subscribe to the newsletter by submitting my email address in the homepage footer subscription box so that I receive promotional updates and discounts.",
+    "applicationArea": "ENG",
+    "userRole": "Unauthenticated Visitor / Customer",
+    "acceptanceCriteria": [
+      "<untrusted_content source=\"acceptance_criterion_0\">\nFooter section displays \"SUBSCRIPTION\" heading and email input with placeholder \"Your email address\".\n</untrusted_content>",
+      "<untrusted_content source=\"acceptance_criterion_1\">\nSubmitting a valid unique email displays success message \"You have been successfully subscribed!\".\n</untrusted_content>",
+      "<untrusted_content source=\"acceptance_criterion_2\">\nSubmitting an empty or malformed email prevents successful subscription and triggers validation feedback.\n</untrusted_content>"
+    ],
+    "constraints": [
+      "Must function without prior user login/authentication.",
+      "Must not cause full page reload or navigate away from homepage."
+    ]
+  },
+  "scenarios": [
+    {
+      "scenarioId": "TC-GEN-ENG-001",
+      "requirementId": "REQ-AE-SUB-001",
+      "title": "Homepage Footer Newsletter Subscription - Successful submission with valid inputs",
+      "objective": "Verify that submitting valid inputs satisfies acceptance criteria, displays success confirmation, and retains the user on the homepage.",
+      "preconditions": [
+        "System Under Test (SUT) is accessible at base URL.",
+        "Target feature interface or component is visibly rendered."
+      ],
+      "testSteps": [
+        "Navigate to target page containing the Homepage Footer Newsletter Subscription interface.",
+        "Locate input controls and enter valid, dynamically generated test data.",
+        "Click submit button to trigger form processing."
+      ],
+      "expectedResults": [
+        "Newsletter subscription form submits successfully with unique dynamic email.",
+        "Visual confirmation alert is visibly displayed with text 'You have been successfully subscribed!'.",
+        "User remains on the homepage without unintended navigation or URL redirection.",
+        "Global navigation controls remain visible and accessible."
+      ],
+      "testType": "UI",
+      "priority": "High",
+      "tags": [
+        "@eng",
+        "@smoke",
+        "@REQ-AE-SUB-001",
+        "@generated"
+      ],
+      "automationFeasibility": "Automated",
+      "assumptions": [
+        "Target element locators conform to AutomationExercise DOM structure.",
+        "Ad-blocking prevents third-party overlay interception."
+      ],
+      "ambiguityNotes": []
+    },
+    {
+      "scenarioId": "TC-GEN-ENG-002",
+      "requirementId": "REQ-AE-SUB-001",
+      "title": "Homepage Footer Newsletter Subscription - Input validation error with malformed data",
+      "objective": "Verify that submitting malformed or syntactically invalid input is rejected via HTML5 email validation without submitting the form.",
+      "preconditions": [
+        "SUT is accessible at base URL.",
+        "Target input field is in initial unmodified state."
+      ],
+      "testSteps": [
+        "Navigate to target page.",
+        "Enter malformed input (e.g. invalid email format without '@' or domain).",
+        "Attempt to submit form."
+      ],
+      "expectedResults": [
+        "Email input element enforces HTML5 type='email' attribute specification.",
+        "Submitting malformed email triggers browser validity mismatch (validity.typeMismatch is true, checkValidity() is false).",
+        "Browser validation message is non-empty, preventing form dispatch.",
+        "Success confirmation alert is not visible.",
+        "User remains on the homepage without unintended redirection."
+      ],
+      "testType": "UI",
+      "priority": "Medium",
+      "tags": [
+        "@eng",
+        "@negative",
+        "@REQ-AE-SUB-001",
+        "@generated"
+      ],
+      "automationFeasibility": "Automated",
+      "assumptions": [
+        "Browser HTML5 validation flags invalid formats prior to network dispatch."
+      ],
+      "ambiguityNotes": [
+        "Exact validation error text may vary between Chromium HTML5 popover and custom application DOM."
+      ]
+    },
+    {
+      "scenarioId": "TC-GEN-ENG-003",
+      "requirementId": "REQ-AE-SUB-001",
+      "title": "Homepage Footer Newsletter Subscription - Boundary check with empty input submission",
+      "objective": "Verify that attempting submission with empty required input fields triggers HTML5 required-field validation and blocks submission.",
+      "preconditions": [
+        "Target form is open and input fields are empty."
+      ],
+      "testSteps": [
+        "Navigate to target component.",
+        "Leave required input field completely blank.",
+        "Click submit button."
+      ],
+      "expectedResults": [
+        "Email input element enforces HTML5 'required' attribute specification.",
+        "Attempting submission with empty input triggers valueMissing validity error (validity.valueMissing is true, checkValidity() is false).",
+        "Browser validation message is non-empty, preventing empty form dispatch.",
+        "Success confirmation alert is not visible.",
+        "User remains on the homepage without unintended redirection."
+      ],
+      "testType": "UI",
+      "priority": "Medium",
+      "tags": [
+        "@eng",
+        "@boundary",
+        "@REQ-AE-SUB-001",
+        "@generated"
+      ],
+      "automationFeasibility": "Automated",
+      "assumptions": [
+        "Field has 'required' attribute in DOM."
+      ],
+      "ambiguityNotes": []
+    }
+  ],
+  "missingOrAmbiguousRequirements": [
+    "Check whether rate-limiting applies to repeated submissions from the same IP/session."
+  ],
+  "designTechniquesApplied": [
+    "Equivalence Partitioning (Valid vs Malformed input classes)",
+    "Boundary Value Analysis (Empty zero-length submission)",
+    "Error Guessing (Unauthenticated guest submission)"
+  ],
+  "metadata": {
+    "timestamp": "2026-11-19T14:02:47.176Z",
+    "executionMode": "DETERMINISTIC_FALLBACK",
+    "provider": "Model-Free Quality Engineering Fallback Engine",
+    "model": "deterministic-qe-rules-v1"
+  }
+}

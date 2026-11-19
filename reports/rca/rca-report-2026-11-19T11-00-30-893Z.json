@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-19T11:00:30.893Z",
+  "runSummary": {
+    "totalTests": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 11389,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-AE-API-006",
+      "testTitle": "TC-AE-API-006: Validate API HTTP method constraints and bad request handling",
+      "fullTitle": " > Google Chrome > api\\api.spec.ts > Backend REST API Tests - System Under Test: Automation Exercise > TC-AE-API-006: Validate API HTTP method constraints and bad request handling",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/api/api.spec.ts",
+        "line": 213,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/api/api.spec.ts",
+        "line": 251,
+        "column": 39
+      },
+      "retry": 0,
+      "durationMs": 11018,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m\n    at D:\\Playwright\\qa-ai-level3\\tests\\api\\api.spec.ts:251:39"
+      },
+      "artifactPaths": {
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\api-api-Backend-REST-API-T-60bd1-ts-and-bad-request-handling-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-API-006",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/tests/api/api.spec.ts:251",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived: [31m503[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived: [31m503[39m\n    at D:\\Playwright\\qa-ai-level3\\tests\\api\\api.spec.ts:251:39\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\api-api-Backend-REST-API-T-60bd1-ts-and-bad-request-handling-Google-Chrome\\trace.zip\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-19T11:00:30.893Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m",
+          "durationMs": 11018,
+          "timestamp": "2026-11-19T11:00:30.843Z",
+          "artifactPaths": {
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\api-api-Backend-REST-API-T-60bd1-ts-and-bad-request-handling-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}

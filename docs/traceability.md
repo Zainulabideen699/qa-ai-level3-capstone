@@ -40,7 +40,7 @@ Bidirectional traceability guarantees that every automated test in this reposito
 | `REQ-AE-CART` | Add to Cart, Quantity Management, Cart View | `tests/ui/cart.spec.ts` | `src/pages/CartPage.ts` |
 | `REQ-AE-CHECK`| Checkout Flow, Address Verification & Payment | `tests/ui/checkout.spec.ts` | `src/pages/CheckoutPage.ts` |
 | `REQ-AE-CONT` | Contact Us Form with File Upload | `tests/ui/contact.spec.ts` | `src/pages/ContactPage.ts` |
-| `REQ-AE-API`  | REST API Endpoints (`/api/productsList`, etc.) | `tests/api/products-api.spec.ts` | `src/api/ProductsApiClient.ts` |
+| `REQ-AE-API`  | REST API Endpoints (`/api/productsList`, `/api/verifyLogin`, etc.) | `tests/api/api.spec.ts` | `src/api/accountApi.ts`, `src/api/productsApi.ts` |
 
 ---
 

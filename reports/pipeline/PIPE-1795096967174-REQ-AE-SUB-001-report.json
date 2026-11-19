@@ -1,0 +1,49 @@
+{
+  "pipelineId": "PIPE-1795096967174",
+  "executionId": "EXEC-1795096967179-n4apnko",
+  "requirementId": "REQ-AE-SUB-001",
+  "requirementTitle": "Homepage Footer Newsletter Subscription",
+  "requirementDescription": "As a site visitor, I want to subscribe to the newsletter by submitting my email address in the homepage footer subscription box so that I receive promotional updates and discounts.",
+  "status": "GENERATION_SUCCESS_EXECUTION_PASSED",
+  "executionMode": "DETERMINISTIC_FALLBACK",
+  "provider": "Model-Free Quality Engineering Fallback Engine",
+  "gate1": {
+    "status": "APPROVED",
+    "approvedBy": "Quality Engineer (Gate 1 HITL Sign-off)",
+    "approvalTimestamp": "2026-11-19T14:02:47.177Z",
+    "reviewNotes": "Approved via explicit orchestrator approval flag."
+  },
+  "gate2": {
+    "status": "APPROVED",
+    "approvedBy": "Lead QA Engineer (Gate 2 Sign-off)",
+    "approvalTimestamp": "2026-11-19T14:02:47.179Z",
+    "reviewNotes": "Automated execution authorized via explicit Gate 2 approval flag."
+  },
+  "scenarioCount": 3,
+  "generatedFiles": [
+    "tests/generated/generated_req_ae_sub_001.spec.ts"
+  ],
+  "executionResult": {
+    "executionId": "EXEC-1795096967179-n4apnko",
+    "status": "PASSED",
+    "exitCode": 0,
+    "testFile": "tests/generated/generated_req_ae_sub_001.spec.ts",
+    "project": "Google Chrome",
+    "startTime": "2026-11-19T14:02:47.179Z",
+    "endTime": "2026-11-19T14:03:11.056Z",
+    "durationMs": 23877,
+    "stdout": "",
+    "stderr": "",
+    "rcaReportPath": "D:\\Playwright\\qa-ai-level3\\reports\\rca\\rca-report-EXEC-1795096967179-n4apnko.json",
+    "commandExecuted": "C:\\Program Files\\nodejs\\node.exe D:\\Playwright\\qa-ai-level3\\node_modules\\@playwright\\test\\cli.js test tests/generated/generated_req_ae_sub_001.spec.ts --project=Google Chrome"
+  },
+  "rcaReportPath": "D:\\Playwright\\qa-ai-level3\\reports\\rca\\rca-report-EXEC-1795096967179-n4apnko.json",
+  "rcaStatus": "NOT_APPLICABLE_PASSED",
+  "rcaStatusDetails": "All generated tests passed. No failure root cause analysis required.",
+  "durationMs": 23884,
+  "timestamp": "2026-11-19T14:02:47.174Z",
+  "reportPaths": {
+    "json": "",
+    "markdown": ""
+  }
+}

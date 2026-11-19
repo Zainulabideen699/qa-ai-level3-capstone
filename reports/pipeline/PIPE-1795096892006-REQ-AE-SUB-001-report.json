@@ -1,0 +1,29 @@
+{
+  "pipelineId": "PIPE-1795096892006",
+  "requirementId": "REQ-AE-SUB-001",
+  "requirementTitle": "Homepage Footer Newsletter Subscription",
+  "requirementDescription": "As a site visitor, I want to subscribe to the newsletter by submitting my email address in the homepage footer subscription box so that I receive promotional updates and discounts.",
+  "status": "GENERATION_SUCCESS_GATE2_PENDING",
+  "executionMode": "DETERMINISTIC_FALLBACK",
+  "provider": "Model-Free Quality Engineering Fallback Engine",
+  "gate1": {
+    "status": "APPROVED",
+    "approvedBy": "Quality Engineer (Gate 1 HITL Sign-off)",
+    "approvalTimestamp": "2026-11-19T14:01:32.009Z",
+    "reviewNotes": "Approved via explicit orchestrator approval flag."
+  },
+  "gate2": {
+    "status": "PENDING",
+    "reviewNotes": "Generated code written to tests/generated/. Execution paused awaiting manual code review."
+  },
+  "scenarioCount": 3,
+  "generatedFiles": [
+    "tests/generated/generated_req_ae_sub_001.spec.ts"
+  ],
+  "durationMs": 6,
+  "timestamp": "2026-11-19T14:01:32.006Z",
+  "reportPaths": {
+    "json": "",
+    "markdown": ""
+  }
+}

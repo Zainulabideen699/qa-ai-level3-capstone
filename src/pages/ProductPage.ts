@@ -23,6 +23,14 @@ export class ProductPage extends BasePage {
   readonly productAvailability: Locator;
   readonly productCondition: Locator;
   readonly productBrand: Locator;
+  readonly quantityInput: Locator;
+  readonly addToCartButton: Locator;
+
+  // Cart modal elements
+  readonly cartModal: Locator;
+  readonly modalAddedHeading: Locator;
+  readonly modalContinueShoppingButton: Locator;
+  readonly modalViewCartLink: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -71,6 +79,15 @@ export class ProductPage extends BasePage {
     this.productBrand = this.productInfoContainer
       .locator('p')
       .filter({ hasText: /Brand:/i });
+
+    this.quantityInput = page.locator('#quantity');
+    this.addToCartButton = page.locator('button.cart');
+
+    // Cart modal locators
+    this.cartModal = page.locator('#cartModal');
+    this.modalAddedHeading = page.locator('#cartModal .modal-title');
+    this.modalContinueShoppingButton = page.locator('#cartModal button.close-modal');
+    this.modalViewCartLink = page.locator('#cartModal a[href="/view_cart"]');
   }
 
   /**
@@ -158,5 +175,59 @@ export class ProductPage extends BasePage {
     }
 
     return true;
+  }
+
+  /**
+   * Navigate directly to a specific product's details page.
+   */
+  async gotoProductDetails(productId: number | string): Promise<void> {
+    await this.navigate(`/product_details/${productId}`);
+  }
+
+  /**
+   * Hover over a product card in the catalog and click Add to Cart,
+   * then wait for the confirmation modal to appear.
+   */
+  async addProductToCartByIndex(index: number): Promise<void> {
+    const card = this.page.locator('.features_items .product-image-wrapper').nth(index);
+    await card.scrollIntoViewIfNeeded();
+    await card.hover();
+    const overlayBtn = card.locator('.overlay-content a.add-to-cart');
+    if (await overlayBtn.isVisible()) {
+      await overlayBtn.click();
+    } else {
+      await card.locator('.productinfo a.add-to-cart').click();
+    }
+    await this.cartModal.waitFor({ state: 'visible' });
+  }
+
+  /**
+   * Click 'Continue Shopping' on the cart confirmation modal.
+   */
+  async clickContinueShopping(): Promise<void> {
+    await this.modalContinueShoppingButton.click();
+    await this.cartModal.waitFor({ state: 'hidden' });
+  }
+
+  /**
+   * Click 'View Cart' on the cart confirmation modal and wait for navigation.
+   */
+  async clickViewCartFromModal(): Promise<void> {
+    await this.modalViewCartLink.click();
+    await this.page.waitForURL('**/view_cart');
+  }
+
+  /**
+   * Set product quantity in the product details quantity input.
+   */
+  async setQuantity(quantity: number | string): Promise<void> {
+    await this.quantityInput.fill(quantity.toString());
+  }
+
+  /**
+   * Click the 'Add to cart' button on the product details page.
+   */
+  async addToCartFromDetails(): Promise<void> {
+    await this.addToCartButton.click();
   }
 }
