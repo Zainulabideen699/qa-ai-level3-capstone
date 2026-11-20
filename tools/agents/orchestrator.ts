@@ -7,6 +7,7 @@ import { AutomationAuthoringAgent } from './automationAuthoringAgent';
 import { ExecutionRunner } from './executionRunner';
 import { RcaAgent } from './rcaAgent';
 import { RepairProposalAgent } from './repairProposalAgent';
+import { QualityReportingAgent } from './qualityReportingAgent';
 import { PipelineReporter } from './pipelineReporter';
 import {
   RequirementInput,
@@ -21,6 +22,7 @@ import {
   TestExecutionResult,
   RcaAnalysisOutput,
   RepairProposalOutput,
+  QualityReportOutput,
 } from '../../src/agents/types';
 import type { RcaRunReport } from '../rca/rcaReporter';
 
@@ -42,7 +44,7 @@ export interface OrchestratorOptions {
  * Coordinates the full end-to-end autonomous quality engineering loop:
  * Requirement -> Agent 1 (Test Design) -> Gate 1 Approval -> Agent 2 (Authoring) ->
  * Destination Safety Checks -> Gate 2 Approval -> Test Execution -> RCA Agent ->
- * Agent 5 (Repair Proposal) -> Consolidated Reporting.
+ * Agent 5 (Repair Proposal) -> Agent 6 (Quality Reporting) -> Consolidated Reporting.
  */
 export class ExecutionOrchestrator {
   private readonly provider: LLMProvider;
@@ -50,6 +52,7 @@ export class ExecutionOrchestrator {
   private readonly authoringAgent: AutomationAuthoringAgent;
   private readonly rcaAgent: RcaAgent;
   private readonly repairProposalAgent: RepairProposalAgent;
+  private readonly qualityReportingAgent: QualityReportingAgent;
 
   constructor(options?: OrchestratorOptions) {
     this.provider = ProviderFactory.createProvider(options?.provider);
@@ -57,6 +60,7 @@ export class ExecutionOrchestrator {
     this.authoringAgent = new AutomationAuthoringAgent(this.provider);
     this.rcaAgent = new RcaAgent(this.provider);
     this.repairProposalAgent = new RepairProposalAgent(this.provider);
+    this.qualityReportingAgent = new QualityReportingAgent(this.provider);
   }
 
   /**
@@ -140,6 +144,21 @@ export class ExecutionOrchestrator {
         timestamp,
       };
 
+      // --- Agent 6: Quality Reporting Agent ---
+      try {
+        const qualityReport = await this.qualityReportingAgent.generateQualityReport({
+          pipelineId,
+          requirement,
+          orchestrationResult: result,
+          designOutput,
+          durationMs: Date.now() - startTimeMs,
+        });
+        result.qualityReportPath = qualityReport.reportPaths.markdown;
+        result.qualityReport = qualityReport;
+      } catch (qErr: any) {
+        console.warn(`[Orchestrator] Warning: Failed to generate quality report:`, qErr?.message || qErr);
+      }
+
       const pipeReport = PipelineReporter.writeReport({
         pipelineId,
         requirementId: requirement.requirementId,
@@ -152,11 +171,14 @@ export class ExecutionOrchestrator {
         gate2: { status: 'PENDING', reviewNotes: 'Halted at Gate 1' },
         scenarioCount: designOutput.scenarios.length,
         generatedFiles: [],
+        qualityReportPath: result.qualityReportPath,
+        qualityReport: result.qualityReport,
         durationMs: Date.now() - startTimeMs,
         timestamp,
         reportPaths: { json: '', markdown: '' },
       });
       result.pipelineReportPath = pipeReport.markdownPath;
+
       return result;
     }
     console.log(`[Gate 1] APPROVED by: ${gate1Approval.approvedBy}`);
@@ -308,6 +330,22 @@ export class ExecutionOrchestrator {
       const genReportPath = this.writeSummaryReports(partialResult, designOutput, authoringOutput);
       partialResult.summaryReportPath = genReportPath;
 
+      // --- Agent 6: Quality Reporting Agent ---
+      try {
+        const qualityReport = await this.qualityReportingAgent.generateQualityReport({
+          pipelineId,
+          requirement,
+          orchestrationResult: partialResult,
+          designOutput,
+          authoringOutput,
+          durationMs: Date.now() - startTimeMs,
+        });
+        partialResult.qualityReportPath = qualityReport.reportPaths.markdown;
+        partialResult.qualityReport = qualityReport;
+      } catch (qErr: any) {
+        console.warn(`[Orchestrator] Warning: Failed to generate quality report:`, qErr?.message || qErr);
+      }
+
       const pipeReport = PipelineReporter.writeReport({
         pipelineId,
         requirementId: requirement.requirementId,
@@ -320,6 +358,8 @@ export class ExecutionOrchestrator {
         gate2: gate2Approval,
         scenarioCount: designOutput.scenarios.length,
         generatedFiles: writtenFiles,
+        qualityReportPath: partialResult.qualityReportPath,
+        qualityReport: partialResult.qualityReport,
         durationMs: Date.now() - startTimeMs,
         timestamp,
         reportPaths: { json: '', markdown: '' },
@@ -444,7 +484,34 @@ export class ExecutionOrchestrator {
     const summaryReportPath = this.writeSummaryReports(result, designOutput, authoringOutput);
     result.summaryReportPath = summaryReportPath;
 
-    // 2. Consolidated pipeline execution report (reports/pipeline/)
+    // 2. Quality Reporting Agent (Agent 6)
+    console.log(`\n[Stage 6: Quality Reporting] Formulating Executive Quality Dashboard & Release Recommendation...`);
+    try {
+      const qualityReport = await this.qualityReportingAgent.generateQualityReport({
+        pipelineId,
+        requirement,
+        orchestrationResult: result,
+        designOutput,
+        authoringOutput,
+        executionResult,
+        rcaAnalysis,
+        repairProposals,
+        durationMs: totalDurationMs,
+      });
+      result.qualityReportPath = qualityReport.reportPaths.markdown;
+      result.qualityReport = qualityReport;
+      console.log(`[Stage 6: Quality Reporting] Executive Dashboard: ${qualityReport.reportPaths.latestMarkdown}`);
+      console.log(
+        `[Stage 6: Quality Reporting] Release Recommendation: ${qualityReport.releaseRecommendation} (Governance: ${qualityReport.releaseSignOff.status})`
+      );
+    } catch (qErr: any) {
+      console.warn(
+        `[Stage 6: Quality Reporting] Warning: Failed to generate executive quality dashboard:`,
+        qErr?.message || qErr
+      );
+    }
+
+    // 3. Consolidated pipeline execution report (reports/pipeline/)
     const pipelineReportFiles = PipelineReporter.writeReport({
       pipelineId,
       executionId: executionResult.executionId,
@@ -465,6 +532,8 @@ export class ExecutionOrchestrator {
       rcaStatusDetails,
       repairProposalPath,
       repairProposals,
+      qualityReportPath: result.qualityReportPath,
+      qualityReport: result.qualityReport,
       durationMs: totalDurationMs,
       timestamp,
       reportPaths: { json: '', markdown: '' },
@@ -474,6 +543,9 @@ export class ExecutionOrchestrator {
     console.log(`\n======================================================`);
     console.log(`[Orchestrator] Pipeline Finished. Status: ${finalPipelineStatus}`);
     console.log(`[Orchestrator] Consolidated Report: ${pipelineReportFiles.markdownPath}`);
+    if (result.qualityReportPath) {
+      console.log(`[Orchestrator] Executive Quality Dashboard: ${result.qualityReportPath}`);
+    }
     console.log(`======================================================\n`);
 
     return result;

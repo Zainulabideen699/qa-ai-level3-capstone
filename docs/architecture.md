@@ -94,7 +94,7 @@ qa-ai-level3/
 | **3. Execution Orchestrator & Runner** | Orchestrates the end-to-end multi-agent pipeline. Executes generated specs via controlled child process (`ExecutionRunner`), isolates runs to target browser, captures telemetry. | Requirement inputs, CLI approval flags, target browser project. | Execution metrics, process telemetry, artifact bundles (traces, videos, screenshots), routing signals. | N/A (Automated runtime orchestration; governed by Gate 1 & Gate 2). | **Implemented** (`tools/agents/orchestrator.ts`, `tools/agents/executionRunner.ts`) |
 | **4. Root Cause Analysis (RCA) Agent** | Ingests Playwright failure evidence; applies deterministic 8-category classifier and optional AI hypothesis reasoning via LLMProvider. | Playwright trace files (`trace.zip`), console stderr, network status, failure screenshots. | Standardized RCA JSON report (`reports/rca/`) and structured agent analysis output. | Human validates RCA classification to prevent masking product defects. | **Implemented** (`tools/rca/rcaReporter.ts`, `tools/agents/rcaAgent.ts`) |
 | **5. Repair Proposal Agent** | Proposes surgical remediation for failing tests (Page Object locators, script syntax, timing). Proposal only; strictly prohibited from weakening assertions or editing files directly. | RCA Diagnostic Report, failure evidence, existing test specs/Page Objects. | Structured repair proposal (`reports/proposals/`), advisory diffs, risk assessment. | **Gate 3**: Mandatory human sign-off before patch can be applied. | **Implemented** (`tools/agents/repairProposalAgent.ts`) |
-| **6. Quality Reporting Agent** | Compiles executive quality summary, pass/fail trends, flaky test telemetry, defect clusters, and release readiness recommendations. | Test results, RCA reports, execution logs, coverage metrics. | Executive Quality Dashboard (`reports/quality-summary.md`), HTML/Markdown dashboards. | Stakeholder release sign-off. | *Future Milestone* (Specification in `skills/reporting/SKILL.md`) |
+| **6. Quality Reporting Agent** | Compiles executive quality summary, historical pass/fail trends, defect clusters, risk telemetry, and deterministic release recommendations with human sign-off governance. | Execution metrics, RCA diagnostic reports, repair proposals, pipeline history. | Executive Quality Dashboard (`reports/quality-summary.md`), JSON artifacts (`reports/quality/`). | Stakeholder release sign-off (Gate 4). | **Implemented** (`tools/agents/qualityReportingAgent.ts`) |
 
 ---
 
@@ -197,7 +197,7 @@ During every test execution, Playwright is configured to capture comprehensive d
 
 ---
 
-## 8. Multi-Agent Autonomous Pipeline (Milestone 1: Design, Authoring, Execution & RCA)
+## 8. Multi-Agent Autonomous Pipeline (End-to-End Autonomous Pipeline)
 
 ### 8.1 Workflow Architecture & Data Flow
 
@@ -250,7 +250,17 @@ During every test execution, Playwright is configured to capture comprehensive d
   └──────────────┬───────────────┘
                  │
                  ▼
-  [Consolidated Pipeline Report] <── reports/pipeline/*-report.md & .json
+  ┌──────────────────────────────┐
+  │ 5. Repair Proposal Agent     │  <── Advisory patches, Gate 3 HITL proposal (reports/proposals/)
+  └──────────────┬───────────────┘
+                 │
+                 ▼
+  ┌──────────────────────────────┐
+  │ 6. Quality Reporting Agent   │  <── Metrics, trends, release recommendation (reports/quality/)
+  └──────────────┬───────────────┘
+                 │
+                 ▼
+  [Executive Quality Dashboard]  <── reports/quality-summary.md & pipeline reports
 ```
 
 ### 8.2 Agent Responsibilities & Contracts
@@ -280,13 +290,30 @@ During every test execution, Playwright is configured to capture comprehensive d
    - Evidence Grounding: validates that AI citations correspond to verified failure facts (exact HTTP status, failing action, line number, or continuous substantive phrase), rejecting generic boilerplate and single-word matches.
    - Treats AI hypotheses strictly as an advisory hypothesis; never mixes AI evidence into the deterministic evidence collection.
    - Comprehensive redaction: strips Bearer/Basic tokens, API keys, passwords, cookies, query-string auth parameters, and session identifiers (JWT, session IDs).
+5. **Agent 5: Repair Proposal Agent (`tools/agents/repairProposalAgent.ts`)**:
+   - Ingests validated RCA classification and Playwright failure evidence.
+   - Formulates surgical, non-destructive repair proposals for `LOCATOR_OR_UI_CHANGE`, `TEST_SCRIPT_DEFECT`, and transient environment issues.
+   - Strictly enforces assertion integrity: never deletes, comments out, or relaxes an assertion.
+   - Strictly advisory: always marks actionable proposals with `requiresHumanApproval = true` and `status = 'PROPOSED'`, prohibiting autonomous writes.
+   - Generates machine-readable proposal artifacts (`reports/proposals/`).
+6. **Agent 6: Quality Reporting Agent (`tools/agents/qualityReportingAgent.ts`)**:
+   - Ingests test execution metrics, RCA diagnostics, repair proposals, and historical run data (`reports/pipeline/`, `reports/rca/`).
+   - Computes deterministic quality metrics (pass/fail/skip rates, flakiness index, RCA category distribution, defect clustering).
+   - Automatically detects and isolates fault-injection runs (`FI-01`, `FI-02`) and deduplicates multi-run history by execution ID.
+   - Evaluates deterministic release recommendation engine (`GO`, `NO_GO`, `CONDITIONAL_GO`) with hard-coded anti-hallucination guardrails (LLM cannot override a `NO_GO`) and longitudinal reliability evaluation (degrading historical pass rates or recurrent unclassified `UNKNOWN` failure hotspots downgrade 100% runs to `CONDITIONAL_GO`).
+   - Enforces requirement-scoped coverage metrics and narrative reporting, avoiding over-generalized whole-application claims.
+   - Synthesizes executive narrative via `LLMProvider` with seamless `ModelFreeFallbackProvider` fallback.
+   - Initializes release sign-off as `PENDING` under human-in-the-loop governance (Gate 4).
+   - Generates the unified Executive Quality Dashboard (`reports/quality-summary.md`) and pipeline-scoped audit reports (`reports/quality/quality-summary-<pipelineId>.json` & `.md`).
 
 ### 8.3 Human-in-the-Loop Governance & Pipeline Statuses
 - **Gate 1 (Test Design Sign-Off)**: Human Quality Engineer must sign off on derived test scenarios before code authoring proceeds (`--approve-gate1` or `--approve-all`).
 - **Gate 2 (Code Review & Execution Authorization)**: Generated code in `tests/generated/` requires explicit approval before test execution is permitted (`--approve-gate2` or `--approve-all`).
+- **Gate 3 (Repair Proposal Approval)**: Human engineer reviews advisory diffs before any code repair can be applied.
+- **Gate 4 (Release Sign-Off)**: Human release manager or QA lead authorizes deployment based on the Executive Quality Dashboard and release recommendation. All automated sign-offs default strictly to `PENDING`.
 - **Pipeline Lifecycle Statuses**:
   - `GENERATION_SUCCESS_EXECUTION_PASSED`: Generated code passed static checks, Gate 2 was approved, and all tests executed and passed.
-  - `GENERATION_SUCCESS_EXECUTION_FAILED`: Generated code authored and approved, but runtime execution failed; RCA analysis performed.
+  - `GENERATION_SUCCESS_EXECUTION_FAILED`: Generated code authored and approved, but runtime execution failed; RCA analysis and repair proposal performed.
   - `GENERATION_SUCCESS_EXECUTION_SKIPPED`: Generated code authored and Gate 2 approved, but test execution was intentionally skipped (`--skip-execution` or non-executable test suite).
   - `GENERATION_SUCCESS_GATE2_PENDING`: Generated code authored; pipeline paused awaiting Gate 2 human review.
   - `GATE1_REJECTED`: Test scenarios rejected or halted before code authoring.
@@ -295,7 +322,7 @@ During every test execution, Playwright is configured to capture comprehensive d
   - `EXECUTION_PROCESS_ERROR`: Test runner process crashed, timed out, or encountered an environment failure.
 
 ### 8.4 How to Run the Pipeline
-1. **Full Autonomous Pipeline (Design $\to$ Authoring $\to$ Execution $\to$ RCA $\to$ Report)**:
+1. **Full Autonomous Pipeline (Design $\to$ Authoring $\to$ Execution $\to$ RCA $\to$ Proposal $\to$ Quality Report)**:
    ```powershell
    npx tsx tools/agents/runPipeline.ts --approve-all
    ```
@@ -325,9 +352,12 @@ During every test execution, Playwright is configured to capture comprehensive d
 - **Authoring Summaries**: `reports/generation/<requirementId>-summary.json` & `.md`
 - **Playwright RCA Reports**: `reports/rca/rca-report-<timestamp>.json`
 - **Consolidated Pipeline Reports**: `reports/pipeline/<pipelineId>-<requirementId>-report.md` & `.json`
+- **Repair Proposals**: `reports/proposals/<executionId>-proposal.json` & `.md`
+- **Quality Reports**: `reports/quality/quality-summary-<pipelineId>.json` & `.md`
+- **Executive Quality Dashboard**: `reports/quality-summary.md`
 
 ### 8.7 Current Limitations & Future Milestones
-- **Agent 5 (Repair Proposal Agent)**: Surgical code patching (git diff generation) is documented in `skills/review/SKILL.md` and planned for Milestone 2.
-- **Agent 6 (Quality Reporting Agent)**: Executive release dashboard aggregation is documented in `skills/reporting/SKILL.md` and planned for Milestone 3.
+- **All Six Autonomous Agents Fully Implemented**: Agent 1 (Design), Agent 2 (Authoring), Agent 3 (Orchestration/Runner), Agent 4 (RCA), Agent 5 (Repair Proposal), and Agent 6 (Quality Reporting) are completely operational.
 - **Dynamic Third-Party CAPTCHAs**: Scenarios requiring visual puzzle solving are marked as `ManualReview` rather than attempting brittle automation.
+- **CI/CD Integration**: Webhook notification dispatch and automated PR creation from approved repair proposals represent future platform integrations.
 

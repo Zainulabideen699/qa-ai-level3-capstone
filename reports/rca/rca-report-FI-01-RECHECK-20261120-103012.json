@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0.0",
+  "executionId": "FI-01-RECHECK-20261120-103012",
+  "generatedAt": "2026-11-20T05:30:22.185Z",
+  "runSummary": {
+    "totalTests": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 7946,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-FI-SCRIPT-001",
+      "testTitle": "TC-FI-SCRIPT-001: Intentional invalid selector syntax in test script",
+      "fullTitle": " > Google Chrome > fi01_test_script_defect.spec.ts > FI-01: Controlled Fault Injection > TC-FI-SCRIPT-001: Intentional invalid selector syntax in test script",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tools/fault-injection/fi01_test_script_defect.spec.ts",
+        "line": 19,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tools/fault-injection/fi01_test_script_defect.spec.ts",
+        "line": 32,
+        "column": 43
+      },
+      "retry": 0,
+      "durationMs": 6981,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: locator.click: Unexpected token \"\" while parsing css selector \"button[type='submit'\". Did you mean to CSS.escape it?\nCall log:\n\u001b[2m  - waiting for button[type='submit'\u001b[22m\n",
+        "stack": "Error: locator.click: Unexpected token \"\" while parsing css selector \"button[type='submit'\". Did you mean to CSS.escape it?\nCall log:\n\u001b[2m  - waiting for button[type='submit'\u001b[22m\n\n    at D:\\Playwright\\qa-ai-level3\\tools\\fault-injection\\fi01_test_script_defect.spec.ts:32:43"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\fi01_test_script_defect-FI-12835-ector-syntax-in-test-script-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\fi01_test_script_defect-FI-12835-ector-syntax-in-test-script-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\fi01_test_script_defect-FI-12835-ector-syntax-in-test-script-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-FI-SCRIPT-001",
+        "category": "TEST_SCRIPT_DEFECT",
+        "confidence": 0.95,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Test automation script contains an invalid, malformed, or unparseable locator/selector syntax (e.g. unclosed bracket, bad pseudo-selector, unknown selector engine, or invalid XPath).",
+        "evidence": {
+          "matchedRule": "RULE_P7_INVALID_SELECTOR_SYNTAX",
+          "matchedPattern": "Unexpected token .* while parsing (?:css )?selector|Unknown engine .* while parsing selector|is not a valid (?:CSS )?selector|is not a valid XPath expression|Invalid selector:",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nUnexpected token \"\" while parsing css selector\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/tools/fault-injection/fi01_test_script_defect.spec.ts:32",
+          "failingAction": "<untrusted_content source=\"failing_action\">\nlocator.click\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: locator.click: Unexpected token \"\" while parsing css selector \"button[type='submit'\". Did you mean to CSS.escape it?\nCall log:\n[2m  - waiting for button[type='submit'[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: locator.click: Unexpected token \"\" while parsing css selector \"button[type='submit'\". Did you mean to CSS.escape it?\nCall log:\n[2m  - waiting for button[type='submit'[22m\n\n    at D:\\Playwright\\qa-ai-level3\\tools\\fault-injection\\fi01_test_script_defect.spec.ts:32:43\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\fi01_test_script_defect-FI-12835-ector-syntax-in-test-script-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\fi01_test_script_defect-FI-12835-ector-syntax-in-test-script-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\fi01_test_script_defect-FI-12835-ector-syntax-in-test-script-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Fix selector syntax in test script or Page Object; verify locator conforms to CSS/Playwright selector grammar.",
+        "requiresHumanApproval": false,
+        "timestamp": "2026-11-20T05:30:22.185Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: locator.click: Unexpected token \"\" while parsing css selector \"button[type='submit'\". Did you mean to CSS.escape it?\nCall log:\n\u001b[2m  - waiting for button[type='submit'\u001b[22m\n",
+          "durationMs": 6981,
+          "timestamp": "2026-11-20T05:30:22.149Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\fi01_test_script_defect-FI-12835-ector-syntax-in-test-script-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\fi01_test_script_defect-FI-12835-ector-syntax-in-test-script-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\fi01_test_script_defect-FI-12835-ector-syntax-in-test-script-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}

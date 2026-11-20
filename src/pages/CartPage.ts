@@ -107,9 +107,13 @@ export class CartPage extends BasePage {
    * Delete a specific product row and wait for it to detach from the DOM.
    */
   async deleteProduct(row: Locator): Promise<void> {
+    const rowId = await row.getAttribute('id');
+    if (!rowId) {
+      throw new Error('Cannot delete product row: row element is missing an "id" attribute.');
+    }
     const deleteButton = row.locator('.cart_delete a.cart_quantity_delete');
     await deleteButton.click();
-    await row.waitFor({ state: 'detached' });
+    await this.page.locator(`#${rowId}`).waitFor({ state: 'detached' });
   }
 
   /**

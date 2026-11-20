@@ -193,7 +193,10 @@ test.describe('Cart Management & Calculations - Automation Exercise', () => {
     const secondProductDetails = await cartPage.getRowDetails(cartPage.getProductRowByIndex(1));
 
     // 3. Delete the first product from the cart
-    await cartPage.deleteProduct(cartPage.getProductRowByIndex(0));
+    const firstProductRow = cartPage.getProductRowByIndex(0);
+    const firstRowId = await firstProductRow.getAttribute('id');
+    const targetRow = firstRowId ? cartPage.page.locator(`#${firstRowId}`) : firstProductRow;
+    await cartPage.deleteProduct(targetRow);
 
     // 4. Assert exactly one product remains in the cart
     expect(await cartPage.getCartRowCount()).toBe(1);

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0.0",
+  "executionId": "FI-02-20261120-103648",
+  "generatedAt": "2026-11-20T05:36:51.033Z",
+  "runSummary": {
+    "totalTests": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 1000,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-FI-NETWORK-001",
+      "testTitle": "TC-FI-NETWORK-001: Intentional connection reset network failure",
+      "fullTitle": " > Google Chrome > fi02_network_failure.spec.ts > FI-02: Controlled Network Failure Injection > TC-FI-NETWORK-001: Intentional connection reset network failure",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tools/fault-injection/fi02_network_failure.spec.ts",
+        "line": 24,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tools/fault-injection/fi02_network_failure.spec.ts",
+        "line": 35,
+        "column": 16
+      },
+      "retry": 0,
+      "durationMs": 387,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: net::ERR_CONNECTION_RESET at https://automationexercise.com/fi02-network-probe\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/fi02-network-probe\", waiting until \"load\"\u001b[22m\n",
+        "stack": "Error: page.goto: net::ERR_CONNECTION_RESET at https://automationexercise.com/fi02-network-probe\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/fi02-network-probe\", waiting until \"load\"\u001b[22m\n\n    at D:\\Playwright\\qa-ai-level3\\tools\\fault-injection\\fi02_network_failure.spec.ts:35:16"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\fi02_network_failure-FI-02-fff47-ction-reset-network-failure-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\fi02_network_failure-FI-02-fff47-ction-reset-network-failure-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\fi02_network_failure-FI-02-fff47-ction-reset-network-failure-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-FI-NETWORK-001",
+        "category": "ENVIRONMENT_OR_NETWORK",
+        "confidence": 0.95,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Infrastructure, network transport, DNS resolution, or SUT connectivity outage.",
+        "evidence": {
+          "matchedRule": "RULE_P2_ENVIRONMENT_OR_NETWORK",
+          "matchedPattern": "net::ERR_CONNECTION_REFUSED|net::ERR_CONNECTION_RESET|net::ERR_NAME_NOT_RESOLVED|net::ERR_CONNECTION_TIMED_OUT|net::ERR_INTERNET_DISCONNECTED|ENOTFOUND|ECONNREFUSED|ECONNRESET|ETIMEDOUT|socket hang up|502 Bad Gateway|504 Gateway Timeout",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nnet::ERR_CONNECTION_RESET\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/tools/fault-injection/fi02_network_failure.spec.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: net::ERR_CONNECTION_RESET at https://automationexercise.com/fi02-network-probe\nCall log:\n[2m  - navigating to \"https://automationexercise.com/fi02-network-probe\", waiting until \"load\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: net::ERR_CONNECTION_RESET at https://automationexercise.com/fi02-network-probe\nCall log:\n[2m  - navigating to \"https://automationexercise.com/fi02-network-probe\", waiting until \"load\"[22m\n\n    at D:\\Playwright\\qa-ai-level3\\tools\\fault-injection\\fi02_network_failure.spec.ts:35:16\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\fi02_network_failure-FI-02-fff47-ction-reset-network-failure-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\fi02_network_failure-FI-02-fff47-ction-reset-network-failure-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\fi02_network_failure-FI-02-fff47-ction-reset-network-failure-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Check host environment connectivity, DNS resolution, and target server availability before rerunning.",
+        "requiresHumanApproval": false,
+        "timestamp": "2026-11-20T05:36:51.033Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: net::ERR_CONNECTION_RESET at https://automationexercise.com/fi02-network-probe\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/fi02-network-probe\", waiting until \"load\"\u001b[22m\n",
+          "durationMs": 387,
+          "timestamp": "2026-11-20T05:36:51.016Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\fi02_network_failure-FI-02-fff47-ction-reset-network-failure-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\fi02_network_failure-FI-02-fff47-ction-reset-network-failure-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\fi02_network_failure-FI-02-fff47-ction-reset-network-failure-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}

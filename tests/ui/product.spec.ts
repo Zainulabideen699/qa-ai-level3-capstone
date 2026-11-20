@@ -112,18 +112,10 @@ test.describe('Product Catalog Tests - Automation Exercise', () => {
     async () => {
       await productPage.searchProduct('   ');
 
-      // Record the resulting application behavior.
-      // The application may retain the catalogue or show search results.
-      const catalogueVisible =
-        await productPage.allProductsHeading.isVisible();
-
-      const searchResultsVisible =
-        await productPage.searchedProductsHeading.isVisible();
-
       // The application should respond with one of these page states.
-      expect(
-        catalogueVisible || searchResultsVisible
-      ).toBe(true);
+      await expect(
+        productPage.allProductsHeading.or(productPage.searchedProductsHeading)
+      ).toBeVisible();
     }
   );
 });

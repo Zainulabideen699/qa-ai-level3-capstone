@@ -32,7 +32,7 @@ export class BasePage {
    * Navigate to a path relative to the baseURL configured in playwright.config.ts
    */
   async navigate(path: string = '/'): Promise<void> {
-    await this.page.goto(path);
+    await this.page.goto(path, { waitUntil: 'domcontentloaded' });
   }
 
   /**

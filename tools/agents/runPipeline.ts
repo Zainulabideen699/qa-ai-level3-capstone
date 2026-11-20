@@ -126,6 +126,14 @@ async function main() {
       console.log(`[Pipeline CLI] Execution ID: ${result.executionId}`);
     }
     console.log(`[Pipeline CLI] Consolidated Report: ${result.pipelineReportPath || 'N/A'}`);
+    if (result.qualityReportPath) {
+      console.log(`[Pipeline CLI] 📊 Executive Dashboard (Agent 6): ${result.qualityReportPath}`);
+      if (result.qualityReport) {
+        console.log(
+          `[Pipeline CLI] 🎯 Release Recommendation: ${result.qualityReport.releaseRecommendation} (${result.qualityReport.releaseSignOff.status})`
+        );
+      }
+    }
 
     if (result.status === 'GENERATION_SUCCESS_EXECUTION_PASSED') {
       console.log(`[Pipeline CLI] 🟢 All generated tests executed and passed successfully!`);

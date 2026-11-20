@@ -30,12 +30,14 @@ function createMockRcaOutput(items: RcaAnalysisItem[]): RcaAnalysisOutput {
 
 function createRcaItem(overrides: Partial<RcaAnalysisItem>): RcaAnalysisItem {
   const deterministic: RcaResult = {
+    testId: overrides.testId || 'TC-FAIL-001',
     category: overrides.effectiveCategory || 'UNKNOWN',
     confidence: overrides.effectiveConfidence ?? 0.85,
     classificationSource: 'DETERMINISTIC',
     explanation: 'Deterministic baseline classification.',
     recommendedAction: 'Take appropriate corrective action.',
     requiresHumanApproval: true,
+    timestamp: new Date().toISOString(),
     evidence: {
       matchedRule: 'RULE_TEST_RULE',
       failingLine: 'tests/generated/auth.spec.ts:42',
@@ -81,12 +83,14 @@ test.describe('Agent 5: Repair Proposal Agent - Governance & Heuristic Validatio
         failingLine: 'tests/generated/checkout.spec.ts:55',
       },
       deterministicClassification: {
+        testId: 'TC-FAIL-001',
         category: 'PRODUCT_DEFECT',
         confidence: 0.95,
         classificationSource: 'DETERMINISTIC',
         explanation: 'Server error 500 encountered.',
         recommendedAction: 'Log defect ticket for backend team.',
         requiresHumanApproval: true,
+        timestamp: new Date().toISOString(),
         evidence: {
           errorMessage: 'Response code 500 (Internal Server Error) returned from /api/checkout',
           httpStatus: 500,
@@ -129,12 +133,14 @@ test.describe('Agent 5: Repair Proposal Agent - Governance & Heuristic Validatio
         failingAction: 'locator.click',
       },
       deterministicClassification: {
+        testId: 'TC-FAIL-001',
         category: 'TEST_SCRIPT_DEFECT',
         confidence: 0.95,
         classificationSource: 'DETERMINISTIC',
         explanation: 'Invalid selector syntax in test script.',
         recommendedAction: 'Fix CSS selector syntax.',
         requiresHumanApproval: true,
+        timestamp: new Date().toISOString(),
         evidence: {
           errorMessage: 'Error: locator.click: Unexpected token "" while parsing css selector "button[type=\'submit\'"',
           matchedRule: 'RULE_P7_INVALID_SELECTOR_SYNTAX',
@@ -174,12 +180,14 @@ test.describe('Agent 5: Repair Proposal Agent - Governance & Heuristic Validatio
         targetUrl: 'https://automationexercise.com/api',
       },
       deterministicClassification: {
+        testId: 'TC-FAIL-001',
         category: 'ENVIRONMENT_OR_NETWORK',
         confidence: 0.95,
         classificationSource: 'DETERMINISTIC',
         explanation: 'Network connection reset.',
         recommendedAction: 'Verify network connectivity and retry.',
         requiresHumanApproval: false,
+        timestamp: new Date().toISOString(),
         evidence: {
           errorMessage: 'net::ERR_CONNECTION_RESET at https://automationexercise.com/api',
           matchedRule: 'RULE_P2_ENVIRONMENT_OR_NETWORK',
@@ -216,12 +224,14 @@ test.describe('Agent 5: Repair Proposal Agent - Governance & Heuristic Validatio
         failingAction: 'locator.click',
       },
       deterministicClassification: {
+        testId: 'TC-FAIL-001',
         category: 'LOCATOR_OR_UI_CHANGE',
         confidence: 0.90,
         classificationSource: 'DETERMINISTIC',
         explanation: 'Locator timeout waiting for element.',
         recommendedAction: 'Inspect DOM and update Page Object locator.',
         requiresHumanApproval: true,
+        timestamp: new Date().toISOString(),
         evidence: {
           errorMessage: 'Timeout 30000ms exceeded waiting for locator("button#submit-newsletter")',
           matchedRule: 'RULE_P4_LOCATOR_WAIT_TIMEOUT',
@@ -257,12 +267,14 @@ test.describe('Agent 5: Repair Proposal Agent - Governance & Heuristic Validatio
         matchedRule: 'RULE_P8_GENERAL_FALLBACK_UNKNOWN',
       },
       deterministicClassification: {
+        testId: 'TC-FAIL-001',
         category: 'UNKNOWN',
         confidence: 0.30,
         classificationSource: 'DETERMINISTIC',
         explanation: 'Ambiguous failure signature.',
         recommendedAction: 'Manual QA investigation required.',
         requiresHumanApproval: true,
+        timestamp: new Date().toISOString(),
         evidence: {
           errorMessage: 'An obscure unclassified diagnostic failure occurred without stack trace',
           matchedRule: 'RULE_P8_GENERAL_FALLBACK_UNKNOWN',
@@ -294,7 +306,7 @@ test.describe('Agent 5: Repair Proposal Agent - Governance & Heuristic Validatio
         executionMode: 'AI_POWERED',
       },
       generateText: async () => '',
-      generateStructured: async () => ({
+      generateStructured: async <T>() => ({
         problemSummary: 'Assertion mismatch on status heading',
         targetType: 'TEST_SCRIPT',
         suggestedFiles: ['tests/generated/auth.spec.ts'],
@@ -305,7 +317,7 @@ test.describe('Agent 5: Repair Proposal Agent - Governance & Heuristic Validatio
         status: 'PROPOSED',
         diffSnippet: '- await expect(page.locator("h2")).toHaveText("Account Created!");',
         supportingEvidence: ['Assertion error: expected "Account Created!" but got ""'],
-      }),
+      } as unknown as T),
     };
 
     const liveAgent = new RepairProposalAgent(weakeningProvider);
@@ -334,7 +346,7 @@ test.describe('Agent 5: Repair Proposal Agent - Governance & Heuristic Validatio
         executionMode: 'AI_POWERED',
       },
       generateText: async () => '',
-      generateStructured: async () => {
+      generateStructured: async <T>() => {
         throw new Error('LLM JSON parse exception: unexpected token in JSON payload');
       },
     };
@@ -423,12 +435,14 @@ test.describe('Agent 5: Repair Proposal Agent - Governance & Heuristic Validatio
         matchedRule: 'RULE_P3_THIRD_PARTY_AD_SCRIPT',
       },
       deterministicClassification: {
+        testId: 'TC-FAIL-001',
         category: 'THIRD_PARTY_DEPENDENCY',
         confidence: 0.90,
         classificationSource: 'DETERMINISTIC',
         explanation: 'Third-party ad script blocked.',
         recommendedAction: 'Abort third-party route in fixture.',
         requiresHumanApproval: false, // In RCA classifier, diagnosis itself didn't require human review
+        timestamp: new Date().toISOString(),
         evidence: {
           errorMessage:
             'Failed to load resource: net::ERR_BLOCKED_BY_CLIENT https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',

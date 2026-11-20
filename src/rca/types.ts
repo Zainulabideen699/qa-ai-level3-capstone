@@ -64,6 +64,9 @@ export interface RcaEvidence {
   stackSnippet?: string;
   consoleSnippet?: string;
   artifacts?: FailureArtifacts;
+  httpStatus?: number;
+  targetUrl?: string;
+  stackTrace?: string;
 }
 
 /**

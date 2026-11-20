@@ -30,6 +30,9 @@ export class PipelineReporter {
     const jsonPath = path.join(pipelineDir, `${baseName}-report.json`);
     const markdownPath = path.join(pipelineDir, `${baseName}-report.md`);
 
+    // Ensure reportPaths is populated on data before serialization
+    data.reportPaths = { json: jsonPath, markdown: markdownPath };
+
     // Write JSON report
     fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2), 'utf8');
 
@@ -58,15 +61,66 @@ export class PipelineReporter {
   ): string {
     const exec = data.executionResult;
     const rca = data.rcaAnalysis;
-    const runSummary = rca?.runSummary || (exec ? {
-      totalTests: exec.status === 'PASSED' ? 1 : 0,
-      passed: exec.status === 'PASSED' ? 1 : 0,
-      failed: exec.status === 'FAILED' ? 1 : 0,
-      skipped: 0,
-      flaky: 0,
-      durationMs: exec.durationMs,
-      status: exec.status.toLowerCase(),
-    } : undefined);
+
+    // Resolve test run telemetry according to verified precedence:
+    // 1. Correlated rcaAnalysis.runSummary
+    // 2. qualityReport.metrics
+    // 3. Machine-readable RCA JSON artifact on disk
+    // Never invent counts (no hardcoded 1/1) and never substitute scenarioCount for actual executed tests.
+    let runSummary: {
+      totalTests: number;
+      passed: number;
+      failed: number;
+      skipped: number;
+      flaky: number;
+      durationMs: number;
+      status: string;
+    } | undefined = undefined;
+
+    if (rca?.runSummary && typeof rca.runSummary.totalTests === 'number') {
+      runSummary = {
+        totalTests: rca.runSummary.totalTests,
+        passed: rca.runSummary.passed,
+        failed: rca.runSummary.failed,
+        skipped: rca.runSummary.skipped,
+        flaky: rca.runSummary.flaky || 0,
+        durationMs: rca.runSummary.durationMs,
+        status: rca.runSummary.status,
+      };
+    } else if (
+      data.qualityReport?.metrics &&
+      typeof data.qualityReport.metrics.totalTests === 'number' &&
+      data.qualityReport.metrics.totalTests > 0
+    ) {
+      const qm = data.qualityReport.metrics;
+      runSummary = {
+        totalTests: qm.totalTests,
+        passed: qm.passed,
+        failed: qm.failed,
+        skipped: qm.skipped,
+        flaky: qm.flaky,
+        durationMs: qm.executionDurationMs || exec?.durationMs || 0,
+        status: exec ? exec.status.toLowerCase() : (qm.failed > 0 ? 'failed' : 'passed'),
+      };
+    } else if (exec?.rcaReportPath && fs.existsSync(exec.rcaReportPath)) {
+      try {
+        const raw = fs.readFileSync(exec.rcaReportPath, 'utf8');
+        const parsed = JSON.parse(raw);
+        if (parsed?.runSummary && typeof parsed.runSummary.totalTests === 'number') {
+          runSummary = {
+            totalTests: parsed.runSummary.totalTests,
+            passed: parsed.runSummary.passed,
+            failed: parsed.runSummary.failed,
+            skipped: parsed.runSummary.skipped || 0,
+            flaky: parsed.runSummary.flaky || 0,
+            durationMs: parsed.runSummary.durationMs || exec.durationMs || 0,
+            status: parsed.runSummary.status || exec.status.toLowerCase(),
+          };
+        }
+      } catch {
+        // Gracefully ignore parse error and proceed
+      }
+    }
 
     // Compute status banner
     let statusBanner = '';
@@ -181,8 +235,9 @@ ${artifacts}
 
     // Repair Proposals Section (Agent 5)
     let repairProposalSection = '';
-    const proposals = data.repairProposals?.proposals;
-    if (proposals && proposals.length > 0) {
+    const repairProposals = data.repairProposals;
+    if (repairProposals && repairProposals.proposals.length > 0) {
+      const proposals = repairProposals.proposals;
       const proposalRows = proposals
         .map(
           p =>
@@ -221,7 +276,7 @@ ${diffBlock}`;
 
 > ⚠️ **Proposal Only**: In accordance with AI Level-3 Quality Engineering safety invariants, the Repair Proposal Agent is strictly proposal-only. Automated code changes are NEVER applied directly to source or test files without explicit human verification and authorization.
 
-- **Total Proposals Formulated**: **${data.repairProposals.totalProposals}**
+- **Total Proposals Formulated**: **${repairProposals.totalProposals}**
 - **Proposal Artifact**: ${data.repairProposalPath ? `\`${data.repairProposalPath}\`` : 'Generated under `reports/proposals/`'}
 
 ### Proposal Summary Matrix:
@@ -243,6 +298,7 @@ ${data.executionId || exec?.executionId ? `- **Execution ID**: \`${data.executio
 - **Execution Mode**: \`${data.executionMode}\` (Provider: ${data.provider})
 - **Timestamp**: \`${data.timestamp}\`
 - **Report JSON**: \`${jsonPath}\`
+${data.qualityReportPath ? `- **Executive Quality Dashboard (Agent 6)**: \`${data.qualityReportPath}\`\n` : ''}
 
 ---
 
@@ -275,13 +331,15 @@ ${exec ? `- **Execution Status**: \`${exec.status}\`
 - **Command Executed**: \`${exec.commandExecuted}\`
 - **Machine-Readable RCA Artifact**: ${exec.rcaReportPath ? `\`${exec.rcaReportPath}\`` : '*None generated*'}
 ${exec.errorMessage ? `- **Process Diagnostic Details**: \`${exec.errorMessage}\`` : ''}
-` : '*Test execution was not initiated for this run.*'}
+` : (runSummary && runSummary.totalTests > 0 ? `- **Execution Status**: \`${runSummary.status.toUpperCase()}\`
+${data.executionId ? `- **Execution ID**: \`${data.executionId}\`\n` : ''}- **Duration**: \`${runSummary.durationMs}ms\` (${(runSummary.durationMs / 1000).toFixed(2)}s)
+` : '*Test execution was not initiated for this run.*')}
 ${rcaStatusNotice}
 ${runSummary ? `### Test Results Summary:
 | Total Tests | Passed | Failed | Flaky | Skipped | Runner Status |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | **${runSummary.totalTests}** | 🟢 **${runSummary.passed}** | 🔴 **${runSummary.failed}** | 🟡 **${runSummary.flaky}** | ⚪ **${runSummary.skipped}** | \`${runSummary.status}\` |
-` : ''}
+` : (exec ? `\n> ℹ️ *Actual executed test-count telemetry is unavailable for this run.* (Execution Status: \`${exec.status}\`)\n` : '')}
 
 ---
 

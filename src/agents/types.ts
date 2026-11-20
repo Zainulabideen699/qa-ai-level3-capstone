@@ -313,6 +313,8 @@ export interface OrchestrationResult {
   rcaStatusDetails?: string;
   repairProposalPath?: string;
   repairProposals?: RepairProposalOutput;
+  qualityReportPath?: string;
+  qualityReport?: QualityReportOutput;
   pipelineReportPath?: string;
   timestamp: string;
 }
@@ -340,10 +342,126 @@ export interface PipelineReport {
   rcaStatusDetails?: string;
   repairProposalPath?: string;
   repairProposals?: RepairProposalOutput;
+  qualityReportPath?: string;
+  qualityReport?: QualityReportOutput;
   durationMs: number;
   timestamp: string;
   reportPaths: {
     json: string;
     markdown: string;
+  };
+}
+
+/**
+ * Deterministic release decision recommendation formulated by Agent 6.
+ */
+export type ReleaseRecommendation = 'GO' | 'NO_GO' | 'CONDITIONAL_GO';
+
+/**
+ * Formal human release sign-off governance status.
+ */
+export type ReleaseSignOffStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
+
+/**
+ * Release gate record requiring formal human authorization.
+ */
+export interface ReleaseSignOff {
+  status: ReleaseSignOffStatus;
+  decision: ReleaseRecommendation;
+  signOffBy?: string;
+  signOffTimestamp?: string;
+  reviewNotes?: string;
+}
+
+/**
+ * Aggregated quality metrics calculated deterministically across test runs.
+ */
+export interface QualityMetrics {
+  totalTests: number;
+  passed: number;
+  failed: number;
+  flaky: number;
+  skipped: number;
+  passRate: number; // 0.0 - 100.0
+  failureRate: number; // 0.0 - 100.0
+  executionDurationMs: number;
+  rcaDistribution: Record<RcaCategory, number>;
+  proposals: {
+    total: number;
+    proposed: number;
+    needsInvestigation: number;
+    noAction: number;
+    riskDistribution: Record<RepairRiskLevel, number>;
+    pendingHumanApprovals: number;
+  };
+  coverage: {
+    totalScenarios: number;
+    automated: number;
+    manualReviewRequired: number;
+    skipped: number;
+    coverageRate: number; // 0.0 - 100.0
+  };
+}
+
+/**
+ * Longitudinal trends and recurrent pattern analytics computed across historical runs.
+ */
+export interface HistoricalQualityTrends {
+  runsAnalyzed: number;
+  averagePassRate: number; // 0.0 - 100.0
+  passRateTrajectory: 'IMPROVING' | 'STABLE' | 'DEGRADING' | 'INSUFFICIENT_DATA';
+  recurrentFailures: Array<{
+    testId: string;
+    testTitle: string;
+    failureCount: number;
+    categories: RcaCategory[];
+  }>;
+  flakyWatchlist: Array<{
+    testId: string;
+    testTitle: string;
+    flakyOccurrences: number;
+    lastSeen: string;
+  }>;
+  excludedFaultInjectionRuns: number;
+}
+
+/**
+ * Defect clustering grouped by functional application area.
+ */
+export interface DefectCluster {
+  applicationArea: string;
+  failureCount: number;
+  primaryCategory: RcaCategory;
+  affectedScenarios: string[];
+}
+
+/**
+ * Complete executive output emitted by Agent 6 (Quality Reporting Agent).
+ */
+export interface QualityReportOutput {
+  reportId: string;
+  pipelineId: string;
+  executionId?: string;
+  timestamp: string;
+  requirementId: string;
+  releaseRecommendation: ReleaseRecommendation;
+  recommendationRationale: string;
+  executiveNarrative: string;
+  metrics: QualityMetrics;
+  historicalTrends: HistoricalQualityTrends;
+  defectClusters: DefectCluster[];
+  outstandingRisks: string[];
+  recommendedNextActions: string[];
+  releaseSignOff: ReleaseSignOff;
+  metadata: {
+    executionMode: ExecutionMode;
+    provider: string;
+    model?: string;
+    narrativeSource: 'AI_GENERATED' | 'DETERMINISTIC_HEURISTIC';
+  };
+  reportPaths: {
+    json: string;
+    markdown: string;
+    latestMarkdown: string;
   };
 }
