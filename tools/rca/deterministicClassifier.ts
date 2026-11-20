@@ -338,10 +338,33 @@ export class DeterministicClassifier {
   }
 
   // --- Priority 7: TEST_SCRIPT_DEFECT ---
-  // ACCURACY RULE: Matches genuine runtime JS/TS script exceptions only.
+  // ACCURACY RULE: Matches genuine runtime JS/TS script exceptions and syntax errors only.
   // Failed assertions are NOT automatically classified as script defects.
   private static checkTestScriptDefect(text: string): RuleMatch | null {
-    const scriptErrorPattern = /TypeError:|ReferenceError:|Cannot read propert.*of (undefined|null)|UnhandledPromiseRejection|SyntaxError:|is not a function/i;
+    // 1. Invalid or malformed Playwright locator/selector syntax in test code
+    const invalidSelectorPattern =
+      /Unexpected token .* while parsing (?:css )?selector|Unknown engine .* while parsing selector|is not a valid (?:CSS )?selector|is not a valid XPath expression|Invalid selector:/i;
+    const selectorMatch = text.match(invalidSelectorPattern);
+
+    if (selectorMatch) {
+      return {
+        matched: true,
+        category: 'TEST_SCRIPT_DEFECT',
+        ruleName: 'RULE_P7_INVALID_SELECTOR_SYNTAX',
+        pattern: invalidSelectorPattern.source,
+        snippet: selectorMatch[0],
+        confidence: 0.95,
+        explanation:
+          'Test automation script contains an invalid, malformed, or unparseable locator/selector syntax (e.g. unclosed bracket, bad pseudo-selector, unknown selector engine, or invalid XPath).',
+        recommendedAction:
+          'Fix selector syntax in test script or Page Object; verify locator conforms to CSS/Playwright selector grammar.',
+        requiresHumanApproval: false,
+      };
+    }
+
+    // 2. Unhandled runtime JavaScript/TypeScript script exceptions
+    const scriptErrorPattern =
+      /TypeError:|ReferenceError:|Cannot read propert.*of (undefined|null)|UnhandledPromiseRejection|SyntaxError:|is not a function/i;
     const scriptMatch = text.match(scriptErrorPattern);
 
     if (scriptMatch) {
@@ -352,8 +375,10 @@ export class DeterministicClassifier {
         pattern: scriptErrorPattern.source,
         snippet: scriptMatch[0],
         confidence: 0.85,
-        explanation: 'Unhandled runtime JavaScript/TypeScript exception or syntax error within test automation code.',
-        recommendedAction: 'Review test script implementation, ensure proper async/await usage, and check null-safety.',
+        explanation:
+          'Unhandled runtime JavaScript/TypeScript exception or syntax error within test automation code.',
+        recommendedAction:
+          'Review test script implementation, ensure proper async/await usage, and check null-safety.',
         requiresHumanApproval: false,
       };
     }

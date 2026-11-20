@@ -8,7 +8,8 @@
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "report": "playwright show-report",
-    "agents:pipeline": "tsx tools/agents/runPipeline.ts"
+    "agents:pipeline": "tsx tools/agents/runPipeline.ts",
+    "test:fi": "playwright test --config=playwright.fault-injection.config.ts"
   },
   "keywords": [],
   "author": "",

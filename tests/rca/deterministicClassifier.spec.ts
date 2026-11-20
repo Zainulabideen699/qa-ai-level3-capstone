@@ -362,4 +362,55 @@ test.describe('Deterministic RCA Classifier - Output Invariants, Sanitization & 
     expect(result1.evidence.errorMessage).toBe(result2.evidence.errorMessage);
     expect(result1.evidence.failingAction).toBe(result2.evidence.failingAction);
   });
+
+  test('TC-VAL-RCA-021: Classifies invalid Playwright selector syntax as TEST_SCRIPT_DEFECT', () => {
+    const failure: FailureInfo = {
+      testId: 'TC-VAL-RCA-021',
+      testTitle: 'Playwright selector parser unexpected token error',
+      errorMessage: 'Error: locator.click: Unexpected token "" while parsing selector "button[type=\'submit\'"',
+      stackTrace: 'Error: locator.click: Unexpected token "" while parsing selector "button[type=\'submit\'"\n    at tools/fault-injection/fi01_test_script_defect.spec.ts:18:43',
+      failingAction: 'locator.click',
+    };
+
+    const result = DeterministicClassifier.classify(failure);
+
+    expect(result.category).toBe('TEST_SCRIPT_DEFECT');
+    expect(result.evidence.matchedRule).toBe('RULE_P7_INVALID_SELECTOR_SYNTAX');
+    expect(result.confidence).toBe(0.95);
+    expect(result.requiresHumanApproval).toBe(false);
+  });
+
+  test('TC-VAL-RCA-022: Classifies DOMException querySelectorAll invalid selector as TEST_SCRIPT_DEFECT', () => {
+    const failure: FailureInfo = {
+      testId: 'TC-VAL-RCA-022',
+      testTitle: 'DOMException querySelectorAll invalid selector',
+      errorMessage: "Error: locator.click: DOMException: Failed to execute 'querySelectorAll' on 'Document': 'button[type=\\'submit\\'' is not a valid selector.",
+      stackTrace: "Error: locator.click: DOMException: Failed to execute 'querySelectorAll' on 'Document': 'button[type=\\'submit\\'' is not a valid selector.\n    at tools/fault-injection/fi01_test_script_defect.spec.ts:18:43",
+      failingAction: 'locator.click',
+    };
+
+    const result = DeterministicClassifier.classify(failure);
+
+    expect(result.category).toBe('TEST_SCRIPT_DEFECT');
+    expect(result.evidence.matchedRule).toBe('RULE_P7_INVALID_SELECTOR_SYNTAX');
+    expect(result.confidence).toBe(0.95);
+    expect(result.requiresHumanApproval).toBe(false);
+  });
+
+  test('TC-VAL-RCA-023: Classifies actual Playwright "while parsing css selector" error as TEST_SCRIPT_DEFECT (FI-01 regression)', () => {
+    const failure: FailureInfo = {
+      testId: 'TC-VAL-RCA-023',
+      testTitle: 'Playwright parsing css selector regression',
+      errorMessage: `Error: locator.click: Unexpected token "" while parsing css selector "button[type='submit'". Did you mean to CSS.escape it?`,
+      stackTrace: `Error: locator.click: Unexpected token "" while parsing css selector "button[type='submit'". Did you mean to CSS.escape it?\n    at tools/fault-injection/fi01_test_script_defect.spec.ts:25:38`,
+      failingAction: 'locator.click',
+    };
+
+    const result = DeterministicClassifier.classify(failure);
+
+    expect(result.category).toBe('TEST_SCRIPT_DEFECT');
+    expect(result.evidence.matchedRule).toBe('RULE_P7_INVALID_SELECTOR_SYNTAX');
+    expect(result.confidence).toBe(0.95);
+    expect(result.requiresHumanApproval).toBe(false);
+  });
 });
