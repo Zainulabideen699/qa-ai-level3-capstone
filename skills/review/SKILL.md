@@ -27,12 +27,14 @@ This skill guides the **Repair Proposal Agent** and **Review Agent** in auditing
 ---
 
 ## Outputs
-- **Candidate Repair Patch**: Minimal unified git diff.
+- **Candidate Repair Patch**: Minimal unified git diff / advisory diff preview.
+- **Repair Proposal Artifact**: Machine-readable JSON and Markdown reports under `reports/proposals/`.
 - **Repair Rationale Document**:
   - Root cause summary and failure signature.
   - Justification of changes.
   - Confirmation that assertions remain intact.
-  - Risk assessment.
+  - Risk assessment (LOW / MEDIUM / HIGH).
+  - Target component classification (`TEST_SCRIPT`, `PAGE_OBJECT`, `TEST_DATA`, `INFRASTRUCTURE`, `PRODUCT_SUT`, `UNKNOWN`).
 
 ---
 

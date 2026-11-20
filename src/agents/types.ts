@@ -233,6 +233,65 @@ export interface RcaAnalysisOutput {
 }
 
 /**
+ * Risk classification for automated repair proposals.
+ */
+export type RepairRiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
+
+/**
+ * Operational status of an automated repair proposal.
+ */
+export type RepairProposalStatus = 'PROPOSED' | 'NEEDS_INVESTIGATION' | 'NO_ACTION';
+
+/**
+ * Target component or layer identified for remediation.
+ */
+export type RepairTargetType =
+  | 'TEST_SCRIPT'
+  | 'PAGE_OBJECT'
+  | 'TEST_DATA'
+  | 'INFRASTRUCTURE'
+  | 'PRODUCT_SUT'
+  | 'UNKNOWN';
+
+/**
+ * Structured repair proposal formulated for a single test failure.
+ * Strict governance: proposals are advisory only and must never be applied automatically without human approval.
+ */
+export interface RepairProposalItem {
+  proposalId: string;
+  testId: string;
+  executionId: string;
+  rcaCategory: RcaCategory;
+  confidence: number;
+  problemSummary: string;
+  targetType: RepairTargetType;
+  suggestedFiles: string[];
+  recommendedAction: string;
+  riskLevel: RepairRiskLevel;
+  requiresHumanApproval: boolean;
+  rationale: string;
+  status: RepairProposalStatus;
+  diffSnippet?: string; // Proposed code change preview (advisory only, never applied automatically)
+  supportingEvidence: string[];
+  source: 'DETERMINISTIC_HEURISTIC' | 'AI_GENERATED';
+}
+
+/**
+ * Complete output emitted by Agent 5 (Repair Proposal Agent).
+ */
+export interface RepairProposalOutput {
+  executionId: string;
+  timestamp: string;
+  totalProposals: number;
+  proposals: RepairProposalItem[];
+  metadata: {
+    executionMode: ExecutionMode;
+    provider: string;
+    model?: string;
+  };
+}
+
+/**
  * Overall result produced by the Execution Orchestrator.
  */
 export interface OrchestrationResult {
@@ -252,6 +311,8 @@ export interface OrchestrationResult {
   rcaAnalysis?: RcaAnalysisOutput;
   rcaStatus?: RcaAnalysisStatus;
   rcaStatusDetails?: string;
+  repairProposalPath?: string;
+  repairProposals?: RepairProposalOutput;
   pipelineReportPath?: string;
   timestamp: string;
 }
@@ -277,6 +338,8 @@ export interface PipelineReport {
   rcaAnalysis?: RcaAnalysisOutput;
   rcaStatus?: RcaAnalysisStatus;
   rcaStatusDetails?: string;
+  repairProposalPath?: string;
+  repairProposals?: RepairProposalOutput;
   durationMs: number;
   timestamp: string;
   reportPaths: {

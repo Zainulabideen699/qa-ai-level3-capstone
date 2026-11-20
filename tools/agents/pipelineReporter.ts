@@ -179,6 +179,60 @@ ${artifacts}
         .join('\n\n---\n\n');
     }
 
+    // Repair Proposals Section (Agent 5)
+    let repairProposalSection = '';
+    const proposals = data.repairProposals?.proposals;
+    if (proposals && proposals.length > 0) {
+      const proposalRows = proposals
+        .map(
+          p =>
+            `| **${p.proposalId}** | \`${p.testId}\` | \`${p.rcaCategory}\` | \`${p.targetType}\` | \`${p.riskLevel}\` | \`${p.status}\` | ${p.requiresHumanApproval ? '**YES (Sign-off Required)**' : 'No'} |`
+        )
+        .join('\n');
+
+      const proposalDetails = proposals
+        .map((p, idx) => {
+          const diffBlock = p.diffSnippet
+            ? `\n#### Proposed Advisory Diff Preview (HITL Review Required):\n> ⚠️ **Proposal Only**: Automated code changes are NEVER applied directly without human authorization.\n\`\`\`typescript\n${p.diffSnippet}\n\`\`\``
+            : '';
+
+          const filesList =
+            p.suggestedFiles.length > 0
+              ? p.suggestedFiles.map(f => `  - \`${f}\``).join('\n')
+              : '  - *None (Infrastructure or Product SUT remediation)*';
+
+          return `### Proposal #${idx + 1}: ${p.proposalId} (${p.testId})
+- **RCA Classification**: \`${p.rcaCategory}\` (Confidence: ${Math.round(p.confidence * 100)}%)
+- **Source**: \`${p.source}\`
+- **Remediation Status**: \`${p.status}\`
+- **Target Component**: \`${p.targetType}\`
+- **Risk Level**: \`${p.riskLevel}\`
+- **Human Approval Required**: ${p.requiresHumanApproval ? '**YES (Action Required)**' : 'No'}
+- **Problem Summary**: ${p.problemSummary}
+- **Recommended Action**: ${p.recommendedAction}
+- **Rationale**: ${p.rationale}
+- **Target / Investigated Files**:
+${filesList}
+${diffBlock}`;
+        })
+        .join('\n\n---\n\n');
+
+      repairProposalSection = `\n---\n\n## 6. Automated Repair Proposals (Agent 5 - HITL Review Required)
+
+> ⚠️ **Proposal Only**: In accordance with AI Level-3 Quality Engineering safety invariants, the Repair Proposal Agent is strictly proposal-only. Automated code changes are NEVER applied directly to source or test files without explicit human verification and authorization.
+
+- **Total Proposals Formulated**: **${data.repairProposals.totalProposals}**
+- **Proposal Artifact**: ${data.repairProposalPath ? `\`${data.repairProposalPath}\`` : 'Generated under `reports/proposals/`'}
+
+### Proposal Summary Matrix:
+| Proposal ID | Test ID | RCA Category | Target Layer | Risk Level | Status | Human Sign-off |
+| :--- | :--- | :--- | :--- | :---: | :---: | :---: |
+${proposalRows}
+
+${proposalDetails}
+`;
+    }
+
     return `# Multi-Agent Quality Engineering Pipeline Report
 
 ## ${statusBanner}
@@ -236,10 +290,10 @@ ${runSummary ? `### Test Results Summary:
 ${categoryDistributionTable}
 
 ${failureDossiers ? `\n---\n\n## 5. Detailed Failure Diagnostics\n\n${failureDossiers}` : ''}
-
+${repairProposalSection}
 ---
 
-## 6. Safety & Governance Compliance
+## ${repairProposalSection ? '7' : '6'}. Safety & Governance Compliance
 
 ### Programmatically Verified Controls:
 - [x] Controlled child-process execution without shell-injection risk (\`shell: false\`) [Verified]
@@ -256,6 +310,9 @@ ${failureDossiers ? `\n---\n\n## 5. Detailed Failure Diagnostics\n\n${failureDos
 - [x] Strict schema and grounding validation on AI RCA output (zero silent defaulting)
 - [x] Comprehensive sensitive-data redaction (Bearer tokens, cookies, passwords, API keys, session IDs)
 - [x] AI analysis treated strictly as an advisory hypothesis; deterministic classification baseline preserved
+- [x] Repair proposals strictly proposal-only; zero autonomous edits or commits without Gate 3 human authorization
+- [x] Golden Rule enforcement: zero weakening, deletion, or loosening of assertions across all proposals
+- [x] Authentic SUT defects isolated to bug tracking; automated tests never altered to bypass product failures
 `;
   }
 }

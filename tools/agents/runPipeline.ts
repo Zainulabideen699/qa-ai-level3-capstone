@@ -132,6 +132,9 @@ async function main() {
       process.exit(0);
     } else if (result.status === 'GENERATION_SUCCESS_EXECUTION_FAILED') {
       console.log(`[Pipeline CLI] 🔴 Test execution failed. RCA report generated with diagnostics.`);
+      if (result.repairProposalPath) {
+        console.log(`[Pipeline CLI] 🛠️ Repair Proposals (Agent 5): ${result.repairProposalPath}`);
+      }
       process.exit(1);
     } else if (result.status === 'GENERATION_SUCCESS_EXECUTION_SKIPPED') {
       console.log(

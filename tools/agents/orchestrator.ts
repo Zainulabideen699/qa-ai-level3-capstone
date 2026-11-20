@@ -6,6 +6,7 @@ import { TestDesignAgent } from './testDesignAgent';
 import { AutomationAuthoringAgent } from './automationAuthoringAgent';
 import { ExecutionRunner } from './executionRunner';
 import { RcaAgent } from './rcaAgent';
+import { RepairProposalAgent } from './repairProposalAgent';
 import { PipelineReporter } from './pipelineReporter';
 import {
   RequirementInput,
@@ -19,6 +20,7 @@ import {
   PipelineReport,
   TestExecutionResult,
   RcaAnalysisOutput,
+  RepairProposalOutput,
 } from '../../src/agents/types';
 import type { RcaRunReport } from '../rca/rcaReporter';
 
@@ -39,19 +41,22 @@ export interface OrchestratorOptions {
  *
  * Coordinates the full end-to-end autonomous quality engineering loop:
  * Requirement -> Agent 1 (Test Design) -> Gate 1 Approval -> Agent 2 (Authoring) ->
- * Destination Safety Checks -> Gate 2 Approval -> Test Execution -> RCA Agent -> Consolidated Reporting.
+ * Destination Safety Checks -> Gate 2 Approval -> Test Execution -> RCA Agent ->
+ * Agent 5 (Repair Proposal) -> Consolidated Reporting.
  */
 export class ExecutionOrchestrator {
   private readonly provider: LLMProvider;
   private readonly testDesignAgent: TestDesignAgent;
   private readonly authoringAgent: AutomationAuthoringAgent;
   private readonly rcaAgent: RcaAgent;
+  private readonly repairProposalAgent: RepairProposalAgent;
 
   constructor(options?: OrchestratorOptions) {
     this.provider = ProviderFactory.createProvider(options?.provider);
     this.testDesignAgent = new TestDesignAgent(this.provider);
     this.authoringAgent = new AutomationAuthoringAgent(this.provider);
     this.rcaAgent = new RcaAgent(this.provider);
+    this.repairProposalAgent = new RepairProposalAgent(this.provider);
   }
 
   /**
@@ -385,7 +390,33 @@ export class ExecutionOrchestrator {
       finalPipelineStatus = 'EXECUTION_PROCESS_ERROR';
     }
 
-    // --- STAGE 8: Consolidated Reporting ---
+    // --- STAGE 8: Repair Proposal Agent (Remediation Proposals) ---
+    let repairProposals: RepairProposalOutput | undefined = undefined;
+    let repairProposalPath: string | undefined = undefined;
+
+    if (executionResult.status === 'FAILED' && rcaAnalysis && rcaAnalysis.analyses.length > 0) {
+      console.log(`\n[Stage 5: Repair Proposal] Formulating structured repair proposals from RCA diagnostics...`);
+      try {
+        repairProposals = await this.repairProposalAgent.generateProposals(rcaAnalysis, {
+          testFile: primaryTestFile,
+          executionId: executionResult.executionId,
+          requirementId: requirement.requirementId,
+        });
+        repairProposalPath = path.resolve(
+          process.cwd(),
+          'reports',
+          'proposals',
+          `proposal-${executionResult.executionId}.md`
+        );
+        console.log(
+          `[Stage 5: Repair Proposal] Formulated ${repairProposals.totalProposals} proposal(s). Artifact: ${repairProposalPath}`
+        );
+      } catch (propErr: any) {
+        console.warn(`[Stage 5: Repair Proposal] Warning: Failed to generate repair proposals:`, propErr);
+      }
+    }
+
+    // --- STAGE 9: Consolidated Reporting ---
     const totalDurationMs = Date.now() - startTimeMs;
 
     const result: OrchestrationResult = {
@@ -404,6 +435,8 @@ export class ExecutionOrchestrator {
       rcaAnalysis,
       rcaStatus,
       rcaStatusDetails,
+      repairProposalPath,
+      repairProposals,
       timestamp,
     };
 
@@ -430,6 +463,8 @@ export class ExecutionOrchestrator {
       rcaAnalysis,
       rcaStatus,
       rcaStatusDetails,
+      repairProposalPath,
+      repairProposals,
       durationMs: totalDurationMs,
       timestamp,
       reportPaths: { json: '', markdown: '' },
@@ -552,6 +587,13 @@ ${result.generatedFiles.map(f => `- \`${f}\``).join('\n') || '- None'}
 | Scenario ID | Scenario Title | Classification | Expected Results & Verified Assertions | Traceability Alignment |
 | :--- | :--- | :--- | :--- | :--- |
 ${traceabilityRows}
+
+---
+
+## 6. Repair Proposals & Remediation Advisory (Agent 5)
+${result.repairProposals ? `- **Total Proposals Formulated**: ${result.repairProposals.totalProposals}
+- **Artifact Path**: \`${result.repairProposalPath || 'N/A'}\`
+- **Governance Mandate**: All proposals are strictly advisory and require Human-in-the-Loop approval before application.` : '- **Status**: Not applicable (Execution passed, skipped, or halted before test failure).'}
 `;
 
     let actualMdPath = mdPath;
