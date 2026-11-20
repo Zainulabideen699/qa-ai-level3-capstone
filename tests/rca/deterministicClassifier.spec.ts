@@ -413,4 +413,22 @@ test.describe('Deterministic RCA Classifier - Output Invariants, Sanitization & 
     expect(result.confidence).toBe(0.95);
     expect(result.requiresHumanApproval).toBe(false);
   });
+
+  test('TC-VAL-RCA-024: Classifies connection reset network failure as ENVIRONMENT_OR_NETWORK (FI-02)', () => {
+    const failure: FailureInfo = {
+      testId: 'TC-VAL-RCA-024',
+      testTitle: 'Connection reset network failure',
+      errorMessage: 'page.goto: net::ERR_CONNECTION_RESET at https://automationexercise.com/fi02-network-probe',
+      stackTrace: 'Error: page.goto: net::ERR_CONNECTION_RESET at https://automationexercise.com/fi02-network-probe\n    at tools/fault-injection/fi02_network_failure.spec.ts:26:16',
+      requestUrl: 'https://automationexercise.com/fi02-network-probe',
+      failingAction: 'page.goto',
+    };
+
+    const result = DeterministicClassifier.classify(failure);
+
+    expect(result.category).toBe('ENVIRONMENT_OR_NETWORK');
+    expect(result.evidence.matchedRule).toBe('RULE_P2_ENVIRONMENT_OR_NETWORK');
+    expect(result.confidence).toBe(0.95);
+    expect(result.requiresHumanApproval).toBe(false);
+  });
 });

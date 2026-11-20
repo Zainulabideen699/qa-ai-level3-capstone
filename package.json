@@ -9,7 +9,9 @@
     "test:headed": "playwright test --headed",
     "report": "playwright show-report",
     "agents:pipeline": "tsx tools/agents/runPipeline.ts",
-    "test:fi": "playwright test --config=playwright.fault-injection.config.ts"
+    "test:fi": "playwright test --config=playwright.fault-injection.config.ts",
+    "test:fi:01": "playwright test tools/fault-injection/fi01_test_script_defect.spec.ts --config=playwright.fault-injection.config.ts",
+    "test:fi:02": "playwright test tools/fault-injection/fi02_network_failure.spec.ts --config=playwright.fault-injection.config.ts"
   },
   "keywords": [],
   "author": "",

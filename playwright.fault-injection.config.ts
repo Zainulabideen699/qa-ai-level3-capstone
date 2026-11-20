@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Isolated Playwright configuration for Controlled Fault Injection (FI-01).
+ * Isolated Playwright configuration for Controlled Fault Injection (FI-01 & FI-02).
  *
  * Guarantees:
  * - Scoped exclusively to tests in `./tools/fault-injection/`.
