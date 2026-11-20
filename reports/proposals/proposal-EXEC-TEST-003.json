@@ -1,0 +1,33 @@
+{
+  "executionId": "EXEC-TEST-003",
+  "timestamp": "2026-11-20T09:17:51.055Z",
+  "totalProposals": 1,
+  "proposals": [
+    {
+      "proposalId": "PROP-EXEC-TEST-003-01",
+      "testId": "TC-FAIL-001",
+      "executionId": "EXEC-TEST-003",
+      "rcaCategory": "ENVIRONMENT_OR_NETWORK",
+      "confidence": 0.95,
+      "problemSummary": "Network transport interruption, connection drop, DNS resolution failure, or server queue overload (RULE_P2_ENVIRONMENT_OR_NETWORK).",
+      "targetType": "INFRASTRUCTURE",
+      "suggestedFiles": [],
+      "recommendedAction": "Verify network connectivity, proxy routing, and SUT host reachability. Rerun the test once infrastructure stabilizes. Do NOT modify test code or application code.",
+      "riskLevel": "LOW",
+      "requiresHumanApproval": false,
+      "rationale": "The failure is caused by transient network or infrastructure instability. Test code and application source code are correct and must not be altered.",
+      "status": "NO_ACTION",
+      "supportingEvidence": [
+        "Matched rule: RULE_P2_ENVIRONMENT_OR_NETWORK",
+        "Target URL: https://automationexercise.com/api",
+        "net::ERR_CONNECTION_RESET at https://automationexercise.com/api"
+      ],
+      "source": "DETERMINISTIC_HEURISTIC"
+    }
+  ],
+  "metadata": {
+    "executionMode": "DETERMINISTIC_FALLBACK",
+    "provider": "Model-Free Quality Engineering Fallback Engine",
+    "model": "deterministic-qe-rules-v1"
+  }
+}

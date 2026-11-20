@@ -1,0 +1,32 @@
+{
+  "executionId": "EXEC-TEST-006",
+  "timestamp": "2026-11-20T09:17:51.085Z",
+  "totalProposals": 1,
+  "proposals": [
+    {
+      "proposalId": "PROP-EXEC-TEST-006-01",
+      "testId": "TC-FAIL-001",
+      "executionId": "EXEC-TEST-006",
+      "rcaCategory": "TEST_SCRIPT_DEFECT",
+      "confidence": 0.85,
+      "problemSummary": "Assertion mismatch on status heading",
+      "targetType": "TEST_SCRIPT",
+      "suggestedFiles": [
+        "tests/generated/auth.spec.ts"
+      ],
+      "recommendedAction": "Remove assertion to force test to pass",
+      "riskLevel": "HIGH",
+      "requiresHumanApproval": true,
+      "rationale": "Deleting assertion will allow suite to succeed",
+      "status": "PROPOSED",
+      "supportingEvidence": [
+        "Assertion error: expected \"Account Created!\" but got \"\""
+      ],
+      "source": "AI_GENERATED"
+    }
+  ],
+  "metadata": {
+    "executionMode": "AI_POWERED",
+    "provider": "MockWeakeningLLM"
+  }
+}

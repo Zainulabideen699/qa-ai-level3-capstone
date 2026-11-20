@@ -1,0 +1,35 @@
+{
+  "executionId": "EXEC-TEST-007",
+  "timestamp": "2026-11-20T09:17:51.095Z",
+  "totalProposals": 1,
+  "proposals": [
+    {
+      "proposalId": "PROP-EXEC-TEST-007-01",
+      "testId": "TC-FAIL-001",
+      "executionId": "EXEC-TEST-007",
+      "rcaCategory": "TEST_DATA_OR_STATE",
+      "confidence": 0.9,
+      "problemSummary": "Test failed due to state collision or data expiration (e.g. duplicate account email, expired session, or unseeded test entity).",
+      "targetType": "TEST_DATA",
+      "suggestedFiles": [
+        "tests/generated/register.spec.ts",
+        "src/utils/dataGenerator.ts"
+      ],
+      "recommendedAction": "Ensure dynamic test data isolation using unique timestamped entities (e.g. generateUniqueUser) or configure automated pre-test database seeding and teardown fixtures.",
+      "riskLevel": "MEDIUM",
+      "requiresHumanApproval": true,
+      "rationale": "Stateful data collisions must be mitigated through isolated dynamic test fixtures rather than static shared accounts to ensure test repeatability.",
+      "status": "PROPOSED",
+      "diffSnippet": "// Advisory Data Isolation Snippet:\n- const email = 'testuser@example.com';\n+ const user = generateUniqueUser();\n+ const email = user.email;",
+      "supportingEvidence": [
+        "Matched rule: RULE_TEST_RULE",
+        "Email Address already exist!"
+      ],
+      "source": "DETERMINISTIC_HEURISTIC"
+    }
+  ],
+  "metadata": {
+    "executionMode": "AI_POWERED",
+    "provider": "MockCrashingLLM"
+  }
+}

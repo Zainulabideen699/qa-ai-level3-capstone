@@ -31,12 +31,22 @@ This repository contains the enterprise-grade **AI Level-3 Quality Engineering C
 - **CI/CD Platform**: GitHub Actions (`.github/workflows/playwright.yml`)
 - **Type Definitions**: `@types/node` (`v26.6.6`)
 
-### System Prerequisites
+### System Prerequisites & Environment Configuration
 - **Node.js**: `v18.x` or `v20.x` LTS
 - **npm**: `v9.x` or higher
 - **Operating System**: Windows (PowerShell), macOS, or Linux
 - **Network Access**: Stable outbound internet connectivity to `https://automationexercise.com` (SUT)
-- **Optional LLM Credentials**: Environment variables `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` for live AI reasoning (if omitted, the pipeline runs seamlessly using the built-in `ModelFreeFallbackProvider`).
+
+#### LLM Provider Credentials (Optional)
+The pipeline dynamically discovers available LLM API keys via `ProviderFactory` (`src/agents/providers/providerFactory.ts`):
+1. **`GEMINI_API_KEY`** (First Priority): Instantiates `GeminiProvider` using Google Gemini models.
+2. **`OPENAI_API_KEY`** (Second Priority): Instantiates `OpenAIProvider` using OpenAI models.
+3. **Deterministic Fallback Engine (Default)**: If neither key is configured, the system automatically uses `ModelFreeFallbackProvider`. Zero external API keys or network dependencies are required for complete pipeline and test execution.
+*(Note: There is no Anthropic integration in this repository; setting `ANTHROPIC_API_KEY` has no effect.)*
+
+#### Framework Environment Variables
+- **`CI`**: Used by `playwright.config.ts` to enforce single-worker execution (`workers: 1`), automatic retries (`retries: 2`), and forbid accidental `test.only` flags. In `tools/agents/executionRunner.ts`, the runner automatically passes `CI: process.env.CI || '1'` to child test processes to ensure stable, non-interactive execution.
+- **`AGENT_EXECUTION_ID`**: Injected into the subprocess environment by `ExecutionRunner` (`tools/agents/executionRunner.ts`) and consumed by the custom reporter (`tools/rca/rcaReporter.ts`). When present, the reporter writes machine-readable failure reports as `reports/rca/rca-report-${executionId}.json` to establish end-to-end audit traceability with pipeline records.
 
 ---
 
@@ -311,21 +321,25 @@ The release recommendation is deterministic, evaluated in strict order of preced
 
 ## 11. Installation and Setup Instructions
 
-### Step 1: Clone Repository & Install Dependencies
+### Step 1: Navigate to Project Directory & Install Dependencies
+Open a terminal in the root directory of the project (e.g. in Visual Studio Code) and install the required dependencies:
 ```powershell
-cd D:\Playwright\qa-ai-level3
+# Navigate to the workspace root if not already there
 npm install
 ```
 
-### Step 2: Install Playwright Browsers
+### Step 2: Install Playwright Google Chrome Browser
+Because `playwright.config.ts` specifies `channel: 'chrome'`, install the branded Google Chrome browser distribution:
 ```powershell
+# Standard local installation (Windows / macOS / Linux with desktop Chrome):
 npx playwright install chrome
-# Or install all browsers with system dependencies:
-npx playwright install --with-deps
+
+# On Linux or CI environments requiring system libraries:
+npx playwright install chrome --with-deps
 ```
 
 ### Step 3: Verify Environment Setup
-Ensure Node.js and npm are accessible:
+Ensure Node.js and npm meet the prerequisite versions:
 ```powershell
 node -v   # v18.x or v20.x
 npm -v    # v9.x or v10.x
@@ -342,7 +356,7 @@ npm -v    # v9.x or v10.x
 | `npm run test:ui` | `playwright test --ui` | Launches Playwright's interactive visual UI Mode. |
 | `npm run test:headed` | `playwright test --headed` | Runs tests using visible browser windows. |
 | `npm run report` | `playwright show-report` | Serves the HTML Playwright report locally. |
-| `npm run agents:pipeline` | `tsx tools/agents/runPipeline.ts` | Runs the multi-agent pipeline with Gate 1 approval. |
+| `npm run agents:pipeline` | `tsx tools/agents/runPipeline.ts` | Runs multi-agent pipeline with default settings (halts at Gate 1 awaiting scenario approval). |
 | `npm run test:fi` | `playwright test --config=playwright.fault-injection.config.ts` | Runs both controlled fault-injection tests. |
 | `npm run test:fi:01` | `playwright test tools/fault-injection/fi01_test_script_defect.spec.ts --config=playwright.fault-injection.config.ts` | Runs controlled script-defect injection (FI-01). |
 | `npm run test:fi:02` | `playwright test tools/fault-injection/fi02_network_failure.spec.ts --config=playwright.fault-injection.config.ts` | Runs controlled network-failure injection (FI-02). |
@@ -390,15 +404,38 @@ npx playwright test tests/rca/ tests/agents/ --workers=1
 ```
 
 #### 5. Multi-Agent Pipeline CLI Commands
+
+The pipeline CLI (`tools/agents/runPipeline.ts`) enforces strict Human-in-the-Loop governance. By default, running without flags pauses at review gates:
+
 ```powershell
-# Full autonomous pipeline with all approval gates granted
+# 1. Default Execution (No flags):
+# Agent 1 designs test scenarios (reports/scenarios/<reqId>-scenarios.json) and halts at Gate 1 (GATE1_REJECTED)
+# awaiting human review before authoring any code.
+npx tsx tools/agents/runPipeline.ts
+
+# 2. Gate 1 Approved (Authoring only):
+# Approves Gate 1 (Test Design). Agent 2 authors test specs into tests/generated/, then pauses at Gate 2
+# (GENERATION_SUCCESS_GATE2_PENDING) awaiting code review before authorizing execution.
+npx tsx tools/agents/runPipeline.ts --approve-gate1
+# (Note: '--approve' or '-y' acts as a legacy shortcut approving Gate 1 only)
+
+# 3. Full Autonomous End-to-End Pipeline:
+# Explicitly grants BOTH Gate 1 and Gate 2 approval. Authors test code, executes tests in isolated
+# child runner, runs RCA on any failures, generates repair proposals, and compiles the quality dashboard.
 npx tsx tools/agents/runPipeline.ts --approve-all
 
-# Run pipeline pausing at Gate 2 for code review
-npx tsx tools/agents/runPipeline.ts --approve-gate1
-
-# Run pipeline with a custom requirement input file
+# 4. Pipeline with Custom Requirement File:
 npx tsx tools/agents/runPipeline.ts --req my-requirement.json --approve-all
+
+# 5. Additional Operational Flags:
+# Explicitly select LLM or deterministic fallback provider ('gemini' | 'openai' | 'fallback'):
+npx tsx tools/agents/runPipeline.ts --provider fallback --approve-all
+
+# Author and validate test code without spawning browser execution:
+npx tsx tools/agents/runPipeline.ts --approve-all --skip-execution
+
+# Run browser tests in visible headed mode:
+npx tsx tools/agents/runPipeline.ts --approve-all --headed
 ```
 
 ---
@@ -416,6 +453,12 @@ npx tsx tools/agents/runPipeline.ts --req my-requirement.json --approve-all
 | **Quality Audit Reports** | `reports/quality/quality-summary-<pipelineId>.md` & `.json` | Detailed metrics and release gate state for a specific pipeline execution. |
 | **Playwright HTML Report** | `playwright-report/index.html` | Playwright interactive test report (`npx playwright show-report`). |
 | **Test Result Bundles** | `test-results/<test-name>-Google-Chrome/` | Execution artifacts: `trace.zip`, `test-failed-1.png`, and `video.webm`. |
+
+### Inspecting Execution Traces & Diagnostic Evidence
+To visually inspect DOM snapshots, network requests, console logs, and action timelines for any test execution or failure:
+```powershell
+npx playwright show-trace test-results/<test-folder>/trace.zip
+```
 
 ---
 
@@ -453,7 +496,7 @@ The following test results were executed and confirmed on **November 20, 2026**:
 | **Consecutive Smoke Runs** | 3 consecutive clean smoke runs | **UNVERIFIED / PENDING** | Individual smoke tests have passed in single test runs, but 3 consecutive recorded smoke passes have not been executed and documented as a formal stability gate. |
 | **Fault Injection (FI-01, FI-02)** | 2 controlled exercises with RCA artifacts | **VERIFIED** | Both FI-01 (`TEST_SCRIPT_DEFECT`) and FI-02 (`ENVIRONMENT_OR_NETWORK`) are implemented in `playwright.fault-injection.config.ts` and verified with machine-readable RCA JSON reports. |
 | **RCA Artifacts Generation** | Standardized RCA JSON reports | **VERIFIED** | Custom reporter (`tools/rca/rcaReporter.ts`) generates machine-readable reports in `reports/rca/` mapping failure facts into the 8-category taxonomy. |
-| **CI/CD Integration** | Push, PR, and Daily Scheduled CI | **PARTIALLY VERIFIED** | GitHub Actions `.github/workflows/playwright.yml` implements push and PR triggers. **Daily scheduled cron trigger is pending configuration**. |
+| **CI/CD Integration** | Push, PR, and Daily Scheduled CI | **PARTIALLY VERIFIED** | GitHub Actions `.github/workflows/playwright.yml` implements push and PR triggers. **Daily scheduled cron trigger is pending configuration**.<br><br>*Known Linux CI Discrepancy*: `.github/workflows/playwright.yml` executes `npx playwright install --with-deps` (which installs open-source Chromium), whereas `playwright.config.ts` specifies `channel: 'chrome'`. On Ubuntu GitHub Actions runners, `channel: 'chrome'` fails unless branded Google Chrome is explicitly installed via `npx playwright install chrome --with-deps` or Playwright configuration is updated to fall back to Chromium on Linux CI. |
 | **Live LLM Execution** | AI reasoning in live mode | **UNVERIFIED / FALLBACK** | Verified multi-agent pipeline executions operate under the deterministic `ModelFreeFallbackProvider`. Live LLM connectivity with third-party API keys is unverified. |
 
 ### Recommended Next Steps for Successor Engineers
@@ -476,7 +519,7 @@ The following test results were executed and confirmed on **November 20, 2026**:
      ```
    - Archive the three test run results to formally satisfy the capstone stability gate.
 
-4. **Configure Daily Scheduled CI**:
+4. **Configure Daily Scheduled CI & Resolve Linux Chrome Channel**:
    - Add a cron trigger to `.github/workflows/playwright.yml`:
      ```yaml
      on:
@@ -487,10 +530,11 @@ The following test results were executed and confirmed on **November 20, 2026**:
        pull_request:
          branches: [ main, master ]
      ```
+   - *Resolve Channel Discrepancy*: Update workflow step 19 from `npx playwright install --with-deps` to `npx playwright install chrome --with-deps` so the Google Chrome binary is installed on Ubuntu.
    - *Note*: Existing `push` and `pull_request` triggers remain unchanged.
 
 5. **Live LLM Validation**:
-   - Configure an active API key (`OPENAI_API_KEY`) and execute `npx tsx tools/agents/runPipeline.ts --approve-all` to verify live AI prompt generation, evidence grounding, and narrative synthesis.
+   - Configure an active API key (`GEMINI_API_KEY` or `OPENAI_API_KEY`) and execute `npx tsx tools/agents/runPipeline.ts --approve-all` to verify live AI prompt generation, evidence grounding, and narrative synthesis.
 
 ---
 
@@ -528,6 +572,55 @@ The following test results were executed and confirmed on **November 20, 2026**:
    npx tsx tools/agents/runPipeline.ts --approve-all
    ```
    *Expected outcome*: Executes requirement `REQ-AE-SUB-001`, authors generated spec, executes 3 tests, generates RCA/proposal reports, and compiles `reports/quality-summary.md`.
+
+---
+
+## 17. Troubleshooting & Environment Diagnostics
+
+### 1. Browser Launch Failure: "Chromium distribution 'chrome' is not found"
+- **Symptom**: Playwright fails during browser initialization with: `browserType.launch: Chromium distribution 'chrome' is not found at /opt/google/chrome/chrome` or similar OS binary path.
+- **Root Cause**: `playwright.config.ts` explicitly pins `channel: 'chrome'` (branded Google Chrome). Running generic `npx playwright install` installs open-source Chromium, which does not satisfy the `chrome` channel requirement.
+- **Resolution**:
+  - Install the branded Chrome binary:
+    ```powershell
+    npx playwright install chrome
+    ```
+  - On Linux / CI environments requiring system libraries:
+    ```bash
+    npx playwright install chrome --with-deps
+    ```
+
+### 2. SUT Third-Party Advertisement Overlays (Google Vignettes)
+- **Symptom**: Test clicks fail or time out because a full-screen Google Vignette modal or DoubleClick ad iframe intercepts pointer events.
+- **Root Cause**: The public SUT ([automationexercise.com](https://automationexercise.com)) injects third-party advertising scripts dynamically.
+- **Resolution**:
+  - `src/pages/BasePage.ts` provides route-level ad blocking (`applyAdBlocker()`) aborting requests to `googlesyndication.com`, `doubleclick.net`, and tracking endpoints.
+  - In test specs, always navigate using Page Object methods (`pageObject.navigate(path)`) rather than raw `page.goto()`, ensuring ad-blocker route handlers and `{ waitUntil: 'domcontentloaded' }` are properly attached.
+
+### 3. Human-in-the-Loop Approval Pauses (`GATE1_REJECTED` / `GATE2_PENDING`)
+- **Symptom**: Running `npm run agents:pipeline` halts with status `GATE1_REJECTED` or pauses before browser execution without running tests.
+- **Root Cause**: The multi-agent pipeline strictly enforces safety governance. When invoked without flags, approval defaults to `false` to prevent unauthorized autonomous code generation or execution.
+- **Resolution**:
+  - Author test code and pause at Gate 2 for code review:
+    ```powershell
+    npx tsx tools/agents/runPipeline.ts --approve-gate1
+    ```
+  - Author test code and authorize autonomous execution end-to-end:
+    ```powershell
+    npx tsx tools/agents/runPipeline.ts --approve-all
+    ```
+
+### 4. SUT Network Timeouts & TCP Connection Resets
+- **Symptom**: Tests fail with `net::ERR_CONNECTION_RESET`, `503 Service Unavailable`, or navigation timeouts on Automation Exercise.
+- **Root Cause**: SUT web server rate-limiting or transient infrastructure dropouts.
+- **Resolution**:
+  - Always execute UI and API suites with single-worker execution (`--workers=1`) to prevent tripping server-side concurrency or rate limits.
+  - All POM classes inherit `BasePage` navigation configured with `{ waitUntil: 'domcontentloaded' }` rather than `'networkidle'`, avoiding hangs from continuous background advertising telemetry.
+
+### 5. Non-Fatal Account Teardown `cleanup_warning` Annotations
+- **Symptom**: Playwright test report displays an annotation: `cleanup_warning: Account cleanup incomplete for <email>`.
+- **Root Cause**: `accountApi.deleteAccount()` in test `finally` blocks encountered a transient backend delay or timeout when cleaning up dynamically provisioned users.
+- **Resolution**: This is an intentional design pattern. The framework records a non-fatal `cleanup_warning` annotation in Playwright test telemetry rather than failing the functional test assertion, ensuring clean teardown without masking real test outcomes.
 
 ---
 

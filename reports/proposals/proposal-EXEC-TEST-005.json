@@ -1,0 +1,34 @@
+{
+  "executionId": "EXEC-TEST-005",
+  "timestamp": "2026-11-20T09:17:51.075Z",
+  "totalProposals": 1,
+  "proposals": [
+    {
+      "proposalId": "PROP-EXEC-TEST-005-01",
+      "testId": "TC-FAIL-001",
+      "executionId": "EXEC-TEST-005",
+      "rcaCategory": "UNKNOWN",
+      "confidence": 0.3,
+      "problemSummary": "Unclassified or ambiguous failure signature requiring manual triage by a Quality Engineer.",
+      "targetType": "UNKNOWN",
+      "suggestedFiles": [
+        "tests/generated/unknown.spec.ts"
+      ],
+      "recommendedAction": "Inspect Playwright trace zip, screenshot, and console logs. Reproduce manually to determine whether failure is SUT, test script, or environment defect.",
+      "riskLevel": "HIGH",
+      "requiresHumanApproval": true,
+      "rationale": "Insufficient diagnostic evidence to formulate an automated repair proposal safely. Human QA investigation required before taking remediation action.",
+      "status": "NEEDS_INVESTIGATION",
+      "supportingEvidence": [
+        "An obscure unclassified diagnostic failure occurred without stack trace",
+        "Unknown failure location"
+      ],
+      "source": "DETERMINISTIC_HEURISTIC"
+    }
+  ],
+  "metadata": {
+    "executionMode": "DETERMINISTIC_FALLBACK",
+    "provider": "Model-Free Quality Engineering Fallback Engine",
+    "model": "deterministic-qe-rules-v1"
+  }
+}

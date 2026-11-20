@@ -1,0 +1,33 @@
+{
+  "executionId": "EXEC-TEST-001",
+  "timestamp": "2026-11-20T09:17:51.037Z",
+  "totalProposals": 1,
+  "proposals": [
+    {
+      "proposalId": "PROP-EXEC-TEST-001-01",
+      "testId": "TC-FAIL-001",
+      "executionId": "EXEC-TEST-001",
+      "rcaCategory": "PRODUCT_DEFECT",
+      "confidence": 0.95,
+      "problemSummary": "Application under test encountered a server or functional defect (HTTP 500) on endpoint \"https://automationexercise.com/api/checkout\".",
+      "targetType": "PRODUCT_SUT",
+      "suggestedFiles": [],
+      "recommendedAction": "File a high-severity bug report in the issue tracker (e.g. Jira) with attached server error logs, trace artifacts, and reproduction steps. Do NOT alter the test script to bypass or silence the SUT failure.",
+      "riskLevel": "HIGH",
+      "requiresHumanApproval": true,
+      "rationale": "The failure is classified as an authentic defect in the System Under Test. Automated test scripts must never be modified to mask product regressions; doing so violates assertion integrity.",
+      "status": "NO_ACTION",
+      "supportingEvidence": [
+        "Server response status: 500",
+        "Target URL: https://automationexercise.com/api/checkout",
+        "Response code 500 (Internal Server Error) returned from /api/checkout"
+      ],
+      "source": "DETERMINISTIC_HEURISTIC"
+    }
+  ],
+  "metadata": {
+    "executionMode": "DETERMINISTIC_FALLBACK",
+    "provider": "Model-Free Quality Engineering Fallback Engine",
+    "model": "deterministic-qe-rules-v1"
+  }
+}

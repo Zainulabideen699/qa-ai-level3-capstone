@@ -1,0 +1,36 @@
+{
+  "executionId": "EXEC-TEST-004",
+  "timestamp": "2026-11-20T09:17:51.065Z",
+  "totalProposals": 1,
+  "proposals": [
+    {
+      "proposalId": "PROP-EXEC-TEST-004-01",
+      "testId": "TC-FAIL-001",
+      "executionId": "EXEC-TEST-004",
+      "rcaCategory": "LOCATOR_OR_UI_CHANGE",
+      "confidence": 0.9,
+      "problemSummary": "Locator timed out waiting for DOM element (locator.click). The UI layout or element attributes have drifted.",
+      "targetType": "PAGE_OBJECT",
+      "suggestedFiles": [
+        "tests/generated/newsletter.spec.ts"
+      ],
+      "recommendedAction": "Inspect live DOM snapshots and Playwright trace. Update Page Object locator in \"tests/generated/newsletter.spec.ts\" to match current DOM attributes, preferring accessible roles (getByRole) or stable test attributes.",
+      "riskLevel": "LOW",
+      "requiresHumanApproval": true,
+      "rationale": "The application UI element structure shifted. Updating the locator in the Page Object layer restores automation alignment with the current interface layout while preserving assertion rigor.",
+      "status": "PROPOSED",
+      "diffSnippet": "// Advisory Locator Update (Page Object / Spec):\n- await page.locator('locator.click').click();\n+ await page.getByRole('button', { name: '...' }).click();",
+      "supportingEvidence": [
+        "Failing action: locator.click",
+        "Location: tests/generated/newsletter.spec.ts:28",
+        "Timeout waiting for locator to become visible, enabled, or stable."
+      ],
+      "source": "DETERMINISTIC_HEURISTIC"
+    }
+  ],
+  "metadata": {
+    "executionMode": "DETERMINISTIC_FALLBACK",
+    "provider": "Model-Free Quality Engineering Fallback Engine",
+    "model": "deterministic-qe-rules-v1"
+  }
+}
