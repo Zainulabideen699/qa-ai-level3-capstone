@@ -4,24 +4,289 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  schedule:
+    # 05:00 PKT (UTC+5) is 00:00 UTC daily
+    - cron: '0 0 * * *'
+    # 17:00 PKT (UTC+5) is 12:00 UTC daily
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+
     - name: Install dependencies
       run: npm ci
+
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: npx playwright install chrome --with-deps
+
     - name: Run Playwright tests
+      id: run_tests
       run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+
+    - name: Failure Collection and Deterministic RCA
+      if: always()
+      continue-on-error: true
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        npx tsx -e "
+        import fs from 'fs';
+        import path from 'path';
+        import { RcaAgent } from './tools/agents/rcaAgent';
+        import { ProviderFactory } from './src/agents/providers/providerFactory';
+
+        async function runRca() {
+          try {
+            const rcaDir = path.resolve(process.cwd(), 'reports', 'rca');
+            if (!fs.existsSync(rcaDir)) {
+              console.log('[RCA Collector] No reports/rca directory found. Skipping RCA gracefully.');
+              return;
+            }
+
+            const files = fs.readdirSync(rcaDir)
+              .filter(f => f.startsWith('rca-report-') && f.endsWith('.json'))
+              .map(f => path.join(rcaDir, f));
+
+            if (files.length === 0) {
+              console.log('[RCA Collector] No RCA JSON reports found. Skipping RCA gracefully.');
+              return;
+            }
+
+            files.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs);
+            const latest = files[0];
+            console.log(\`[RCA Collector] Ingesting latest RCA report: \${path.basename(latest)}\`);
+
+            const report = JSON.parse(fs.readFileSync(latest, 'utf8'));
+            const failures = report.failures || [];
+            const flaky = report.flaky || [];
+
+            console.log(\`[RCA Collector] Summary: \${report.runSummary?.totalTests ?? 0} total, \${report.runSummary?.passed ?? 0} passed, \${failures.length} failed, \${flaky.length} flaky.\`);
+
+            if (failures.length === 0 && flaky.length === 0) {
+              console.log('[RCA Collector] All tests passed cleanly. No failure diagnosis required.');
+              return;
+            }
+
+            const provider = ProviderFactory.createProvider();
+            console.log(\`[RCA Collector] Diagnostic Provider: \${provider.metadata.name} (\${provider.metadata.executionMode})\`);
+
+            const agent = new RcaAgent(provider);
+            const analysis = await agent.analyzeReport(report);
+            console.log(\`[RCA Collector] RCA Analysis completed for \${analysis.totalFailuresAnalyzed} failure(s):\`);
+
+            for (const item of analysis.analyses) {
+              console.log(\`  - [\${item.category}] \${item.testId}: \${item.explanation.slice(0, 120)}...\`);
+            }
+          } catch (err) {
+            console.warn('[RCA Collector] Non-fatal diagnostic warning:', err && err.message ? err.message : err);
+          }
+        }
+
+        runRca().catch(err => {
+          console.warn('[RCA Collector] Non-fatal top-level warning:', err);
+          process.exit(0);
+        });
+        "
+
+    - name: Upload Playwright HTML Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      continue-on-error: true
       with:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+        if-no-files-found: ignore
+
+    - name: Upload Test Results and Traces
+      uses: actions/upload-artifact@v4
+      if: always()
+      continue-on-error: true
+      with:
+        name: test-results
+        path: test-results/
+        retention-days: 30
+        if-no-files-found: ignore
+
+    - name: Upload RCA Reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      continue-on-error: true
+      with:
+        name: rca-reports
+        path: reports/rca/
+        retention-days: 30
+        if-no-files-found: ignore
+
+    - name: Send Execution Report Email via Resend API
+      if: ${{ always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
+      env:
+        RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        MAIL_TO: ${{ secrets.MAIL_TO }}
+        TEST_OUTCOME: ${{ steps.run_tests.outcome }}
+        JOB_STATUS: ${{ job.status }}
+      run: |
+        node -e "
+        const fs = require('fs');
+        const path = require('path');
+
+        const apiKey = process.env.RESEND_API_KEY;
+        const mailTo = process.env.MAIL_TO;
+        const testOutcome = (process.env.TEST_OUTCOME || '').toLowerCase();
+
+        if (!apiKey || !mailTo) {
+          console.warn('Skipping email notification: RESEND_API_KEY or MAIL_TO secret is not configured or run is from an untrusted fork PR.');
+          process.exit(0);
+        }
+
+        let metrics = {
+          total: 'N/A',
+          passed: 'N/A',
+          failed: 'N/A',
+          flaky: 'N/A',
+          skipped: 'N/A',
+          duration: 'N/A'
+        };
+
+        try {
+          const rcaDir = path.resolve(process.cwd(), 'reports', 'rca');
+          if (fs.existsSync(rcaDir)) {
+            const files = fs.readdirSync(rcaDir)
+              .filter(f => f.startsWith('rca-report-') && f.endsWith('.json'))
+              .map(f => path.join(rcaDir, f));
+            if (files.length > 0) {
+              files.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs);
+              const rca = JSON.parse(fs.readFileSync(files[0], 'utf8'));
+              if (rca && rca.runSummary) {
+                metrics.total = rca.runSummary.totalTests ?? 'N/A';
+                metrics.passed = rca.runSummary.passed ?? 'N/A';
+                metrics.failed = rca.runSummary.failed ?? 'N/A';
+                metrics.flaky = rca.runSummary.flaky ?? 'N/A';
+                metrics.skipped = rca.runSummary.skipped ?? 'N/A';
+                if (rca.runSummary.durationMs) {
+                  metrics.duration = (rca.runSummary.durationMs / 1000).toFixed(1) + 's';
+                }
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('Could not parse RCA run summary for email metrics:', e.message);
+        }
+
+        let statusBadge = 'NOT RUN';
+        let statusEmoji = '🟡';
+        let statusColor = '#d97706';
+
+        if (testOutcome === 'success') {
+          statusBadge = 'PASSED';
+          statusEmoji = '🟢';
+          statusColor = '#16a34a';
+        } else if (testOutcome === 'failure') {
+          statusBadge = 'FAILED';
+          statusEmoji = '🔴';
+          statusColor = '#dc2626';
+        }
+
+        const runId = process.env.GITHUB_RUN_ID || '';
+        const repo = process.env.GITHUB_REPOSITORY || '';
+        const branch = process.env.GITHUB_REF_NAME || '';
+        const commit = (process.env.GITHUB_SHA || '').substring(0, 7);
+        const serverUrl = process.env.GITHUB_SERVER_URL || 'https://github.com';
+        const artifactsUrl = \`\${serverUrl}/\${repo}/actions/runs/\${runId}#artifacts\`;
+        const executedAt = new Date().toUTCString();
+
+        const subject = \`\${statusEmoji} Playwright Test Run #\${process.env.GITHUB_RUN_NUMBER || ''} - \${statusBadge} (\${branch})\`;
+
+        const html = \`
+          <div style=\"font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 620px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 8px; background-color: #ffffff;\">
+            <h2 style=\"color: \${statusColor}; margin-top: 0; margin-bottom: 8px;\">
+              \${statusEmoji} Playwright Tests: \${statusBadge}
+            </h2>
+            <p style=\"color: #64748b; font-size: 14px; margin-top: 0; margin-bottom: 20px;\">
+              Automated Capstone Test Suite Execution Summary
+            </p>
+
+            <table style=\"width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;\">
+              <tr style=\"background-color: #f8fafc;\">
+                <th style=\"padding: 8px 12px; text-align: left; border: 1px solid #e2e8f0;\">Total Tests</th>
+                <th style=\"padding: 8px 12px; text-align: left; border: 1px solid #e2e8f0; color: #16a34a;\">Passed</th>
+                <th style=\"padding: 8px 12px; text-align: left; border: 1px solid #e2e8f0; color: #dc2626;\">Failed</th>
+                <th style=\"padding: 8px 12px; text-align: left; border: 1px solid #e2e8f0; color: #d97706;\">Flaky</th>
+                <th style=\"padding: 8px 12px; text-align: left; border: 1px solid #e2e8f0; color: #64748b;\">Skipped</th>
+                <th style=\"padding: 8px 12px; text-align: left; border: 1px solid #e2e8f0;\">Duration</th>
+              </tr>
+              <tr>
+                <td style=\"padding: 8px 12px; border: 1px solid #e2e8f0; font-weight: bold;\">\${metrics.total}</td>
+                <td style=\"padding: 8px 12px; border: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;\">\${metrics.passed}</td>
+                <td style=\"padding: 8px 12px; border: 1px solid #e2e8f0; color: #dc2626; font-weight: bold;\">\${metrics.failed}</td>
+                <td style=\"padding: 8px 12px; border: 1px solid #e2e8f0; color: #d97706;\">\${metrics.flaky}</td>
+                <td style=\"padding: 8px 12px; border: 1px solid #e2e8f0; color: #64748b;\">\${metrics.skipped}</td>
+                <td style=\"padding: 8px 12px; border: 1px solid #e2e8f0;\">\${metrics.duration}</td>
+              </tr>
+            </table>
+
+            <table style=\"width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px;\">
+              <tr><td style=\"padding: 6px 0; color: #64748b; font-weight: 600;\">Status:</td><td><span style=\"color: \${statusColor}; font-weight: bold;\">\${statusBadge}</span></td></tr>
+              <tr><td style=\"padding: 6px 0; color: #64748b; font-weight: 600;\">Date / Time:</td><td>\${executedAt}</td></tr>
+              <tr><td style=\"padding: 6px 0; color: #64748b; font-weight: 600;\">Repository:</td><td>\${repo}</td></tr>
+              <tr><td style=\"padding: 6px 0; color: #64748b; font-weight: 600;\">Branch:</td><td>\${branch}</td></tr>
+              <tr><td style=\"padding: 6px 0; color: #64748b; font-weight: 600;\">Commit:</td><td><code>\${commit}</code></td></tr>
+              <tr><td style=\"padding: 6px 0; color: #64748b; font-weight: 600;\">Trigger:</td><td>\${process.env.GITHUB_EVENT_NAME || ''}</td></tr>
+            </table>
+
+            <div style=\"margin: 24px 0; text-align: center;\">
+              <a href=\"\${artifactsUrl}\" style=\"display: inline-block; background-color: #2563eb; color: #ffffff; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 15px;\">
+                View Secure Test Reports in GitHub Actions
+              </a>
+            </div>
+
+            <div style=\"background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 14px 16px; margin-top: 20px; font-size: 13px; color: #475569; line-height: 1.5;\">
+              <strong>Secure Report Access Instructions:</strong>
+              <ul style=\"margin: 6px 0 0 0; padding-left: 20px;\">
+                <li>GitHub sign-in is required to access the run page and download artifacts from this private repository.</li>
+                <li>On the GitHub Actions run page, navigate to the <strong>Artifacts</strong> section at the bottom.</li>
+                <li>Download the <code>playwright-report</code>, <code>test-results</code>, or <code>rca-reports</code> artifact.</li>
+                <li>Extract the downloaded archive locally and open <code>index.html</code> in your browser to inspect the full interactive Playwright report.</li>
+              </ul>
+            </div>
+          </div>
+        \`;
+
+        const payload = JSON.stringify({
+          from: 'onboarding@resend.dev',
+          to: [mailTo],
+          subject: subject,
+          html: html,
+        });
+
+        fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': \`Bearer \${apiKey}\`,
+            'Content-Type': 'application/json',
+          },
+          body: payload,
+        })
+          .then(async (res) => {
+            const body = await res.text();
+            if (!res.ok) {
+              console.error(\`Resend API error (HTTP \${res.status}): \${body}\`);
+              process.exit(1);
+            }
+            console.log('Email sent successfully via Resend API.');
+          })
+          .catch((err) => {
+            console.error('Failed to send email via Resend:', err);
+            process.exit(1);
+          });
+        "
