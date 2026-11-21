@@ -402,6 +402,85 @@ The test catalogue spans seven distinct functional areas:
 
 ---
 
+#### TC-GEN-CART-001
+- **Requirement Reference**: `REQ-AE-CART-002` (Gate 1 HITL Approved)
+- **Functional Area**: Cart Management & Computations (`CART`)
+- **Scenario Title**: Add Blue Top product to cart and verify cart item details
+- **Classification**: UI
+- **Type**: Positive / Smoke
+- **Preconditions and Test Data**:
+  - Browser opened at `/products`.
+  - Fresh isolated browser context (empty cart guarantee).
+  - Target Product: Blue Top (Product ID `1`, Unit Price `Rs. 500`).
+- **Main Test Steps**:
+  1. Navigate to `/products`.
+  2. Locate Blue Top product card in catalog and hover over it.
+  3. Click overlay 'Add to cart' button (`.productinfo a[data-product-id="1"]`).
+  4. Verify modal dialog appears with title 'Added!' and message 'Your product has been added to cart.'.
+  5. Click 'View Cart' link in modal (`/view_cart`).
+  6. Assert cart table contains exactly 1 item row.
+  7. Assert product description is 'Blue Top', unit price is 'Rs. 500', quantity is '1', and total is 'Rs. 500'.
+- **Expected Result**:
+  - Item is added successfully with modal confirmation.
+  - Cart table renders accurate metadata matching catalog values.
+- **Priority**: High
+- **Automation Feasibility & Limitations**: Fully automated in `tests/generated/generated_req_ae_cart_blue_top.spec.ts`. Verified live in 8.1s.
+
+---
+
+#### TC-GEN-CART-002
+- **Requirement Reference**: `REQ-AE-CART-002` (Gate 1 HITL Approved)
+- **Functional Area**: Cart Management & Computations (`CART`)
+- **Scenario Title**: Add Blue Top and continue shopping, verifying item is retained in cart
+- **Classification**: UI
+- **Type**: Positive / Navigation
+- **Preconditions and Test Data**:
+  - Browser opened at `/products`.
+  - Fresh isolated browser context (empty cart guarantee).
+  - Target Product: Blue Top (Product ID `1`, Unit Price `Rs. 500`).
+- **Main Test Steps**:
+  1. Navigate to `/products`.
+  2. Hover over Blue Top and click 'Add to cart'.
+  3. Verify modal appears with 'Added!' confirmation.
+  4. Click 'Continue Shopping' button to dismiss modal.
+  5. Verify modal is completely hidden and user remains on catalog.
+  6. Navigate to cart via header navigation 'Cart' link.
+  7. Assert cart table contains Blue Top with quantity '1' and total 'Rs. 500'.
+- **Expected Result**:
+  - Modal dismisses cleanly without navigation error.
+  - Session cart retains item across internal page navigation.
+- **Priority**: Medium
+- **Automation Feasibility & Limitations**: Fully automated in `tests/generated/generated_req_ae_cart_blue_top.spec.ts`. Verified live in 5.3s.
+
+---
+
+#### TC-GEN-CART-003
+- **Requirement Reference**: `REQ-AE-CART-002` (Gate 1 HITL Approved)
+- **Functional Area**: Cart Management & Computations (`CART`)
+- **Scenario Title**: Adding Blue Top multiple times increments quantity in cart
+- **Classification**: UI
+- **Type**: Edge / State Transition
+- **Preconditions and Test Data**:
+  - Browser opened at `/products`.
+  - Fresh isolated browser context (empty cart guarantee).
+  - Target Product: Blue Top (Product ID `1`, Unit Price `Rs. 500`).
+- **Main Test Steps**:
+  1. Navigate to `/products`.
+  2. Hover over Blue Top and click 'Add to cart'.
+  3. Click 'Continue Shopping' on modal.
+  4. Click 'Add to cart' on Blue Top a second time.
+  5. Click 'View Cart' link in modal.
+  6. Assert cart table contains exactly 1 unique item row (no duplicate rows created).
+  7. Assert item quantity button displays '2'.
+  8. Assert total price is calculated as 'Rs. 1000' (Unit Price Rs. 500 x 2).
+- **Expected Result**:
+  - Re-adding identical item increments quantity counter rather than appending redundant rows.
+  - Total price automatically recalculates correctly.
+- **Priority**: Medium
+- **Automation Feasibility & Limitations**: Fully automated in `tests/generated/generated_req_ae_cart_blue_top.spec.ts`. Verified live in 7.0s.
+
+---
+
 ### Area 4: Checkout, Order Processing & Invoicing (`CHECK`)
 
 #### TC-AE-CHECK-001

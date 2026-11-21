@@ -59,3 +59,22 @@ test('TC-AE-AUTH-001: Register user with valid credentials', {
 
 ## 5. Traceability Auditing Protocol
 The **Quality Reporting Agent** parses these tags from test results to produce coverage matrices, ensuring zero orphaned tests (tests without requirements) and zero untested requirements.
+
+---
+
+## 6. Pipeline Traceability Matrix: REQ-AE-CART-002
+
+| Requirement ID | Scenario ID | Scenario Title & Verification Objective | Spec Implementation | Reused Page Objects | Gate 1 & 2 Status | Execution Status (`PIPE-BLUE-TOP-20261121`) | Visual Evidence Artifact |
+| :--- | :--- | :--- | :--- | :--- | :---: | :---: | :--- |
+| `REQ-AE-CART-002` | `TC-GEN-CART-001` | Add Blue Top product to cart and verify cart item details (Price Rs. 500, Qty 1, Total Rs. 500) | `tests/generated/generated_req_ae_cart_blue_top.spec.ts` | `BasePage`, `ProductPage`, `CartPage` | Approved | 🟢 PASSED (8.1s) | `reports/screenshots/1_catalog_blue_top.png`<br>`reports/screenshots/2_added_modal.png`<br>`reports/screenshots/3_cart_verified.png` |
+| `REQ-AE-CART-002` | `TC-GEN-CART-002` | Add Blue Top and continue shopping, verifying item is retained in cart upon subsequent navigation | `tests/generated/generated_req_ae_cart_blue_top.spec.ts` | `BasePage`, `ProductPage`, `CartPage` | Approved | 🟢 PASSED (5.3s) | `reports/screenshots/4_continue_shopping_cart.png` |
+| `REQ-AE-CART-002` | `TC-GEN-CART-003` | Adding Blue Top multiple times increments quantity in cart without duplicate rows (Qty 2, Total Rs. 1000) | `tests/generated/generated_req_ae_cart_blue_top.spec.ts` | `BasePage`, `ProductPage`, `CartPage` | Approved | 🟢 PASSED (7.0s) | `reports/screenshots/5_quantity_incremented_cart.png` |
+
+### Audit & Governance Records
+- **Pipeline Identifier**: `PIPE-BLUE-TOP-20261121`
+- **Execution Run ID**: `EXEC-BLUE-TOP-20261121-100810`
+- **Design Artifact**: `reports/scenarios/REQ-AE-CART-002-scenarios.json`
+- **Pipeline Report**: `reports/pipeline/PIPE-BLUE-TOP-20261121-REQ-AE-CART-002-report.md` / `.json`
+- **Quality Summary**: `reports/quality-summary.md` and `reports/quality/quality-summary-PIPE-BLUE-TOP-20261121.md` / `.json`
+- **Release Recommendation**: `CONDITIONAL_GO` (100% current run pass rate, gate sign-off `PENDING` human Lead QE authorization due to longitudinal API failure hotspots)
+

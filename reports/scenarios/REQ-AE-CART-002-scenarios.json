@@ -1,0 +1,137 @@
+{
+  "requirement": {
+    "requirementId": "REQ-AE-CART-002",
+    "title": "Customer Product Cart Addition - Blue Top",
+    "description": "Verify that a customer can add the Blue Top product to the shopping cart successfully.",
+    "applicationArea": "CART",
+    "userRole": "Customer",
+    "acceptanceCriteria": [
+      "Locate Blue Top product on catalog and click Add to cart.",
+      "Confirmation modal appears with Added! message.",
+      "Cart table displays 1 row with Blue Top, unit price Rs. 500, quantity 1, total Rs. 500.",
+      "Modal continuation retains item in cart upon later navigation.",
+      "Multiple additions increment quantity without duplicate rows."
+    ]
+  },
+  "scenarios": [
+    {
+      "scenarioId": "TC-GEN-CART-001",
+      "requirementId": "REQ-AE-CART-002",
+      "title": "Add Blue Top product to cart and verify cart item details",
+      "objective": "Verify single-item addition of Blue Top from catalog and accurate cart item details",
+      "preconditions": [
+        "Browser open at base URL",
+        "Cart initially empty",
+        "Ad blocker active"
+      ],
+      "testSteps": [
+        "Navigate to /products",
+        "Locate and hover Blue Top card",
+        "Click Add to cart button",
+        "Verify Added! modal appears",
+        "Click View Cart from modal",
+        "Assert cart table displays exactly 1 row with Blue Top, price 500, qty 1, total 500"
+      ],
+      "expectedResults": [
+        "Added! confirmation modal appears",
+        "Cart renders 1 row",
+        "Item details match: Blue Top, price 500, qty 1, total 500"
+      ],
+      "testType": "UI",
+      "priority": "High",
+      "tags": [
+        "@cart",
+        "@smoke",
+        "@REQ-AE-CART",
+        "@generated"
+      ],
+      "automationFeasibility": "Automated",
+      "assumptions": [
+        "Blue Top is available as Product ID 1 at Rs. 500",
+        "POM locators are valid"
+      ],
+      "ambiguityNotes": []
+    },
+    {
+      "scenarioId": "TC-GEN-CART-002",
+      "requirementId": "REQ-AE-CART-002",
+      "title": "Add Blue Top and continue shopping, verifying item is retained in cart",
+      "objective": "Verify modal dismissal via Continue Shopping retains item in cart upon later navigation",
+      "preconditions": [
+        "Browser open at base URL",
+        "Cart initially empty",
+        "Ad blocker active"
+      ],
+      "testSteps": [
+        "Navigate to /products",
+        "Add Blue Top to cart",
+        "Click Continue Shopping on modal",
+        "Verify modal is hidden and user remains on catalog",
+        "Navigate to cart via header Cart link",
+        "Assert Blue Top is retained in cart with qty 1 and total 500"
+      ],
+      "expectedResults": [
+        "Modal hides cleanly",
+        "Cart preserves Blue Top with qty 1, total 500"
+      ],
+      "testType": "UI",
+      "priority": "Medium",
+      "tags": [
+        "@cart",
+        "@REQ-AE-CART",
+        "@generated"
+      ],
+      "automationFeasibility": "Automated",
+      "assumptions": [
+        "Session cart persists across page navigation"
+      ],
+      "ambiguityNotes": []
+    },
+    {
+      "scenarioId": "TC-GEN-CART-003",
+      "requirementId": "REQ-AE-CART-002",
+      "title": "Adding Blue Top multiple times increments quantity in cart",
+      "objective": "Verify re-adding Blue Top increments quantity without creating duplicate table rows",
+      "preconditions": [
+        "Browser open at base URL",
+        "Cart initially empty",
+        "Ad blocker active"
+      ],
+      "testSteps": [
+        "Navigate to /products",
+        "Add Blue Top to cart and click Continue Shopping",
+        "Add Blue Top to cart a second time and click View Cart",
+        "Assert cart table contains exactly 1 unique row",
+        "Assert quantity is 2 and total is 1000"
+      ],
+      "expectedResults": [
+        "Exactly 1 row exists (no duplicate rows)",
+        "Quantity is 2 and total is 1000"
+      ],
+      "testType": "UI",
+      "priority": "Medium",
+      "tags": [
+        "@cart",
+        "@edge",
+        "@REQ-AE-CART",
+        "@generated"
+      ],
+      "automationFeasibility": "Automated",
+      "assumptions": [
+        "SUT merges identical items by incrementing quantity"
+      ],
+      "ambiguityNotes": []
+    }
+  ],
+  "missingOrAmbiguousRequirements": [],
+  "designTechniquesApplied": [
+    "Equivalence Partitioning",
+    "State Transition Analysis",
+    "Boundary Value Analysis"
+  ],
+  "metadata": {
+    "timestamp": "2026-11-21T05:19:54.232Z",
+    "executionMode": "DETERMINISTIC_FALLBACK",
+    "provider": "Model-Free Fallback"
+  }
+}

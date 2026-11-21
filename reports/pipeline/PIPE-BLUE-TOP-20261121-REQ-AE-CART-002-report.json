@@ -1,0 +1,80 @@
+{
+  "pipelineId": "PIPE-BLUE-TOP-20261121",
+  "executionId": "EXEC-BLUE-TOP-20261121-100810",
+  "requirementId": "REQ-AE-CART-002",
+  "requirementTitle": "Customer Product Cart Addition - Blue Top",
+  "requirementDescription": "Verify that a customer can add the Blue Top product to the shopping cart successfully.",
+  "status": "GENERATION_SUCCESS_EXECUTION_PASSED",
+  "executionMode": "DETERMINISTIC_FALLBACK",
+  "provider": "Model-Free Quality Engineering Fallback Engine",
+  "gate1": {
+    "status": "APPROVED",
+    "approvedBy": "User (Gate 1 HITL Sign-off)",
+    "approvalTimestamp": "2026-11-21T04:34:41.000Z",
+    "reviewNotes": "User approved scenario design for Blue Top cart addition."
+  },
+  "gate2": {
+    "status": "APPROVED",
+    "approvedBy": "User (Gate 2 HITL Sign-off)",
+    "approvalTimestamp": "2026-11-21T04:47:15.000Z",
+    "reviewNotes": "User approved code review for all 3 generated tests with visual screenshots."
+  },
+  "scenarioCount": 3,
+  "generatedFiles": [
+    "tests/generated/generated_req_ae_cart_blue_top.spec.ts"
+  ],
+  "executionResult": {
+    "executionId": "EXEC-BLUE-TOP-20261121-100810",
+    "status": "PASSED",
+    "exitCode": 0,
+    "testFile": "tests/generated/generated_req_ae_cart_blue_top.spec.ts",
+    "project": "Google Chrome",
+    "startTime": "2026-11-21T05:07:48.000Z",
+    "endTime": "2026-11-21T05:08:10.000Z",
+    "durationMs": 21800,
+    "stdout": "Running 3 tests using 1 worker\n  ✓  1 TC-GEN-CART-001 (8.1s)\n  ✓  2 TC-GEN-CART-002 (5.3s)\n  ✓  3 TC-GEN-CART-003 (7.0s)\n  3 passed (21.8s)",
+    "stderr": "",
+    "commandExecuted": "npx playwright test tests/generated/generated_req_ae_cart_blue_top.spec.ts --project=\"Google Chrome\" --workers=1",
+    "runSummary": {
+      "totalTests": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "durationMs": 21800,
+      "status": "passed"
+    },
+    "testFiles": [
+      "tests/generated/generated_req_ae_cart_blue_top.spec.ts"
+    ],
+    "testCaseResults": [
+      {
+        "testId": "TC-GEN-CART-001",
+        "title": "Add Blue Top product to cart and verify cart item details",
+        "status": "passed",
+        "durationMs": 8100
+      },
+      {
+        "testId": "TC-GEN-CART-002",
+        "title": "Add Blue Top and continue shopping, verifying item is retained in cart",
+        "status": "passed",
+        "durationMs": 5300
+      },
+      {
+        "testId": "TC-GEN-CART-003",
+        "title": "Adding Blue Top multiple times increments quantity in cart",
+        "status": "passed",
+        "durationMs": 7000
+      }
+    ],
+    "timestamp": "2026-11-21T05:19:54.232Z"
+  },
+  "rcaStatus": "NOT_APPLICABLE_PASSED",
+  "rcaStatusDetails": "All generated tests passed. Zero failures detected. RCA bypassed.",
+  "durationMs": 21800,
+  "timestamp": "2026-11-21T05:19:54.232Z",
+  "reportPaths": {
+    "json": "D:\\Playwright\\qa-ai-level3\\reports\\pipeline\\PIPE-BLUE-TOP-20261121-REQ-AE-CART-002-report.json",
+    "markdown": "D:\\Playwright\\qa-ai-level3\\reports\\pipeline\\PIPE-BLUE-TOP-20261121-REQ-AE-CART-002-report.md"
+  }
+}
