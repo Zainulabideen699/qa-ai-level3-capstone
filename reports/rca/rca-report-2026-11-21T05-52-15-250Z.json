@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-21T05:52:15.249Z",
+  "runSummary": {
+    "totalTests": 85,
+    "passed": 81,
+    "failed": 4,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 94814,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-GEN-CART-001",
+      "testTitle": "TC-GEN-CART-001: Add Blue Top product to cart and verify cart item details",
+      "fullTitle": " > Google Chrome > generated\\generated_req_ae_cart_blue_top.spec.ts > REQ-AE-CART-002: Add Blue Top to Shopping Cart - Automated Test Suite > TC-GEN-CART-001: Add Blue Top product to cart and verify cart item details",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/generated/generated_req_ae_cart_blue_top.spec.ts",
+        "line": 36,
+        "column": 3
+      },
+      "retry": 0,
+      "durationMs": 33138,
+      "status": "timedOut",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\generated-generated_req_ae-f7680-nd-verify-cart-item-details-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\generated-generated_req_ae-f7680-nd-verify-cart-item-details-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\generated-generated_req_ae-f7680-nd-verify-cart-item-details-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-GEN-CART-001",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\generated-generated_req_ae-f7680-nd-verify-cart-item-details-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\generated-generated_req_ae-f7680-nd-verify-cart-item-details-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\generated-generated_req_ae-f7680-nd-verify-cart-item-details-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-21T05:52:15.248Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+          "durationMs": 33138,
+          "timestamp": "2026-11-21T05:51:23.886Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\generated-generated_req_ae-f7680-nd-verify-cart-item-details-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\generated-generated_req_ae-f7680-nd-verify-cart-item-details-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\generated-generated_req_ae-f7680-nd-verify-cart-item-details-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-CART-004",
+      "testTitle": "TC-AE-CART-004: Remove a specific product from cart",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-004: Remove a specific product from cart",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 177,
+        "column": 3
+      },
+      "retry": 0,
+      "durationMs": 38467,
+      "status": "timedOut",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-004",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-21T05:52:15.249Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+          "durationMs": 38467,
+          "timestamp": "2026-11-21T05:52:05.506Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-CART-001",
+      "testTitle": "TC-AE-CART-001: Add multiple distinct products to cart and verify cart contents",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-001: Add multiple distinct products to cart and verify cart contents",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 28,
+        "column": 3
+      },
+      "retry": 0,
+      "durationMs": 38284,
+      "status": "timedOut",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-001",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-21T05:52:15.249Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+          "durationMs": 38284,
+          "timestamp": "2026-11-21T05:52:06.919Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-CART-006",
+      "testTitle": "TC-AE-CART-006: Cart persistence across guest session and post-login authentication",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-006: Cart persistence across guest session and post-login authentication",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 242,
+        "column": 3
+      },
+      "retry": 0,
+      "durationMs": 33318,
+      "status": "timedOut",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-006",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "consoleSnippet": "<untrusted_content source=\"console_errors\">\nException during account cleanup for cart_persist_1795240296951_7574@example.com: apiRequestContext.delete: Target page, context or browser has been closed\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-21T05:52:15.249Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+          "durationMs": 33318,
+          "timestamp": "2026-11-21T05:52:10.586Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QA Regression Test Execution Report - Automation Exercise</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #22c55e;
+      --green-bg: rgba(34, 197, 94, 0.15);
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --row-hover: #273549;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 32px 24px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-left h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-left p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .status-badge-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .metric-title {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+    }
+
+    .metric-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 6px;
+    }
+
+    .metric-val.green { color: var(--green); }
+    .metric-val.accent { color: var(--accent); }
+
+    /* Controls Bar */
+    .controls-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 16px;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill-btn {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pill-btn:hover {
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .pill-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+
+    /* Table */
+    .table-wrapper {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    thead th {
+      background: #182234;
+      padding: 16px 20px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      font-weight: 700;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    tbody td {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background-color: var(--row-hover);
+    }
+
+    .test-id-pill {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .test-title {
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+    }
+
+    .test-spec-file {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .domain-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: #334155;
+      color: #e2e8f0;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .status-badge.passed {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .duration-text {
+      color: var(--text-muted);
+      font-size: 13px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .footer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Print styling */
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+        padding: 0;
+      }
+      .controls-bar { display: none; }
+      .header, .metric-card, .table-wrapper {
+        background: #fff;
+        border: 1px solid #ddd;
+        color: #000;
+      }
+      .test-title { color: #000; }
+      .test-id-pill { color: #0284c7; background: #f0f9ff; }
+      .status-badge.passed { background: #dcfce7; color: #15803d; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <h1>
+          <span>⚡ QA Regression Test Execution Report</span>
+        </h1>
+        <p>Target: <strong>https://automationexercise.com</strong> &nbsp;•&nbsp; Browser: <strong>Google Chrome</strong> (2 Workers) &nbsp;•&nbsp; Execution Mode: <strong>Playwright Live SUT</strong></p>
+      </div>
+      <div>
+        <div class="status-badge-hero">
+          <span class="status-dot"></span>
+          <span>100% ALL TESTS PASSED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metrics Cards -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-title">Total Tests</div>
+        <div class="metric-val">25</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Passed Tests</div>
+        <div class="metric-val green">25</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Failed Tests</div>
+        <div class="metric-val">0</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Pass Rate</div>
+        <div class="metric-val green">100.0%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Total Duration</div>
+        <div class="metric-val accent">100.1s</div>
+      </div>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="controls-bar">
+      <div class="search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by Test ID, Title, or Spec...">
+      </div>
+      <div class="filter-pills">
+        <button class="pill-btn active" onclick="filterDomain('ALL', this)">All (25)</button>
+        <button class="pill-btn" onclick="filterDomain('AUTH', this)">Auth (3)</button>
+        <button class="pill-btn" onclick="filterDomain('PROD', this)">Products (4)</button>
+        <button class="pill-btn" onclick="filterDomain('CART', this)">Cart (9)</button>
+        <button class="pill-btn" onclick="filterDomain('ENG', this)">Newsletter (3)</button>
+        <button class="pill-btn" onclick="filterDomain('API', this)">REST APIs (6)</button>
+      </div>
+    </div>
+
+    <!-- Results Table -->
+    <div class="table-wrapper">
+      <table id="testsTable">
+        <thead>
+          <tr>
+            <th style="width: 150px;">Test ID</th>
+            <th>Scenario Title & Spec File</th>
+            <th style="width: 140px;">Domain</th>
+            <th style="width: 120px;">Status</th>
+            <th style="width: 110px;">Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- AUTH -->
+          <tr data-domain="AUTH">
+            <td><span class="test-id-pill">TC-AE-AUTH-002</span></td>
+            <td>
+              <div class="test-title">User login with valid credentials and subsequent logout</div>
+              <div class="test-spec-file">tests/ui/auth.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">AUTH</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">17.3s</td>
+          </tr>
+          <tr data-domain="AUTH">
+            <td><span class="test-id-pill">TC-AE-AUTH-003</span></td>
+            <td>
+              <div class="test-title">Attempt login with incorrect email and password</div>
+              <div class="test-spec-file">tests/ui/auth.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">AUTH</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">9.1s</td>
+          </tr>
+          <tr data-domain="AUTH">
+            <td><span class="test-id-pill">TC-AE-AUTH-004</span></td>
+            <td>
+              <div class="test-title">Attempt registration with an already-registered email address</div>
+              <div class="test-spec-file">tests/ui/auth.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">AUTH</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">17.6s</td>
+          </tr>
+
+          <!-- PRODUCTS -->
+          <tr data-domain="PROD">
+            <td><span class="test-id-pill">TC-AE-PROD-001</span></td>
+            <td>
+              <div class="test-title">View product catalogue and product details</div>
+              <div class="test-spec-file">tests/ui/product.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">9.2s</td>
+          </tr>
+          <tr data-domain="PROD">
+            <td><span class="test-id-pill">TC-AE-PROD-002</span></td>
+            <td>
+              <div class="test-title">Search products using tshirt keyword</div>
+              <div class="test-spec-file">tests/ui/product.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">22.5s</td>
+          </tr>
+          <tr data-domain="PROD">
+            <td><span class="test-id-pill">TC-AE-PROD-003</span></td>
+            <td>
+              <div class="test-title">Search for a non-existent product</div>
+              <div class="test-spec-file">tests/ui/product.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">20.2s</td>
+          </tr>
+          <tr data-domain="PROD">
+            <td><span class="test-id-pill">TC-AE-PROD-004</span></td>
+            <td>
+              <div class="test-title">Search using empty or whitespace input</div>
+              <div class="test-spec-file">tests/ui/product.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">20.9s</td>
+          </tr>
+
+          <!-- CART -->
+          <tr data-domain="CART">
+            <td><span class="test-id-pill">TC-AE-CART-001</span></td>
+            <td>
+              <div class="test-title">Add multiple distinct products to cart and verify cart contents</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">17.1s</td>
+          </tr>
+          <tr data-domain="CART">
+            <td><span class="test-id-pill">TC-AE-CART-002</span></td>
+            <td>
+              <div class="test-title">Increase product quantity from product detail page and verify cart calculation</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">15.4s</td>
+          </tr>
+          <tr data-domain="CART">
+            <td><span class="test-id-pill">TC-AE-CART-003</span></td>
+            <td>
+              <div class="test-title">Boundary test for product quantity input with zero and negative numbers</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">12.8s</td>
+          </tr>
+          <tr data-domain="CART">
+            <td><span class="test-id-pill">TC-AE-CART-004</span></td>
+            <td>
+              <div class="test-title">Remove a specific product from cart</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">30.0s</td>
+          </tr>
+          <tr data-domain="CART">
+            <td><span class="test-id-pill">TC-AE-CART-005</span></td>
+            <td>
+              <div class="test-title">Remove all products from cart to reach empty cart state</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">12.2s</td>
+          </tr>
+          <tr data-domain="CART">
+            <td><span class="test-id-pill">TC-AE-CART-006</span></td>
+            <td>
+              <div class="test-title">Cart persistence across guest session and post-login authentication</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">35.4s</td>
+          </tr>
+          <tr data-domain="CART">
+            <td><span class="test-id-pill">TC-GEN-CART-001</span></td>
+            <td>
+              <div class="test-title">Add Blue Top product to cart and verify cart item details</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_cart_blue_top.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">CART (BLUE TOP)</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">17.6s</td>
+          </tr>
+          <tr data-domain="CART">
+            <td><span class="test-id-pill">TC-GEN-CART-002</span></td>
+            <td>
+              <div class="test-title">Add Blue Top and continue shopping, verifying item is retained in cart</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_cart_blue_top.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">CART (BLUE TOP)</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">17.7s</td>
+          </tr>
+          <tr data-domain="CART">
+            <td><span class="test-id-pill">TC-GEN-CART-003</span></td>
+            <td>
+              <div class="test-title">Adding Blue Top multiple times increments quantity in cart</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_cart_blue_top.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">CART (BLUE TOP)</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">17.5s</td>
+          </tr>
+
+          <!-- ENGAGEMENT / NEWSLETTER -->
+          <tr data-domain="ENG">
+            <td><span class="test-id-pill">TC-GEN-ENG-001</span></td>
+            <td>
+              <div class="test-title">Homepage Footer Newsletter Subscription - Successful submission with valid inputs</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_sub_001.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">NEWSLETTER</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">13.5s</td>
+          </tr>
+          <tr data-domain="ENG">
+            <td><span class="test-id-pill">TC-GEN-ENG-002</span></td>
+            <td>
+              <div class="test-title">Homepage Footer Newsletter Subscription - Input validation error with malformed data</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_sub_001.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">NEWSLETTER</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">8.2s</td>
+          </tr>
+          <tr data-domain="ENG">
+            <td><span class="test-id-pill">TC-GEN-ENG-003</span></td>
+            <td>
+              <div class="test-title">Homepage Footer Newsletter Subscription - Boundary check with empty input submission</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_sub_001.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">NEWSLETTER</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">13.2s</td>
+          </tr>
+
+          <!-- REST APIS -->
+          <tr data-domain="API">
+            <td><span class="test-id-pill">TC-AE-API-001</span></td>
+            <td>
+              <div class="test-title">Verify Login API with valid user credentials</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">7.1s</td>
+          </tr>
+          <tr data-domain="API">
+            <td><span class="test-id-pill">TC-AE-API-002</span></td>
+            <td>
+              <div class="test-title">Verify Login API negative responses for invalid credentials and missing parameters</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">7.6s</td>
+          </tr>
+          <tr data-domain="API">
+            <td><span class="test-id-pill">TC-AE-API-003</span></td>
+            <td>
+              <div class="test-title">Get all products list and validate schema and attributes</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">6.5s</td>
+          </tr>
+          <tr data-domain="API">
+            <td><span class="test-id-pill">TC-AE-API-004</span></td>
+            <td>
+              <div class="test-title">Search product via API with query parameter</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">6.3s</td>
+          </tr>
+          <tr data-domain="API">
+            <td><span class="test-id-pill">TC-AE-API-005</span></td>
+            <td>
+              <div class="test-title">User Account API full CRUD lifecycle (Create, Read, Update, Delete)</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">8.7s</td>
+          </tr>
+          <tr data-domain="API">
+            <td><span class="test-id-pill">TC-AE-API-006</span></td>
+            <td>
+              <div class="test-title">Validate API HTTP method constraints and bad request handling</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="status-badge passed">✓ PASSED</span></td>
+            <td class="duration-text">7.6s</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Report Generated: <strong>21/11/2026 10:56 AM</strong> • Engine: <strong>Playwright v1.65.1</strong> • Zero Flakes • Zero Retries</p>
+    </div>
+  </div>
+
+  <script>
+    // Live Search Filter
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('#testsTable tbody tr');
+
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase().trim();
+      tableRows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(term) ? '' : 'none';
+      });
+    });
+
+    // Domain Filter
+    function filterDomain(domain, btn) {
+      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      tableRows.forEach(row => {
+        if (domain === 'ALL') {
+          row.style.display = '';
+        } else {
+          row.style.display = row.dataset.domain === domain ? '' : 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

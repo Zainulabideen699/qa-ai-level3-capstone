@@ -315,6 +315,7 @@ All pipeline, quality, and diagnostic artifacts are written to structured subdir
 ## 11. Documentation & Reference Links
 
 - [docs/architecture.md](docs/architecture.md): Comprehensive system architecture, multi-agent contracts, state transitions, and governance models.
+- [docs/ai-artifacts.md](docs/ai-artifacts.md): AI skill contracts, 5 human interventions, security sanitization, and governance pack (PDF available at `docs/ai-artifacts.pdf`).
 - [docs/test-scenarios.md](docs/test-scenarios.md): 24-scenario test design catalogue spanning all functional areas.
 - [docs/security.md](docs/security.md): Data sanitization, credential redaction, and prompt injection defense specifications.
 - [docs/traceability.md](docs/traceability.md): Bidirectional traceability matrix connecting requirements, test cases, and execution results.

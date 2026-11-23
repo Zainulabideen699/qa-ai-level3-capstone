@@ -58,6 +58,7 @@ qa-ai-level3/
 │   └── workflows/
 │       └── playwright.yml             # GitHub Actions push & PR workflow (daily cron pending)
 ├── docs/
+│   ├── ai-artifacts.md                # AI skill contracts, 5 human interventions & governance
 │   ├── architecture.md                # Comprehensive architectural specification
 │   ├── security.md                    # Data sanitization, credential redaction & prompt defenses
 │   ├── test-scenarios.md              # 24-scenario design catalogue (AE-01 to AE-24)
@@ -512,12 +513,18 @@ The following test results were executed and confirmed on **November 20, 2026**:
      - **Area 2 (`PROD`) Expansion**: Automate catalogue browsing scenarios `TC-AE-PROD-005` (Category navigation), `TC-AE-PROD-006` (Brand navigation), and `TC-AE-PROD-007` (Recommended items).
      - **Area 1 (`AUTH`) Expansion**: Automate catalogue scenario `TC-AE-AUTH-001` (Full profile registration through UI forms).
 
-3. **Execute Three Consecutive Smoke Runs**:
-   - Run the smoke suite three times consecutively:
-     ```powershell
-     npx playwright test --grep "@smoke" --project="Google Chrome" --workers=1
-     ```
-   - Archive the three test run results to formally satisfy the capstone stability gate.
+3. **Execute Three Consecutive Smoke Runs (COMPLETED & VERIFIED)**:
+   - Successfully executed the smoke suite three times consecutively (`node scripts/run_stability_gate.js`):
+     - **Run 1**: 12/12 Passed (47.9s)
+     - **Run 2**: 12/12 Passed (53.6s)
+     - **Run 3**: 12/12 Passed (52.3s)
+     - **Aggregate Pass Rate**: **100% (36/36 passed)**, 0 unexplained failures, 0 flaky tests.
+   - HTML reports and JSON telemetry archived at:
+     - `reports/stability/run-1/index.html`
+     - `reports/stability/run-2/index.html`
+     - `reports/stability/run-3/index.html`
+     - `reports/stability/stability-summary.json`
+   - *Status*: **Point 19 Repeatability Gate formally closed and satisfied.**
 
 4. **Configure Daily Scheduled CI & Resolve Linux Chrome Channel**:
    - Add a cron trigger to `.github/workflows/playwright.yml`:

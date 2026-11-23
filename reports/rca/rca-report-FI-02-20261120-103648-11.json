@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0.0",
+  "executionId": "FI-02-20261120-103648",
+  "generatedAt": "2026-11-20T10:28:32.147Z",
+  "runSummary": {
+    "totalTests": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 5533,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-AE-CART-004",
+      "testTitle": "TC-AE-CART-004: Remove a specific product from cart",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-004: Remove a specific product from cart",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 177,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 4083,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://automationexercise.com/products\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://automationexercise.com/products\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:97:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\cart.spec.ts:181:23"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-004",
+        "category": "ENVIRONMENT_OR_NETWORK",
+        "confidence": 0.95,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Infrastructure, network transport, DNS resolution, or SUT connectivity outage.",
+        "evidence": {
+          "matchedRule": "RULE_P2_ENVIRONMENT_OR_NETWORK",
+          "matchedPattern": "net::ERR_CONNECTION_REFUSED|net::ERR_CONNECTION_RESET|net::ERR_NAME_NOT_RESOLVED|net::ERR_CONNECTION_TIMED_OUT|net::ERR_INTERNET_DISCONNECTED|ENOTFOUND|ECONNREFUSED|ECONNRESET|ETIMEDOUT|socket hang up|502 Bad Gateway|504 Gateway Timeout",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nnet::ERR_NAME_NOT_RESOLVED\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: net::ERR_NAME_NOT_RESOLVED at https://automationexercise.com/products\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: net::ERR_NAME_NOT_RESOLVED at https://automationexercise.com/products\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Check host environment connectivity, DNS resolution, and target server availability before rerunning.",
+        "requiresHumanApproval": false,
+        "timestamp": "2026-11-20T10:28:32.147Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://automationexercise.com/products\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 4083,
+          "timestamp": "2026-11-20T10:28:31.835Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}

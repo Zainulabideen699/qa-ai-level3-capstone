@@ -1,0 +1,57 @@
+{
+  "gate": "Requirement 19: Repeatability Gate (Three Consecutive Runs)",
+  "specificationReference": "PDF Section 2 & Section 14 (3-Run Stability Evidence)",
+  "targetSubset": "Defined Smoke Subset (@smoke) across UI, API, and Generated suites",
+  "generatedAt": "2026-11-22T08:27:05.000Z",
+  "allPassed": true,
+  "aggregatePassRate": "100.0%",
+  "totalTestsExecuted": 36,
+  "totalPassed": 36,
+  "totalFailed": 0,
+  "totalFlaky": 0,
+  "unexplainedFailures": 0,
+  "runs": [
+    {
+      "run": 1,
+      "startTime": "2026-11-22T08:24:16.890Z",
+      "endTime": "2026-11-22T08:25:04.790Z",
+      "durationSec": 47.9,
+      "exitCode": 0,
+      "totalTests": 12,
+      "passed": 12,
+      "failed": 0,
+      "flaky": 0,
+      "status": "PASSED",
+      "reportPath": "reports/stability/run-1/index.html",
+      "rcaReportPath": "reports/rca/rca-report-smoke-run-1.json"
+    },
+    {
+      "run": 2,
+      "startTime": "2026-11-22T08:25:07.450Z",
+      "endTime": "2026-11-22T08:26:01.050Z",
+      "durationSec": 53.6,
+      "exitCode": 0,
+      "totalTests": 12,
+      "passed": 12,
+      "failed": 0,
+      "flaky": 0,
+      "status": "PASSED",
+      "reportPath": "reports/stability/run-2/index.html",
+      "rcaReportPath": "reports/rca/rca-report-smoke-run-2.json"
+    },
+    {
+      "run": 3,
+      "startTime": "2026-11-22T08:26:03.710Z",
+      "endTime": "2026-11-22T08:26:56.010Z",
+      "durationSec": 52.3,
+      "exitCode": 0,
+      "totalTests": 12,
+      "passed": 12,
+      "failed": 0,
+      "flaky": 0,
+      "status": "PASSED",
+      "reportPath": "reports/stability/run-3/index.html",
+      "rcaReportPath": "reports/rca/rca-report-smoke-run-3-1.json"
+    }
+  ]
+}

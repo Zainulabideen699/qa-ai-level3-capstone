@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Test Case Catalog & Execution Status Report</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #22c55e;
+      --green-bg: rgba(34, 197, 94, 0.15);
+      --slate-bg: rgba(148, 163, 184, 0.12);
+      --row-hover: #273549;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 32px 24px;
+    }
+
+    .container { max-width: 1320px; margin: 0 auto; }
+
+    .header {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-left h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .header-left p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .metric-title {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+    }
+
+    .metric-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 6px;
+    }
+
+    .metric-val.green { color: var(--green); }
+    .metric-val.muted { color: var(--text-muted); }
+    .metric-val.accent { color: var(--accent); }
+
+    .controls-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 280px;
+      padding: 10px 16px;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-input:focus { border-color: var(--accent); }
+
+    .filter-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .pill-btn {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pill-btn:hover { border-color: var(--accent); color: #fff; }
+
+    .pill-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+
+    .table-wrapper {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+
+    thead th {
+      background: #182234;
+      padding: 16px 20px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      font-weight: 700;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    tbody td {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    tbody tr:hover { background-color: var(--row-hover); }
+
+    .test-id-pill {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .test-title { font-weight: 600; color: #f1f5f9; margin-bottom: 4px; }
+    .test-notes { font-size: 12px; color: var(--text-muted); }
+
+    .domain-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: #334155;
+      color: #e2e8f0;
+    }
+
+    .badge-run {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      white-space: nowrap;
+    }
+
+    .badge-not-run {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--slate-bg);
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+      white-space: nowrap;
+    }
+
+    .duration-val {
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-left">
+        <h1>📋 Complete Test Case Catalog & Execution Audit</h1>
+        <p>Comprehensive status matrix across all documented scenarios vs. previous regression execution on Google Chrome</p>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-title">Total Catalog Scenarios</div>
+        <div class="metric-val">40</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Ran in Previous Execution</div>
+        <div class="metric-val green">25</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Not Run (Catalog / Backlog)</div>
+        <div class="metric-val muted">15</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Pass Rate of Executed Tests</div>
+        <div class="metric-val green">100.0%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Automated Coverage</div>
+        <div class="metric-val accent">62.5%</div>
+      </div>
+    </div>
+
+    <div class="controls-bar">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by Test ID, Title, or Area...">
+      <div class="filter-pills">
+        <button class="pill-btn active" onclick="filterExecution('ALL', this)">All (40)</button>
+        <button class="pill-btn" onclick="filterExecution('RUN', this)">Ran in Previous Run (25)</button>
+        <button class="pill-btn" onclick="filterExecution('NOT_RUN', this)">Not Run (15)</button>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="inventoryTable">
+        <thead>
+          <tr>
+            <th style="width: 150px;">Test ID</th>
+            <th>Scenario Title & Coverage Details</th>
+            <th style="width: 140px;">Functional Area</th>
+            <th style="width: 170px;">Ran in Previous Run?</th>
+            <th style="width: 120px;">Execution Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- AUTH -->
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-AUTH-001</span></td>
+            <td>
+              <div class="test-title">Register new user with full profile details</div>
+              <div class="test-notes">Documented design spec for multi-step signup form • Awaiting dedicated end-to-end spec</div>
+            </td>
+            <td><span class="domain-tag">AUTH</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-AUTH-002</span></td>
+            <td>
+              <div class="test-title">User login with valid credentials and subsequent logout</div>
+              <div class="test-notes">Automated in tests/ui/auth.spec.ts • API setup & teardown</div>
+            </td>
+            <td><span class="domain-tag">AUTH</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">17.3s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-AUTH-003</span></td>
+            <td>
+              <div class="test-title">Attempt login with incorrect email and password</div>
+              <div class="test-notes">Automated in tests/ui/auth.spec.ts • Negative authentication assertion</div>
+            </td>
+            <td><span class="domain-tag">AUTH</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">9.1s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-AUTH-004</span></td>
+            <td>
+              <div class="test-title">Attempt registration with an already-registered email address</div>
+              <div class="test-notes">Automated in tests/ui/auth.spec.ts • Duplicate validation assertion</div>
+            </td>
+            <td><span class="domain-tag">AUTH</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">17.6s</td>
+          </tr>
+
+          <!-- PRODUCTS -->
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-PROD-001</span></td>
+            <td>
+              <div class="test-title">Verify all products list and product detail page navigation</div>
+              <div class="test-notes">Automated in tests/ui/product.spec.ts • Smoke navigation</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">9.2s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-PROD-002</span></td>
+            <td>
+              <div class="test-title">Search product with relevant keyword and verify search results</div>
+              <div class="test-notes">Automated in tests/ui/product.spec.ts • Keyword search 'tshirt'</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">22.5s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-PROD-003</span></td>
+            <td>
+              <div class="test-title">Search product with non-existent keyword</div>
+              <div class="test-notes">Automated in tests/ui/product.spec.ts • Negative query validation</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">20.2s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-PROD-004</span></td>
+            <td>
+              <div class="test-title">Submit search with empty query string or whitespace</div>
+              <div class="test-notes">Automated in tests/ui/product.spec.ts • Edge boundary handling</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">20.9s</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-PROD-005</span></td>
+            <td>
+              <div class="test-title">Verify category and subcategory filtering</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Women/Men sidebar filtering</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-PROD-006</span></td>
+            <td>
+              <div class="test-title">Verify brand filtering functionality</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Polo/H&M brand sidebar filtering</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-PROD-007</span></td>
+            <td>
+              <div class="test-title">Add to cart from Recommended Items carousel</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Carousel scroll & addition</div>
+            </td>
+            <td><span class="domain-tag">PRODUCTS</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+
+          <!-- CART -->
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-CART-001</span></td>
+            <td>
+              <div class="test-title">Add multiple distinct products to cart and verify cart contents</div>
+              <div class="test-notes">Automated in tests/ui/cart.spec.ts • Multi-item rows and calculation</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">17.1s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-CART-002</span></td>
+            <td>
+              <div class="test-title">Increase product quantity from product detail page and verify cart calculation</div>
+              <div class="test-notes">Automated in tests/ui/cart.spec.ts • Product detail quantity multiplier</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">15.4s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-CART-003</span></td>
+            <td>
+              <div class="test-title">Boundary test for product quantity input with zero and negative numbers</div>
+              <div class="test-notes">Automated in tests/ui/cart.spec.ts • Zero and negative edge cases</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">12.8s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-CART-004</span></td>
+            <td>
+              <div class="test-title">Remove a specific product from cart</div>
+              <div class="test-notes">Automated in tests/ui/cart.spec.ts • Delete row button detaches element</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">30.0s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-CART-005</span></td>
+            <td>
+              <div class="test-title">Remove all products from cart to reach empty cart state</div>
+              <div class="test-notes">Automated in tests/ui/cart.spec.ts • Empty cart banner assertion</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">12.2s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-CART-006</span></td>
+            <td>
+              <div class="test-title">Cart persistence across guest session and post-login authentication</div>
+              <div class="test-notes">Automated in tests/ui/cart.spec.ts • Cross-authentication session persistence</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">35.4s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-GEN-CART-001</span></td>
+            <td>
+              <div class="test-title">Add Blue Top product to cart and verify cart item details</div>
+              <div class="test-notes">Automated in tests/generated/generated_req_ae_cart_blue_top.spec.ts • REQ-AE-CART-002</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">17.6s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-GEN-CART-002</span></td>
+            <td>
+              <div class="test-title">Add Blue Top and continue shopping, verifying item is retained in cart</div>
+              <div class="test-notes">Automated in tests/generated/generated_req_ae_cart_blue_top.spec.ts • Modal dismiss & retention</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">17.7s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-GEN-CART-003</span></td>
+            <td>
+              <div class="test-title">Adding Blue Top multiple times increments quantity in cart</div>
+              <div class="test-notes">Automated in tests/generated/generated_req_ae_cart_blue_top.spec.ts • Increment math in 1 row</div>
+            </td>
+            <td><span class="domain-tag">CART</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">17.5s</td>
+          </tr>
+
+          <!-- CHECKOUT -->
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-CHECK-001</span></td>
+            <td>
+              <div class="test-title">Complete end-to-end checkout and payment flow</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Full order placement & payment</div>
+            </td>
+            <td><span class="domain-tag">CHECKOUT</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-CHECK-002</span></td>
+            <td>
+              <div class="test-title">Verify address details consistency between profile and checkout page</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Address validation</div>
+            </td>
+            <td><span class="domain-tag">CHECKOUT</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-CHECK-003</span></td>
+            <td>
+              <div class="test-title">Download invoice after successful order placement</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Invoice download event listener</div>
+            </td>
+            <td><span class="domain-tag">CHECKOUT</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+
+          <!-- CUSTOMER ENGAGEMENT -->
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-ENG-001</span></td>
+            <td>
+              <div class="test-title">Submit a product review with valid details</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Review submission form</div>
+            </td>
+            <td><span class="domain-tag">ENGAGEMENT</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-ENG-002</span></td>
+            <td>
+              <div class="test-title">Submit Contact Us form with file upload</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Contact form & attachment</div>
+            </td>
+            <td><span class="domain-tag">ENGAGEMENT</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-ENG-003</span></td>
+            <td>
+              <div class="test-title">Attempt Contact Us form submission with missing required fields</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Contact form validation error</div>
+            </td>
+            <td><span class="domain-tag">ENGAGEMENT</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-ENG-004</span></td>
+            <td>
+              <div class="test-title">Verify newsletter subscription in footer with valid email</div>
+              <div class="test-notes">Hand-crafted catalog reference • Implemented autonomously as TC-GEN-ENG-001</div>
+            </td>
+            <td><span class="domain-tag">ENGAGEMENT</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-ENG-005</span></td>
+            <td>
+              <div class="test-title">Attempt newsletter subscription with malformed email</div>
+              <div class="test-notes">Hand-crafted catalog reference • Implemented autonomously as TC-GEN-ENG-002</div>
+            </td>
+            <td><span class="domain-tag">ENGAGEMENT</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-GEN-ENG-001</span></td>
+            <td>
+              <div class="test-title">Homepage Footer Newsletter Subscription - Successful submission with valid inputs</div>
+              <div class="test-notes">Automated in tests/generated/generated_req_ae_sub_001.spec.ts • REQ-AE-SUB-001</div>
+            </td>
+            <td><span class="domain-tag">NEWSLETTER</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">13.5s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-GEN-ENG-002</span></td>
+            <td>
+              <div class="test-title">Homepage Footer Newsletter Subscription - Input validation error with malformed data</div>
+              <div class="test-notes">Automated in tests/generated/generated_req_ae_sub_001.spec.ts • HTML5 validation</div>
+            </td>
+            <td><span class="domain-tag">NEWSLETTER</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">8.2s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-GEN-ENG-003</span></td>
+            <td>
+              <div class="test-title">Homepage Footer Newsletter Subscription - Boundary check with empty input submission</div>
+              <div class="test-notes">Automated in tests/generated/generated_req_ae_sub_001.spec.ts • Boundary validation</div>
+            </td>
+            <td><span class="domain-tag">NEWSLETTER</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">13.2s</td>
+          </tr>
+
+          <!-- REST APIS -->
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-API-001</span></td>
+            <td>
+              <div class="test-title">Verify Login API with valid user credentials</div>
+              <div class="test-notes">Automated in tests/api/api.spec.ts • POST /api/verifyLogin</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">7.1s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-API-002</span></td>
+            <td>
+              <div class="test-title">Verify Login API negative responses for invalid credentials and missing parameters</div>
+              <div class="test-notes">Automated in tests/api/api.spec.ts • 404 & 400 response code validation</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">7.6s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-API-003</span></td>
+            <td>
+              <div class="test-title">Get all products list and validate schema and attributes</div>
+              <div class="test-notes">Automated in tests/api/api.spec.ts • GET /api/productsList schema assertion</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">6.5s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-API-004</span></td>
+            <td>
+              <div class="test-title">Search product via API with query parameter</div>
+              <div class="test-notes">Automated in tests/api/api.spec.ts • POST /api/searchProduct</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">6.3s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-API-005</span></td>
+            <td>
+              <div class="test-title">User Account API full CRUD lifecycle (Create, Read, Update, Delete)</div>
+              <div class="test-notes">Automated in tests/api/api.spec.ts • Complete CRUD roundtrip</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">8.7s</td>
+          </tr>
+          <tr data-run="RUN">
+            <td><span class="test-id-pill">TC-AE-API-006</span></td>
+            <td>
+              <div class="test-title">Validate API HTTP method constraints and bad request handling</div>
+              <div class="test-notes">Automated in tests/api/api.spec.ts • 405 Method Not Allowed validation</div>
+            </td>
+            <td><span class="domain-tag">REST API</span></td>
+            <td><span class="badge-run">🟢 RAN (PASSED)</span></td>
+            <td class="duration-val">7.6s</td>
+          </tr>
+
+          <!-- HYBRID INTEGRATION -->
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-INT-001</span></td>
+            <td>
+              <div class="test-title">Cross-validate product catalog details between API and UI</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • API vs UI DOM consistency</div>
+            </td>
+            <td><span class="domain-tag">INTEGRATION</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-INT-002</span></td>
+            <td>
+              <div class="test-title">Seed user account via API, verify UI authentication, and teardown via API</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Hybrid lifecycle</div>
+            </td>
+            <td><span class="domain-tag">INTEGRATION</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+          <tr data-run="NOT_RUN">
+            <td><span class="test-id-pill">TC-AE-INT-003</span></td>
+            <td>
+              <div class="test-title">API-provisioned user cart persistence across browser contexts</div>
+              <div class="test-notes">Documented design spec in docs/test-scenarios.md • Multi-context state</div>
+            </td>
+            <td><span class="domain-tag">INTEGRATION</span></td>
+            <td><span class="badge-not-run">⚪ NOT RUN</span></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('#inventoryTable tbody tr');
+
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase().trim();
+      tableRows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(term) ? '' : 'none';
+      });
+    });
+
+    function filterExecution(type, btn) {
+      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      tableRows.forEach(row => {
+        if (type === 'ALL') {
+          row.style.display = '';
+        } else {
+          row.style.display = row.dataset.run === type ? '' : 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

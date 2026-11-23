@@ -185,7 +185,7 @@ export class DeterministicClassifier {
     }
 
     const networkPattern =
-      /net::ERR_CONNECTION_REFUSED|net::ERR_CONNECTION_RESET|net::ERR_NAME_NOT_RESOLVED|net::ERR_CONNECTION_TIMED_OUT|net::ERR_INTERNET_DISCONNECTED|ENOTFOUND|ECONNREFUSED|ECONNRESET|ETIMEDOUT|socket hang up|502 Bad Gateway|504 Gateway Timeout/i;
+      /net::ERR_CONNECTION_REFUSED|net::ERR_CONNECTION_RESET|net::ERR_NAME_NOT_RESOLVED|net::ERR_CONNECTION_TIMED_OUT|net::ERR_INTERNET_DISCONNECTED|net::ERR_NETWORK_CHANGED|ENOTFOUND|ECONNREFUSED|ECONNRESET|ETIMEDOUT|socket hang up|502 Bad Gateway|504 Gateway Timeout/i;
 
     // Check primary failure evidence first (errorMessage and stackTrace)
     const primaryMatch = primaryText.match(networkPattern);

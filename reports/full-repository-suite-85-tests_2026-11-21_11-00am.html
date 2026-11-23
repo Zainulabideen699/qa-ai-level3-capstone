@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Repository Test Execution Report (85 Tests)</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #22c55e;
+      --green-bg: rgba(34, 197, 94, 0.15);
+      --red: #ef4444;
+      --red-bg: rgba(239, 68, 68, 0.15);
+      --purple: #c084fc;
+      --purple-bg: rgba(192, 132, 252, 0.15);
+      --row-hover: #273549;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 32px 24px;
+    }
+
+    .container { max-width: 1360px; margin: 0 auto; }
+
+    .header {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-left h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .header-left p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .metric-title {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+    }
+
+    .metric-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 6px;
+    }
+
+    .metric-val.green { color: var(--green); }
+    .metric-val.red { color: var(--red); }
+    .metric-val.accent { color: var(--accent); }
+    .metric-val.purple { color: var(--purple); }
+
+    .controls-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 280px;
+      padding: 10px 16px;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-input:focus { border-color: var(--accent); }
+
+    .filter-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .pill-btn {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pill-btn:hover { border-color: var(--accent); color: #fff; }
+
+    .pill-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+
+    .table-wrapper {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+
+    thead th {
+      background: #182234;
+      padding: 16px 20px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      font-weight: 700;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    tbody td {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    tbody tr:hover { background-color: var(--row-hover); }
+
+    .test-id-pill {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .test-title { font-weight: 600; color: #f1f5f9; margin-bottom: 2px; }
+    .test-spec-file { font-size: 12px; color: var(--text-muted); font-family: ui-monospace, monospace; }
+
+    .category-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .category-badge.sut { background: rgba(56, 189, 248, 0.2); color: var(--accent); }
+    .category-badge.agent { background: var(--purple-bg); color: var(--purple); }
+
+    .badge-passed {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      white-space: nowrap;
+    }
+
+    .badge-failed {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      white-space: nowrap;
+    }
+
+    .duration-val {
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-left">
+        <h1>📊 Full Repository Execution Report (All 85 Tests)</h1>
+        <p>Telemetry Source: <strong>reports/rca/rca-report-2026-11-21T05-52-15-250Z.json</strong> • Complete Repository Scope (SUT + AI Agent Framework)</p>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-title">Total Tests Executed</div>
+        <div class="metric-val">85</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Passed Tests</div>
+        <div class="metric-val green">81</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Failed Tests</div>
+        <div class="metric-val red">4</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">Pass Rate</div>
+        <div class="metric-val green">95.3%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">AI Agent Framework Tests</div>
+        <div class="metric-val purple">58 (100% Pass)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-title">SUT Application Tests</div>
+        <div class="metric-val accent">27 (23 Passed, 4 Failed)</div>
+      </div>
+    </div>
+
+    <div class="controls-bar">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by Test ID, Title, Spec, or Status...">
+      <div class="filter-pills">
+        <button class="pill-btn active" onclick="filterStatus('ALL', this)">All (85)</button>
+        <button class="pill-btn" onclick="filterStatus('PASSED', this)">Passed (81)</button>
+        <button class="pill-btn" onclick="filterStatus('FAILED', this)">Failed (4)</button>
+        <button class="pill-btn" onclick="filterCategory('AGENT', this)">Agent Governance (58)</button>
+        <button class="pill-btn" onclick="filterCategory('SUT', this)">SUT Application (27)</button>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="testsTable">
+        <thead>
+          <tr>
+            <th style="width: 150px;">Test ID / File</th>
+            <th>Test Scenario Title & Location</th>
+            <th style="width: 160px;">Category</th>
+            <th style="width: 130px;">Status</th>
+            <th style="width: 100px;">Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 4 FAILURES FIRST FOR VISIBILITY -->
+          <tr data-status="FAILED" data-category="SUT">
+            <td><span class="test-id-pill" style="color:var(--red); border-color:var(--red);">TC-GEN-CART-001</span></td>
+            <td>
+              <div class="test-title">Add Blue Top product to cart and verify cart item details</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_cart_blue_top.spec.ts • Timed out at 30s during full repository parallel load</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-failed">✗ FAILED</span></td>
+            <td class="duration-val">33.1s</td>
+          </tr>
+          <tr data-status="FAILED" data-category="SUT">
+            <td><span class="test-id-pill" style="color:var(--red); border-color:var(--red);">TC-AE-CART-004</span></td>
+            <td>
+              <div class="test-title">Remove a specific product from cart</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts • Timed out at 30s during full repository parallel load</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-failed">✗ FAILED</span></td>
+            <td class="duration-val">38.5s</td>
+          </tr>
+          <tr data-status="FAILED" data-category="SUT">
+            <td><span class="test-id-pill" style="color:var(--red); border-color:var(--red);">TC-AE-CART-001</span></td>
+            <td>
+              <div class="test-title">Add multiple distinct products to cart and verify cart contents</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts • Timed out at 30s during full repository parallel load</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-failed">✗ FAILED</span></td>
+            <td class="duration-val">38.3s</td>
+          </tr>
+          <tr data-status="FAILED" data-category="SUT">
+            <td><span class="test-id-pill" style="color:var(--red); border-color:var(--red);">TC-AE-CART-006</span></td>
+            <td>
+              <div class="test-title">Cart persistence across guest session and post-login authentication</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts • Timed out at 30s during full repository parallel load</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-failed">✗ FAILED</span></td>
+            <td class="duration-val">33.3s</td>
+          </tr>
+
+          <!-- SUT PASSED TESTS -->
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-GEN-CART-002</span></td>
+            <td>
+              <div class="test-title">Add Blue Top and continue shopping, verifying item is retained in cart</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_cart_blue_top.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">17.7s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-GEN-CART-003</span></td>
+            <td>
+              <div class="test-title">Adding Blue Top multiple times increments quantity in cart</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_cart_blue_top.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">17.5s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-CART-002</span></td>
+            <td>
+              <div class="test-title">Increase product quantity from product detail page and verify cart calculation</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">15.4s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-CART-003</span></td>
+            <td>
+              <div class="test-title">Boundary test for product quantity input with zero and negative numbers</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">12.8s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-CART-005</span></td>
+            <td>
+              <div class="test-title">Remove all products from cart to reach empty cart state</div>
+              <div class="test-spec-file">tests/ui/cart.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">12.2s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-AUTH-002</span></td>
+            <td>
+              <div class="test-title">User login with valid credentials and subsequent logout</div>
+              <div class="test-spec-file">tests/ui/auth.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">17.3s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-AUTH-003</span></td>
+            <td>
+              <div class="test-title">Attempt login with incorrect email and password</div>
+              <div class="test-spec-file">tests/ui/auth.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">9.1s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-AUTH-004</span></td>
+            <td>
+              <div class="test-title">Attempt registration with an already-registered email address</div>
+              <div class="test-spec-file">tests/ui/auth.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">17.6s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-PROD-001</span></td>
+            <td>
+              <div class="test-title">View product catalogue and product details</div>
+              <div class="test-spec-file">tests/ui/product.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">9.2s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-PROD-002</span></td>
+            <td>
+              <div class="test-title">Search products using tshirt keyword</div>
+              <div class="test-spec-file">tests/ui/product.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">22.5s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-PROD-003</span></td>
+            <td>
+              <div class="test-title">Search for a non-existent product</div>
+              <div class="test-spec-file">tests/ui/product.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">20.2s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-PROD-004</span></td>
+            <td>
+              <div class="test-title">Search using empty or whitespace input</div>
+              <div class="test-spec-file">tests/ui/product.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">20.9s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-GEN-ENG-001</span></td>
+            <td>
+              <div class="test-title">Homepage Footer Newsletter Subscription - Successful submission with valid inputs</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_sub_001.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">13.5s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-GEN-ENG-002</span></td>
+            <td>
+              <div class="test-title">Homepage Footer Newsletter Subscription - Input validation error with malformed data</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_sub_001.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">8.2s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-GEN-ENG-003</span></td>
+            <td>
+              <div class="test-title">Homepage Footer Newsletter Subscription - Boundary check with empty input submission</div>
+              <div class="test-spec-file">tests/generated/generated_req_ae_sub_001.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">13.2s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-API-001</span></td>
+            <td>
+              <div class="test-title">Verify Login API with valid user credentials</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">7.1s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-API-002</span></td>
+            <td>
+              <div class="test-title">Verify Login API negative responses for invalid credentials and missing parameters</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">7.6s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-API-003</span></td>
+            <td>
+              <div class="test-title">Get all products list and validate schema and attributes</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">6.5s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-API-004</span></td>
+            <td>
+              <div class="test-title">Search product via API with query parameter</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">6.3s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-API-005</span></td>
+            <td>
+              <div class="test-title">User Account API full CRUD lifecycle (Create, Read, Update, Delete)</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">8.7s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">TC-AE-API-006</span></td>
+            <td>
+              <div class="test-title">Validate API HTTP method constraints and bad request handling</div>
+              <div class="test-spec-file">tests/api/api.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">SUT Application</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">7.6s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">EXAMPLE-001</span></td>
+            <td>
+              <div class="test-title">has title</div>
+              <div class="test-spec-file">tests/example.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">Playwright Example</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">1.2s</td>
+          </tr>
+          <tr data-status="PASSED" data-category="SUT">
+            <td><span class="test-id-pill">EXAMPLE-002</span></td>
+            <td>
+              <div class="test-title">get started link</div>
+              <div class="test-spec-file">tests/example.spec.ts</div>
+            </td>
+            <td><span class="category-badge sut">Playwright Example</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">1.4s</td>
+          </tr>
+
+          <!-- AGENT 6 QUALITY REPORTING AGENT TESTS (25 TESTS - ALL PASSED) -->
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-001</span></td>
+            <td>
+              <div class="test-title">Recommends GO when all required checks pass and 100% test verification is complete</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">18ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-002</span></td>
+            <td>
+              <div class="test-title">Recommends NO_GO when authentic PRODUCT_DEFECT is detected</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">38ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-003</span></td>
+            <td>
+              <div class="test-title">Recommends NO_GO when UNKNOWN failure classification occurs</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">35ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-004</span></td>
+            <td>
+              <div class="test-title">Recommends NO_GO when pass rate falls below the 85% threshold</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">35ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-005</span></td>
+            <td>
+              <div class="test-title">Recommends NO_GO when Gate 1 or Gate 2 is rejected</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">96ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-006</span></td>
+            <td>
+              <div class="test-title">Recommends NO_GO when test execution evidence is missing or runner fails with process error</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">33ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-007</span></td>
+            <td>
+              <div class="test-title">Recommends CONDITIONAL_GO for transient infrastructure failures with pass rate >= 85%</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">21ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-008</span></td>
+            <td>
+              <div class="test-title">Enforces CONDITIONAL_GO (prohibits unconditional GO) for TEST_SCRIPT_DEFECT</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">31ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-009</span></td>
+            <td>
+              <div class="test-title">Invariant enforcement: Live AI narrative CANNOT override or weaken deterministic NO_GO</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">23ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-010</span></td>
+            <td>
+              <div class="test-title">Gracefully falls back to deterministic narrative when AI provider throws an error</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">10ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-011</span></td>
+            <td>
+              <div class="test-title">Handles empty history or missing directories gracefully without divide-by-zero or crashes</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">16ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-012</span></td>
+            <td>
+              <div class="test-title">Correctly excludes controlled fault-injection runs (FI-01, FI-02) from historical quality benchmarks</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">19ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-013</span></td>
+            <td>
+              <div class="test-title">Accurately calculates repair proposal counts, risk profiles, and pending human approvals</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">12ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-014</span></td>
+            <td>
+              <div class="test-title">Strictly preserves human release governance: releaseSignOff is initialized as PENDING</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">62ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-015</span></td>
+            <td>
+              <div class="test-title">Strict filesystem governance: confirms agent writes only under reports/quality/ and never touches src/ or tests/</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">62ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-016</span></td>
+            <td>
+              <div class="test-title">Recommends CONDITIONAL_GO for TIMING_OR_FLAKINESS failure when pass rate >= 85% and no product defects</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">56ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-017</span></td>
+            <td>
+              <div class="test-title">Multi-category defect clustering generates distinct clusters with accurate counts and scenario lists</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">57ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-018</span></td>
+            <td>
+              <div class="test-title">Zero executed tests produces zero-division-protected rates (no NaN/Infinity) and enforces strict NO_GO</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">44ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-019</span></td>
+            <td>
+              <div class="test-title">Correlated RCA runSummary takes precedence over scenario-count estimates for executed tests</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">9ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-020</span></td>
+            <td>
+              <div class="test-title">Verifies PipelineReporter includes human gate approvals and scenario metadata in generated reports</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">10ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-021</span></td>
+            <td>
+              <div class="test-title">Strict NO_GO enforcement: verifies NO_GO recommendation is strictly returned when pass rate is below 85%</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">54ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-022</span></td>
+            <td>
+              <div class="test-title">Recommends CONDITIONAL_GO when recurrent UNKNOWN failures exist even if current run passes</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">5ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-023</span></td>
+            <td>
+              <div class="test-title">Recommends CONDITIONAL_GO when historical pass rate is strictly DEGRADING</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">8ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-024</span></td>
+            <td>
+              <div class="test-title">PipelineReporter writeReport creates both JSON and Markdown files under reports/pipeline/</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">15ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-QUAL-025</span></td>
+            <td>
+              <div class="test-title">Agent 6 populates reportPaths in returned output pointing to saved files</div>
+              <div class="test-spec-file">tests/agents/qualityReportingAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent Governance</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">29ms</td>
+          </tr>
+
+          <!-- RCA DETERMINISTIC CLASSIFIER TESTS (24 TESTS - ALL PASSED) -->
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-001</span></td>
+            <td>
+              <div class="test-title">Classifies direct locator timeout error as LOCATOR_OR_UI_CHANGE</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">3ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-002</span></td>
+            <td>
+              <div class="test-title">Classifies network disconnect or connection refused as ENVIRONMENT_OR_NETWORK</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">5ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-003</span></td>
+            <td>
+              <div class="test-title">Classifies Automation Exercise duplicate registration as TEST_DATA_OR_STATE</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">6ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-004</span></td>
+            <td>
+              <div class="test-title">Classifies duplicate email or unique constraint violation as TEST_DATA_OR_STATE</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">6ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-005</span></td>
+            <td>
+              <div class="test-title">Classifies HTTP 5xx responses from SUT as PRODUCT_DEFECT</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">5ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-006</span></td>
+            <td>
+              <div class="test-title">Classifies locator resolved to multiple elements as LOCATOR_OR_UI_CHANGE</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">13ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-007</span></td>
+            <td>
+              <div class="test-title">Classifies strict mode violation as LOCATOR_OR_UI_CHANGE</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">4ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-008</span></td>
+            <td>
+              <div class="test-title">Classifies actionability timeout on hidden element as LOCATOR_OR_UI_CHANGE</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">6ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-009</span></td>
+            <td>
+              <div class="test-title">Classifies runner timeout as TIMING_OR_FLAKINESS</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">4ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-010</span></td>
+            <td>
+              <div class="test-title">Classifies unhandled JavaScript TypeError in test code as TEST_SCRIPT_DEFECT</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">5ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-011</span></td>
+            <td>
+              <div class="test-title">A failed Playwright assertion without backend error is classified as PRODUCT_DEFECT</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">8ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-012</span></td>
+            <td>
+              <div class="test-title">Unrelated backend log does not mask primary locator failure</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">4ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-013</span></td>
+            <td>
+              <div class="test-title">Direct third-party failed request is classified as THIRD_PARTY_DEPENDENCY</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">1ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-014</span></td>
+            <td>
+              <div class="test-title">Bare HTTP 401/403 authorization failures require human review and cautious confidence</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">3ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-015</span></td>
+            <td>
+              <div class="test-title">HTTP 500 server crash requires mandatory human verification</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">3ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-016</span></td>
+            <td>
+              <div class="test-title">Generic locator timeout is NOT misclassified as TIMING_OR_FLAKINESS</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">3ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-017</span></td>
+            <td>
+              <div class="test-title">Verifies all eight categories are supported across sample inputs</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">9ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-018</span></td>
+            <td>
+              <div class="test-title">Confidence score is strictly bounded between 0.0 and 1.0 across all inputs</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">21ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-019</span></td>
+            <td>
+              <div class="test-title">Sanitizes failingAction and artifact paths safely</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">4ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-020</span></td>
+            <td>
+              <div class="test-title">Produces strictly identical diagnostic output across repeated invocations excluding timestamp</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">3ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-021</span></td>
+            <td>
+              <div class="test-title">Classifies invalid Playwright selector syntax as TEST_SCRIPT_DEFECT</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">4ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-022</span></td>
+            <td>
+              <div class="test-title">Classifies DOMException querySelectorAll invalid selector as TEST_SCRIPT_DEFECT</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">4ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-023</span></td>
+            <td>
+              <div class="test-title">Classifies actual Playwright "while parsing css selector" error as TEST_SCRIPT_DEFECT (FI-01 regression)</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">4ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-RCA-024</span></td>
+            <td>
+              <div class="test-title">Classifies connection reset network failure as ENVIRONMENT_OR_NETWORK (FI-02)</div>
+              <div class="test-spec-file">tests/rca/deterministicClassifier.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">RCA Classifier</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">1ms</td>
+          </tr>
+
+          <!-- REPAIR PROPOSAL AGENT TESTS (9 TESTS - ALL PASSED) -->
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-REP-001</span></td>
+            <td>
+              <div class="test-title">Formulates PRODUCT_DEFECT proposal targeting SUT with NO_ACTION on test suite</div>
+              <div class="test-spec-file">tests/rca/repairProposalAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent 5 Proposals</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">13ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-REP-002</span></td>
+            <td>
+              <div class="test-title">Formulates TEST_SCRIPT_DEFECT proposal targeting test script with human approval</div>
+              <div class="test-spec-file">tests/rca/repairProposalAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent 5 Proposals</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">6ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-REP-003</span></td>
+            <td>
+              <div class="test-title">Formulates ENVIRONMENT_OR_NETWORK proposal targeting INFRASTRUCTURE with NO_ACTION</div>
+              <div class="test-spec-file">tests/rca/repairProposalAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent 5 Proposals</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">5ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-REP-004</span></td>
+            <td>
+              <div class="test-title">Formulates LOCATOR_OR_UI_CHANGE proposal targeting PAGE_OBJECT with human approval</div>
+              <div class="test-spec-file">tests/rca/repairProposalAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent 5 Proposals</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">5ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-REP-005</span></td>
+            <td>
+              <div class="test-title">Flags UNKNOWN category for manual QA triage (NEEDS_INVESTIGATION, risk HIGH)</div>
+              <div class="test-spec-file">tests/rca/repairProposalAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent 5 Proposals</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">5ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-REP-006</span></td>
+            <td>
+              <div class="test-title">Rejects AI-proposed assertion weakening to enforce Golden Rule</div>
+              <div class="test-spec-file">tests/rca/repairProposalAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent 5 Proposals</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">7ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-REP-007</span></td>
+            <td>
+              <div class="test-title">Fallback cleanly to deterministic proposal on malformed AI response</div>
+              <div class="test-spec-file">tests/rca/repairProposalAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent 5 Proposals</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">13ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-REP-008</span></td>
+            <td>
+              <div class="test-title">Strict governance verification: agent possesses zero write privileges to src/ or tests/</div>
+              <div class="test-spec-file">tests/rca/repairProposalAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent 5 Proposals</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">7ms</td>
+          </tr>
+          <tr data-status="PASSED" data-category="AGENT">
+            <td><span class="test-id-pill">TC-VAL-REP-009</span></td>
+            <td>
+              <div class="test-title">Formulates THIRD_PARTY_DEPENDENCY proposal with status PROPOSED and enforces requiresHumanApproval = true</div>
+              <div class="test-spec-file">tests/rca/repairProposalAgent.spec.ts</div>
+            </td>
+            <td><span class="category-badge agent">Agent 5 Proposals</span></td>
+            <td><span class="badge-passed">✓ PASSED</span></td>
+            <td class="duration-val">10ms</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('#testsTable tbody tr');
+
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase().trim();
+      tableRows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(term) ? '' : 'none';
+      });
+    });
+
+    function filterStatus(status, btn) {
+      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      tableRows.forEach(row => {
+        if (status === 'ALL') {
+          row.style.display = '';
+        } else {
+          row.style.display = row.dataset.status === status ? '' : 'none';
+        }
+      });
+    }
+
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      tableRows.forEach(row => {
+        row.style.display = row.dataset.category === cat ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

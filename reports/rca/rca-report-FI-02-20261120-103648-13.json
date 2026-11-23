@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "executionId": "FI-02-20261120-103648",
+  "generatedAt": "2026-11-20T10:33:37.362Z",
+  "runSummary": {
+    "totalTests": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 13033,
+    "status": "passed"
+  },
+  "failures": []
+}

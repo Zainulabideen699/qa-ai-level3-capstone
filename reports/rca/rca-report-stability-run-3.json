@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "1.0.0",
+  "executionId": "stability-run-3",
+  "generatedAt": "2026-11-22T08:13:09.145Z",
+  "runSummary": {
+    "totalTests": 25,
+    "passed": 24,
+    "failed": 1,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 91694,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-AE-PROD-003",
+      "testTitle": "TC-AE-PROD-003: Search for a non-existent product @products @negative @REQ-AE-PROD",
+      "fullTitle": " > Google Chrome > ui\\product.spec.ts > Product Catalog Tests - Automation Exercise > TC-AE-PROD-003: Search for a non-existent product @products @negative @REQ-AE-PROD",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/product.spec.ts",
+        "line": 87,
+        "column": 3
+      },
+      "retry": 0,
+      "durationMs": 33017,
+      "status": "timedOut",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-PROD-003",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-22T08:13:09.145Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+          "durationMs": 33017,
+          "timestamp": "2026-11-22T08:13:08.689Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}
