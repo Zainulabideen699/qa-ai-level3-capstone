@@ -1,0 +1,203 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-23T12:14:58.154Z",
+  "runSummary": {
+    "totalTests": 13,
+    "passed": 10,
+    "failed": 3,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 202899,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-AE-AUTH-004",
+      "testTitle": "TC-AE-AUTH-004: Attempt registration with an already-registered email address",
+      "fullTitle": " > Google Chrome > ui\\auth.spec.ts > Authentication Tests - System Under Test: Automation Exercise > TC-AE-AUTH-004: Attempt registration with an already-registered email address",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts",
+        "line": 72,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts",
+        "line": 88,
+        "column": 50
+      },
+      "retry": 0,
+      "durationMs": 18645,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i })\u001b[22m\n",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i })\u001b[22m\n\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\auth.spec.ts:88:50"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-AUTH-004",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator: locator('form[action*=\"/signup\"]').locator('p').fi\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts:88",
+          "failingAction": "<untrusted_content source=\"failing_action\">\nlocator('form[action*=\"/signup\"]').locator\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator: locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n[2m  - Expect \"toBeVisible\" locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i }) with timeout 5000ms[22m\n[2m  - waiting for locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i })[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator: locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i })\nExpected: visible\nTimeout: 5000ms\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:14:58.153Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('form[action*=\"/signup\"]').locator('p').filter({ hasText: /already exist/i })\u001b[22m\n",
+          "durationMs": 18645,
+          "timestamp": "2026-11-23T12:12:25.556Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-CART-004",
+      "testTitle": "TC-AE-CART-004: Remove a specific product from cart",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-004: Remove a specific product from cart",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 177,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 189,
+        "column": 38
+      },
+      "retry": 0,
+      "durationMs": 17959,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#cart_info_table')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('#cart_info_table') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#cart_info_table')\u001b[22m\n",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#cart_info_table')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('#cart_info_table') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#cart_info_table')\u001b[22m\n\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\cart.spec.ts:189:38"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-004",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator: locator('#cart_info_table')\nExpected: visible\nTime\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts:189",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator: locator('#cart_info_table')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n[2m  - Expect \"toBeVisible\" locator('#cart_info_table') with timeout 5000ms[22m\n[2m  - waiting for locator('#cart_info_table')[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator: locator('#cart_info_table')\nExpected: visible\nTimeout: 5000ms\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:14:58.153Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#cart_info_table')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('#cart_info_table') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#cart_info_table')\u001b[22m\n",
+          "durationMs": 17959,
+          "timestamp": "2026-11-23T12:13:09.776Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-CART-006",
+      "testTitle": "TC-AE-CART-006: Cart persistence across guest session and post-login authentication",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-006: Cart persistence across guest session and post-login authentication",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 242,
+        "column": 3
+      },
+      "retry": 0,
+      "durationMs": 36742,
+      "status": "timedOut",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-006",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "consoleSnippet": "<untrusted_content source=\"console_errors\">\nException during account cleanup for cart_persist_1795436008138_2024@example.com: apiRequestContext.delete: Target page, context or browser has been closed\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:14:58.154Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+          "durationMs": 36742,
+          "timestamp": "2026-11-23T12:14:05.047Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}

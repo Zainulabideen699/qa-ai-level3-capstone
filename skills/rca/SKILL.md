@@ -57,7 +57,7 @@ When the primary AI/LLM model is unavailable, rate-limited, or times out, the ag
 | `TypeError:.*is not a function\|ReferenceError:\|UnhandledPromiseRejection` | `TEST_SCRIPT_DEFECT` | High |
 | `Timeout .* waiting for getByRole\|getByLabel\|locator` | `LOCATOR_OR_UI_CHANGE` | High |
 | `Email Address already exist\|Invalid credentials\|401 Unauthorized` | `TEST_DATA_OR_STATE` | High |
-| `net::ERR_CONNECTION_REFUSED\|ENOTFOUND\|ETIMEDOUT\|502 Bad Gateway` | `ENVIRONMENT_OR_NETWORK` | High |
+| `net::ERR_CONNECTION_REFUSED\|net::ERR_NETWORK_CHANGED\|ENOTFOUND\|ETIMEDOUT\|502 Bad Gateway` | `ENVIRONMENT_OR_NETWORK` | High |
 | `element is not visible within .*ms\|intercepted by animated element` | `TIMING_OR_FLAKINESS` | Medium |
 | `google-analytics\|doubleclick\|googlesyndication\|adservice` | `THIRD_PARTY_DEPENDENCY` | High |
 | *No pattern match* | `UNKNOWN` | Neutral |

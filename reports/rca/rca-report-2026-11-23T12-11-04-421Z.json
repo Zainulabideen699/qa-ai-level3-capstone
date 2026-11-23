@@ -1,0 +1,821 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-23T12:11:04.421Z",
+  "runSummary": {
+    "totalTests": 13,
+    "passed": 0,
+    "failed": 13,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 16555,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-AE-CART-003",
+      "testTitle": "TC-AE-CART-003: Boundary test for product quantity input with zero and negative numbers",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-003: Boundary test for product quantity input with zero and negative numbers",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 100,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 4441,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.gotoProductDetails (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:184:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\cart.spec.ts:104:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-0abfe-h-zero-and-negative-numbers-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-0abfe-h-zero-and-negative-numbers-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-003",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/product_details/1\", \n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-0abfe-h-zero-and-negative-numbers-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-0abfe-h-zero-and-negative-numbers-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.420Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 4441,
+          "timestamp": "2026-11-23T12:10:53.692Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-0abfe-h-zero-and-negative-numbers-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-0abfe-h-zero-and-negative-numbers-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-CART-002",
+      "testTitle": "TC-AE-CART-002: Increase product quantity from product detail page and verify cart calculation",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-002: Increase product quantity from product detail page and verify cart calculation",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 68,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 5562,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.gotoProductDetails (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:184:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\cart.spec.ts:74:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-c81c6-and-verify-cart-calculation-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-c81c6-and-verify-cart-calculation-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-002",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/product_details/1\", \n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-c81c6-and-verify-cart-calculation-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-c81c6-and-verify-cart-calculation-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.420Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 5562,
+          "timestamp": "2026-11-23T12:10:54.657Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-c81c6-and-verify-cart-calculation-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-c81c6-and-verify-cart-calculation-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-CART-004",
+      "testTitle": "TC-AE-CART-004: Remove a specific product from cart",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-004: Remove a specific product from cart",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 177,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 567,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:97:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\cart.spec.ts:181:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-004",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.420Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 567,
+          "timestamp": "2026-11-23T12:10:55.042Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-ef8e6--specific-product-from-cart-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-AUTH-003",
+      "testTitle": "TC-AE-AUTH-003: Attempt login with incorrect email and password",
+      "fullTitle": " > Google Chrome > ui\\auth.spec.ts > Authentication Tests - System Under Test: Automation Exercise > TC-AE-AUTH-003: Attempt login with incorrect email and password",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts",
+        "line": 53,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts",
+        "line": 67,
+        "column": 47
+      },
+      "retry": 0,
+      "durationMs": 6793,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('form[action*=\"/login\"]').locator('p').filter({ hasText: /incorrect/i })\nExpected: visible\nReceived: undefined\n",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('form[action*=\"/login\"]').locator('p').filter({ hasText: /incorrect/i })\nExpected: visible\nReceived: undefined\n\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\auth.spec.ts:67:47"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-AUTH-003",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator:  locator('form[action*=\"/login\"]').locator('p').fi\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts:67",
+          "failingAction": "<untrusted_content source=\"failing_action\">\nlocator('form[action*=\"/login\"]').locator\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator:  locator('form[action*=\"/login\"]').locator('p').filter({ hasText: /incorrect/i })\nExpected: visible\nReceived: undefined\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator:  locator('form[action*=\"/login\"]').locator('p').filter({ hasText: /incorrect/i })\nExpected: visible\nReceived: undefined\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.420Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('form[action*=\"/login\"]').locator('p').filter({ hasText: /incorrect/i })\nExpected: visible\nReceived: undefined\n",
+          "durationMs": 6793,
+          "timestamp": "2026-11-23T12:10:55.711Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-CART-001",
+      "testTitle": "TC-AE-CART-001: Add multiple distinct products to cart and verify cart contents",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-001: Add multiple distinct products to cart and verify cart contents",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 28,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 7179,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:97:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\cart.spec.ts:32:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-001",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting u\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.420Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 7179,
+          "timestamp": "2026-11-23T12:10:56.351Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-00c91-rt-and-verify-cart-contents-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-CART-005",
+      "testTitle": "TC-AE-CART-005: Remove all products from cart to reach empty cart state",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-005: Remove all products from cart to reach empty cart state",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 214,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 1097,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.gotoProductDetails (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:184:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\cart.spec.ts:218:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-a8cb5-t-to-reach-empty-cart-state-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-a8cb5-t-to-reach-empty-cart-state-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-005",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/product_details/1\", wait\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-a8cb5-t-to-reach-empty-cart-state-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-a8cb5-t-to-reach-empty-cart-state-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.420Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/product_details/1\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 1097,
+          "timestamp": "2026-11-23T12:10:56.547Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-a8cb5-t-to-reach-empty-cart-state-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-a8cb5-t-to-reach-empty-cart-state-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-PROD-001",
+      "testTitle": "TC-AE-PROD-001: View product catalogue and product details @products @smoke @REQ-AE-PROD",
+      "fullTitle": " > Google Chrome > ui\\product.spec.ts > Product Catalog Tests - Automation Exercise > TC-AE-PROD-001: View product catalogue and product details @products @smoke @REQ-AE-PROD",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/product.spec.ts",
+        "line": 17,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 767,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:97:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\product.spec.ts:10:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-fcf00--products-smoke-REQ-AE-PROD-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-fcf00--products-smoke-REQ-AE-PROD-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-PROD-001",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-fcf00--products-smoke-REQ-AE-PROD-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-fcf00--products-smoke-REQ-AE-PROD-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.420Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 767,
+          "timestamp": "2026-11-23T12:10:57.752Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-fcf00--products-smoke-REQ-AE-PROD-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-fcf00--products-smoke-REQ-AE-PROD-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-PROD-003",
+      "testTitle": "TC-AE-PROD-003: Search for a non-existent product @products @negative @REQ-AE-PROD",
+      "fullTitle": " > Google Chrome > ui\\product.spec.ts > Product Catalog Tests - Automation Exercise > TC-AE-PROD-003: Search for a non-existent product @products @negative @REQ-AE-PROD",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/product.spec.ts",
+        "line": 87,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 919,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:97:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\product.spec.ts:10:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-PROD-003",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.420Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 919,
+          "timestamp": "2026-11-23T12:10:58.784Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-44d67-oducts-negative-REQ-AE-PROD-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-PROD-004",
+      "testTitle": "TC-AE-PROD-004: Search using empty or whitespace input @products @edge @REQ-AE-PROD",
+      "fullTitle": " > Google Chrome > ui\\product.spec.ts > Product Catalog Tests - Automation Exercise > TC-AE-PROD-004: Search using empty or whitespace input @products @edge @REQ-AE-PROD",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/product.spec.ts",
+        "line": 110,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 452,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:97:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\product.spec.ts:10:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-2c8ba-t-products-edge-REQ-AE-PROD-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-2c8ba-t-products-edge-REQ-AE-PROD-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-PROD-004",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-2c8ba-t-products-edge-REQ-AE-PROD-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-2c8ba-t-products-edge-REQ-AE-PROD-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.421Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 452,
+          "timestamp": "2026-11-23T12:10:59.066Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-2c8ba-t-products-edge-REQ-AE-PROD-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-2c8ba-t-products-edge-REQ-AE-PROD-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-PROD-002",
+      "testTitle": "TC-AE-PROD-002: Search products using tshirt keyword @products @smoke @REQ-AE-PROD",
+      "fullTitle": " > Google Chrome > ui\\product.spec.ts > Product Catalog Tests - Automation Exercise > TC-AE-PROD-002: Search products using tshirt keyword @products @smoke @REQ-AE-PROD",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/product.spec.ts",
+        "line": 57,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 2198,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:97:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\product.spec.ts:10:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-45883--products-smoke-REQ-AE-PROD-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-45883--products-smoke-REQ-AE-PROD-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-PROD-002",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting u\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: Target page, context or browser has been closed\nCall log:\n[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"[22m\n\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-45883--products-smoke-REQ-AE-PROD-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-45883--products-smoke-REQ-AE-PROD-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.421Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/products\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 2198,
+          "timestamp": "2026-11-23T12:10:59.498Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-45883--products-smoke-REQ-AE-PROD-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-product-Product-Catalog-45883--products-smoke-REQ-AE-PROD-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-AUTH-002",
+      "testTitle": "TC-AE-AUTH-002: User login with valid credentials and subsequent logout",
+      "fullTitle": " > Google Chrome > ui\\auth.spec.ts > Authentication Tests - System Under Test: Automation Exercise > TC-AE-AUTH-002: User login with valid credentials and subsequent logout",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts",
+        "line": 18,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 11480,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: Target page, context or browser has been closed",
+        "stack": "Error: page.goto: Target page, context or browser has been closed\n    at LoginPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at LoginPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\LoginPage.ts:45:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\auth.spec.ts:27:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-AUTH-002",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: Target page, context or browser has been closed\nError: page.goto: Target page, context or browser has been closed\n    at LoginPage.n\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: Target page, context or browser has been closed\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: Target page, context or browser has been closed\n    at LoginPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at LoginPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\LoginPage.ts:45:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\auth.spec.ts:27:23\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.421Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: Target page, context or browser has been closed",
+          "durationMs": 11480,
+          "timestamp": "2026-11-23T12:11:00.296Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-AUTH-004",
+      "testTitle": "TC-AE-AUTH-004: Attempt registration with an already-registered email address",
+      "fullTitle": " > Google Chrome > ui\\auth.spec.ts > Authentication Tests - System Under Test: Automation Exercise > TC-AE-AUTH-004: Attempt registration with an already-registered email address",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts",
+        "line": 72,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 14130,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at LoginPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at LoginPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\LoginPage.ts:45:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\auth.spec.ts:81:23"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-AUTH-004",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"d\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"domcontentloaded\"[22m\n\n    at LoginPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.421Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 14130,
+          "timestamp": "2026-11-23T12:11:02.906Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-61617-dy-registered-email-address-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    },
+    {
+      "testId": "TC-AE-CART-006",
+      "testTitle": "TC-AE-CART-006: Cart persistence across guest session and post-login authentication",
+      "fullTitle": " > Google Chrome > ui\\cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-006: Cart persistence across guest session and post-login authentication",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/cart.spec.ts",
+        "line": 242,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 8374,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: Target page, context or browser has been closed",
+        "stack": "Error: page.goto: Target page, context or browser has been closed\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.gotoProductDetails (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:184:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\cart.spec.ts:251:25"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-006",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: Target page, context or browser has been closed\nError: page.goto: Target page, context or browser has been closed\n    at ProductPage\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: Target page, context or browser has been closed\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: Target page, context or browser has been closed\n    at ProductPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at ProductPage.gotoProductDetails (D:\\Playwright\\qa-ai-level3\\src\\pages\\ProductPage.ts:184:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\cart.spec.ts:251:25\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:11:04.421Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: Target page, context or browser has been closed",
+          "durationMs": 8374,
+          "timestamp": "2026-11-23T12:11:04.331Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}
