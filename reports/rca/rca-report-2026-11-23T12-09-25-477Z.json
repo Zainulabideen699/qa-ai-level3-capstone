@@ -1,0 +1,332 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-23T12:09:25.477Z",
+  "runSummary": {
+    "totalTests": 25,
+    "passed": 20,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 5,
+    "durationMs": 250729,
+    "status": "passed"
+  },
+  "failures": [],
+  "flaky": [
+    {
+      "testId": "TC-AE-API-005",
+      "testTitle": "TC-AE-API-005: User Account API full CRUD lifecycle (Create, Read, Update, Delete)",
+      "fullTitle": " > Google Chrome > api/api.spec.ts > Backend REST API Tests - System Under Test: Automation Exercise > TC-AE-API-005: User Account API full CRUD lifecycle (Create, Read, Update, Delete)",
+      "testSourceLocation": {
+        "file": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/api/api.spec.ts",
+        "line": 148,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/api/api.spec.ts",
+        "line": 178,
+        "column": 32
+      },
+      "retry": 0,
+      "durationMs": 3902,
+      "status": "flaky",
+      "finalOutcome": "flaky",
+      "originalError": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m\n    at /home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/api/api.spec.ts:178:32"
+      },
+      "artifactPaths": {
+        "trace": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/api-api-Backend-REST-API-T-ac81a--Create-Read-Update-Delete--Google-Chrome/trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-API-005",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived\n</untrusted_content>",
+          "failingLine": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/api/api.spec.ts:178",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived: [31m503[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived: [31m503[39m\n    at /home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/api/api.spec.ts:178:32\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/api-api-Backend-REST-API-T-ac81a--Create-Read-Update-Delete--Google-Chrome/trace.zip\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:09:25.477Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m",
+          "durationMs": 3902,
+          "timestamp": "2026-11-23T12:05:30.346Z",
+          "artifactPaths": {
+            "trace": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/api-api-Backend-REST-API-T-ac81a--Create-Read-Update-Delete--Google-Chrome/trace.zip"
+          }
+        }
+      ],
+      "resolvedOnRetry": {
+        "retry": 1,
+        "durationMs": 7693
+      }
+    },
+    {
+      "testId": "TC-AE-API-006",
+      "testTitle": "TC-AE-API-006: Validate API HTTP method constraints and bad request handling",
+      "fullTitle": " > Google Chrome > api/api.spec.ts > Backend REST API Tests - System Under Test: Automation Exercise > TC-AE-API-006: Validate API HTTP method constraints and bad request handling",
+      "testSourceLocation": {
+        "file": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/api/api.spec.ts",
+        "line": 213,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/api/api.spec.ts",
+        "line": 251,
+        "column": 39
+      },
+      "retry": 0,
+      "durationMs": 4397,
+      "status": "flaky",
+      "finalOutcome": "flaky",
+      "originalError": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m\n    at /home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/api/api.spec.ts:251:39"
+      },
+      "artifactPaths": {
+        "trace": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/api-api-Backend-REST-API-T-60bd1-ts-and-bad-request-handling-Google-Chrome/trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-API-006",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived\n</untrusted_content>",
+          "failingLine": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/api/api.spec.ts:251",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived: [31m503[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m\n\nExpected: [32m200[39m\nReceived: [31m503[39m\n    at /home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/api/api.spec.ts:251:39\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/api-api-Backend-REST-API-T-60bd1-ts-and-bad-request-handling-Google-Chrome/trace.zip\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:09:25.477Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m200\u001b[39m\nReceived: \u001b[31m503\u001b[39m",
+          "durationMs": 4397,
+          "timestamp": "2026-11-23T12:05:42.987Z",
+          "artifactPaths": {
+            "trace": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/api-api-Backend-REST-API-T-60bd1-ts-and-bad-request-handling-Google-Chrome/trace.zip"
+          }
+        }
+      ],
+      "resolvedOnRetry": {
+        "retry": 1,
+        "durationMs": 5369
+      }
+    },
+    {
+      "testId": "TC-GEN-ENG-002",
+      "testTitle": "TC-GEN-ENG-002: Homepage Footer Newsletter Subscription - Input validation error with malformed data",
+      "fullTitle": " > Google Chrome > generated/generated_req_ae_sub_001.spec.ts > REQ-AE-SUB-001: Homepage Footer Newsletter Subscription - Automated Test Suite > TC-GEN-ENG-002: Homepage Footer Newsletter Subscription - Input validation error with malformed data",
+      "testSourceLocation": {
+        "file": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/generated/generated_req_ae_sub_001.spec.ts",
+        "line": 49,
+        "column": 3
+      },
+      "retry": 0,
+      "durationMs": 30684,
+      "status": "flaky",
+      "finalOutcome": "flaky",
+      "originalError": {
+        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+      },
+      "artifactPaths": {
+        "screenshot": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/generated-generated_req_ae-4427d-n-error-with-malformed-data-Google-Chrome/test-failed-1.png",
+        "video": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/generated-generated_req_ae-4427d-n-error-with-malformed-data-Google-Chrome/video.webm",
+        "trace": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/generated-generated_req_ae-4427d-n-error-with-malformed-data-Google-Chrome/trace.zip"
+      },
+      "rca": {
+        "testId": "TC-GEN-ENG-002",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/generated-generated_req_ae-4427d-n-error-with-malformed-data-Google-Chrome/test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/generated-generated_req_ae-4427d-n-error-with-malformed-data-Google-Chrome/trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/generated-generated_req_ae-4427d-n-error-with-malformed-data-Google-Chrome/video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:09:25.477Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+          "durationMs": 30684,
+          "timestamp": "2026-11-23T12:06:53.487Z",
+          "artifactPaths": {
+            "screenshot": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/generated-generated_req_ae-4427d-n-error-with-malformed-data-Google-Chrome/test-failed-1.png",
+            "video": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/generated-generated_req_ae-4427d-n-error-with-malformed-data-Google-Chrome/video.webm",
+            "trace": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/generated-generated_req_ae-4427d-n-error-with-malformed-data-Google-Chrome/trace.zip"
+          }
+        }
+      ],
+      "resolvedOnRetry": {
+        "retry": 1,
+        "durationMs": 3464
+      }
+    },
+    {
+      "testId": "TC-AE-AUTH-002",
+      "testTitle": "TC-AE-AUTH-002: User login with valid credentials and subsequent logout",
+      "fullTitle": " > Google Chrome > ui/auth.spec.ts > Authentication Tests - System Under Test: Automation Exercise > TC-AE-AUTH-002: User login with valid credentials and subsequent logout",
+      "testSourceLocation": {
+        "file": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/ui/auth.spec.ts",
+        "line": 18,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/ui/auth.spec.ts",
+        "line": 39,
+        "column": 48
+      },
+      "retry": 0,
+      "durationMs": 14987,
+      "status": "flaky",
+      "finalOutcome": "flaky",
+      "originalError": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Login to your account' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Login to your account' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Login to your account' })\u001b[22m\n",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Login to your account' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Login to your account' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Login to your account' })\u001b[22m\n\n    at /home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/ui/auth.spec.ts:39:48"
+      },
+      "artifactPaths": {
+        "screenshot": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome/test-failed-1.png",
+        "video": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome/video.webm",
+        "trace": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome/trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-AUTH-002",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator: getByRole('heading', { name: 'Login to your accoun\n</untrusted_content>",
+          "failingLine": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/ui/auth.spec.ts:39",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator: getByRole('heading', { name: 'Login to your account' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Login to your account' }) with timeout 5000ms[22m\n[2m  - waiting for getByRole('heading', { name: 'Login to your account' })[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed\n\nLocator: getByRole('heading', { name: 'Login to your account' })\nExpected: visible\nTimeout: 5000ms\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome/test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome/trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome/video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:09:25.477Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Login to your account' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('heading', { name: 'Login to your account' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Login to your account' })\u001b[22m\n",
+          "durationMs": 14987,
+          "timestamp": "2026-11-23T12:07:16.703Z",
+          "artifactPaths": {
+            "screenshot": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome/test-failed-1.png",
+            "video": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome/video.webm",
+            "trace": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome/trace.zip"
+          }
+        }
+      ],
+      "resolvedOnRetry": {
+        "retry": 1,
+        "durationMs": 11609
+      }
+    },
+    {
+      "testId": "TC-AE-CART-006",
+      "testTitle": "TC-AE-CART-006: Cart persistence across guest session and post-login authentication",
+      "fullTitle": " > Google Chrome > ui/cart.spec.ts > Cart Management & Calculations - Automation Exercise > TC-AE-CART-006: Cart persistence across guest session and post-login authentication",
+      "testSourceLocation": {
+        "file": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/tests/ui/cart.spec.ts",
+        "line": 242,
+        "column": 3
+      },
+      "retry": 0,
+      "durationMs": 30921,
+      "status": "flaky",
+      "finalOutcome": "flaky",
+      "originalError": {
+        "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+        "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+      },
+      "artifactPaths": {
+        "screenshot": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome/test-failed-1.png",
+        "video": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome/video.webm",
+        "trace": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome/trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-CART-006",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\n[31mTest timeout of 30000ms exceeded.[39m\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome/test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome/trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\n/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome/video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-23T12:09:25.477Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+          "durationMs": 30921,
+          "timestamp": "2026-11-23T12:08:49.927Z",
+          "artifactPaths": {
+            "screenshot": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome/test-failed-1.png",
+            "video": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome/video.webm",
+            "trace": "/home/runner/work/qa-ai-level3-capstone/qa-ai-level3-capstone/test-results/ui-cart-Cart-Management-Ca-9ed2e-d-post-login-authentication-Google-Chrome/trace.zip"
+          }
+        }
+      ],
+      "resolvedOnRetry": {
+        "retry": 1,
+        "durationMs": 16815
+      }
+    }
+  ]
+}
