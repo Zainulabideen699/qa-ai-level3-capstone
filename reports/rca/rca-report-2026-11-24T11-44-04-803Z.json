@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-24T11:44:04.803Z",
+  "runSummary": {
+    "totalTests": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 14063,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-AE-AUTH-002",
+      "testTitle": "TC-AE-AUTH-002: User login with valid credentials and subsequent logout",
+      "fullTitle": " > Google Chrome > ui\\auth.spec.ts > Authentication Tests - System Under Test: Automation Exercise > TC-AE-AUTH-002: User login with valid credentials and subsequent logout",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts",
+        "line": 18,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts",
+        "line": 33,
+        "column": 77
+      },
+      "retry": 0,
+      "durationMs": 13153,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "TimeoutError: locator.click: Timeout 4000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[data-qa=\"btn-login-submit-v2\"]')\u001b[22m\n",
+        "stack": "TimeoutError: locator.click: Timeout 4000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[data-qa=\"btn-login-submit-v2\"]')\u001b[22m\n\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\auth.spec.ts:33:77"
+      },
+      "artifactPaths": {
+        "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\test-failed-1.png",
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-AUTH-002",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nTimeoutError: locator.click: Timeout 4000ms exceeded.\nCall log:\n[2m  - waiting for locator('button[data-qa=\"btn-login-submit-v2\"]')[22m\n\nTimeoutErro\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts:33",
+          "failingAction": "<untrusted_content source=\"failing_action\">\nlocator.click\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nTimeoutError: locator.click: Timeout 4000ms exceeded.\nCall log:\n[2m  - waiting for locator('button[data-qa=\"btn-login-submit-v2\"]')[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nTimeoutError: locator.click: Timeout 4000ms exceeded.\nCall log:\n[2m  - waiting for locator('button[data-qa=\"btn-login-submit-v2\"]')[22m\n\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\auth.spec.ts:33:77\n</untrusted_content>",
+          "artifacts": {
+            "screenshot": "<untrusted_content source=\"artifact_screenshot\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\test-failed-1.png\n</untrusted_content>",
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-24T11:44:04.803Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "TimeoutError: locator.click: Timeout 4000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[data-qa=\"btn-login-submit-v2\"]')\u001b[22m\n",
+          "durationMs": 13153,
+          "timestamp": "2026-11-24T11:44:04.776Z",
+          "artifactPaths": {
+            "screenshot": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\test-failed-1.png",
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-a4de9-tials-and-subsequent-logout-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}

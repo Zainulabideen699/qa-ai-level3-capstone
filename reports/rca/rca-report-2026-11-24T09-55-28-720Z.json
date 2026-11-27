@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-24T09:55:28.720Z",
+  "runSummary": {
+    "totalTests": 3,
+    "passed": 1,
+    "failed": 1,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 28669,
+    "status": "failed"
+  },
+  "failures": [
+    {
+      "testId": "TC-AE-AUTH-003",
+      "testTitle": "TC-AE-AUTH-003: Attempt login with incorrect email and password",
+      "fullTitle": " > Google Chrome > ui\\auth.spec.ts > Authentication Tests - System Under Test: Automation Exercise > TC-AE-AUTH-003: Attempt login with incorrect email and password",
+      "testSourceLocation": {
+        "file": "D:/Playwright/qa-ai-level3/tests/ui/auth.spec.ts",
+        "line": 53,
+        "column": 3
+      },
+      "failureLocation": {
+        "file": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts",
+        "line": 35,
+        "column": 21
+      },
+      "retry": 0,
+      "durationMs": 7708,
+      "status": "failed",
+      "finalOutcome": "failed",
+      "originalError": {
+        "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"domcontentloaded\"\u001b[22m\n",
+        "stack": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at LoginPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n    at LoginPage.goto (D:\\Playwright\\qa-ai-level3\\src\\pages\\LoginPage.ts:45:16)\n    at D:\\Playwright\\qa-ai-level3\\tests\\ui\\auth.spec.ts:60:21"
+      },
+      "artifactPaths": {
+        "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\video.webm",
+        "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\trace.zip"
+      },
+      "rca": {
+        "testId": "TC-AE-AUTH-003",
+        "category": "UNKNOWN",
+        "confidence": 0,
+        "classificationSource": "DETERMINISTIC",
+        "explanation": "Diagnostic signatures did not match any deterministic pattern. Evidence is insufficient or ambiguous.",
+        "evidence": {
+          "matchedRule": "RULE_P8_GENERAL_FALLBACK_UNKNOWN",
+          "matchedPattern": "NONE",
+          "matchedSnippet": "<untrusted_content source=\"matched_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"d\n</untrusted_content>",
+          "failingLine": "D:/Playwright/qa-ai-level3/src/pages/BasePage.ts:35",
+          "failingAction": "<untrusted_content source=\"failing_action\">\npage.goto\n</untrusted_content>",
+          "errorMessage": "<untrusted_content source=\"error_message\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"domcontentloaded\"[22m\n\n</untrusted_content>",
+          "stackSnippet": "<untrusted_content source=\"stack_snippet\">\nError: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"domcontentloaded\"[22m\n\n    at LoginPage.navigate (D:\\Playwright\\qa-ai-level3\\src\\pages\\BasePage.ts:35:21)\n</untrusted_content>",
+          "artifacts": {
+            "trace": "<untrusted_content source=\"artifact_trace\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\trace.zip\n</untrusted_content>",
+            "video": "<untrusted_content source=\"artifact_video\">\nD:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\video.webm\n</untrusted_content>"
+          }
+        },
+        "recommendedAction": "Escalate to Human QA Engineer for manual failure triage and trace investigation.",
+        "requiresHumanApproval": true,
+        "timestamp": "2026-11-24T09:55:28.720Z"
+      },
+      "attempts": [
+        {
+          "retry": 0,
+          "errorMessage": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://automationexercise.com/login\", waiting until \"domcontentloaded\"\u001b[22m\n",
+          "durationMs": 7708,
+          "timestamp": "2026-11-24T09:55:28.663Z",
+          "artifactPaths": {
+            "video": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\video.webm",
+            "trace": "D:\\Playwright\\qa-ai-level3\\test-results\\ui-auth-Authentication-Tes-e4b9b-ncorrect-email-and-password-Google-Chrome\\trace.zip"
+          }
+        }
+      ]
+    }
+  ]
+}

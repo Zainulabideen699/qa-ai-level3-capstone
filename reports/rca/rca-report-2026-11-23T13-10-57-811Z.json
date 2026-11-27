@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-23T13:10:57.811Z",
+  "runSummary": {
+    "totalTests": 6,
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 14113,
+    "status": "passed"
+  },
+  "failures": []
+}
